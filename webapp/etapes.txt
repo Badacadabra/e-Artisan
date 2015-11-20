@@ -1,0 +1,15 @@
+Réalisation des pages :
+        - Page d'accueil avec lien d'inscription et de login + description du système et donnant la taille du plus long cycle
+        - Page d'inscription/login ou pop-up
+        - Espace personnel :
+            . Page principale
+                --> Lien vers la page de création d'une liste de besoins
+                --> Lien vers la page de création d'une liste d'offres
+                --> Bouton pour générer les cycles de services
+            . Pages secondaires
+                --> Afficher liste des besoins (ajouter/modifier/supprimer un besoin)
+                --> Afficher liste des offres (ajouter/modifier/supprimer un besoin)
+                --> Liste des personnes à qui je peux rendre service + liste des personnes qui peuvent me rendre service (onglet)
+            . Pages de détails
+                --> Formulaire de création d'un besoin : champ optionnel = date
+                --> Formulaire de création d'une offre : champ optionnel = date

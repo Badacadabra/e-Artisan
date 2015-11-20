@@ -22,7 +22,7 @@
 </target>
 
 <target name="compiletests" depends="compile">
-  <javac srcdir="." destdir="build" classpathref="external" includeantruntime="false">
+  <javac srcdir="." destdir="build" classpath="build:lib/*.jar" includeantruntime="false">
     <include name="tests/**/*.java" />
   </javac>
 </target>

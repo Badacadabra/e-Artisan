@@ -48,4 +48,29 @@
         <servlet-name>LoginForm</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <env-entry>
+    <env-entry-name>host</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>mysql.info.unicaen.fr</env-entry-value>
+    </env-entry>
+    <env-entry>
+      <env-entry-name>database</env-entry-name>
+      <env-entry-type>java.lang.String</env-entry-type>
+      <env-entry-value>21410938_bd</env-entry-value>
+    </env-entry>
+    <env-entry>
+      <env-entry-name>username</env-entry-name>
+      <env-entry-type>java.lang.String</env-entry-type>
+      <env-entry-value>21410938</env-entry-value>
+    </env-entry>
+    <env-entry>
+      <env-entry-name>password</env-entry-name>
+      <env-entry-type>java.lang.String</env-entry-type>
+      <env-entry-value>uuveekaechohjohx</env-entry-value>
+    </env-entry>
+    <env-entry>
+      <env-entry-name>table</env-entry-name>
+      <env-entry-type>java.lang.String</env-entry-type>
+      <env-entry-value>users</env-entry-value>
+    </env-entry>
 </web-app> 

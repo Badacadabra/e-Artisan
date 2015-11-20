@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   </head>
@@ -14,5 +15,8 @@
         <input type="password" name="password" id="password" placeholder="Entrez votre mot de passe"/>
         <input type="submit" name="submit" value="Envoyer"/>
     </form>
+	<c:if test="${! empty error}">
+		<p><c:out value="${error}"/></p>
+	</c:if>
   </body>
 </html>

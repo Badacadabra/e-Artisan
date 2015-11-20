@@ -10,15 +10,15 @@
     
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>User.RegisterUserServlet</servlet-class>
+        <servlet-class>servlets.RegisterUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>User.LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfilServlet</servlet-name>
-        <servlet-class>User.ProfilServlet</servlet-class>
+        <servlet-class>servlets.ProfilServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>

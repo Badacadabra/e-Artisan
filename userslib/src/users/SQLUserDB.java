@@ -39,7 +39,7 @@ public class SQLUserDB
         String query=null;
         query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?)";
         this.createUserStatement=this.link.prepareStatement(query);
-        query="SELECT * FROM `"+this.table+"` WHERE name=?";
+        query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
     }
 
@@ -89,7 +89,7 @@ public class SQLUserDB
         this.createUserStatement.setString(1,User.getName());
         this.createUserStatement.setString(2,User.getFirstName());
         this.createUserStatement.setString(3,User.getEmail());
-        this.createUserStatement.setString(4,User.getPasswd());
+        this.createUserStatement.setString(4,User.getPassword());
         this.createUserStatement.execute();
     }
 

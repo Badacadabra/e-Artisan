@@ -22,39 +22,30 @@ public class RegisterUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         
-        
-    	String fname =req.getParameter("prenom");
-        String lname =req.getParameter("nom");
+    	String fname =req.getParameter("firstName");
+        String lname =req.getParameter("lastName");
         String email =req.getParameter("email");
-        String pwd =req.getParameter("password");
+        String pwd = req.getParameter("password");
         HttpSession session = req.getSession();
-        String error = "";
-        /*try {
-        	//if(email != null &&  pwd != null && lname!=null && fname!= null){
-                session.setAttribute("email",email);
-                //resp.sendRedirect("login");
-            } else {
-            	error = "Erreur d'inscription, vous devez renseignez tous les champs";
-                req.setAttribute("error",error);
-                this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
-            }
-        } catch (Exception e) {
-            //this.terminate(req,resp,"Erreur d'inscription, vous devez renseignez tous les champs");
-            //return;
-        	req.setAttribute("error",error);
-            this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
-        }*/
-        // Insert product into DB
-        User user = new User(lname,fname,email,pwd);
+        String error = "Default";
         try {
-            new UserDBHandler().getDb().create(user);
-            resp.sendRedirect("login");
+        	session.setAttribute("email",email);
+			User user = new User(lname,fname,email,pwd);
+			new UserDBHandler().getDb().create(user);
+			resp.sendRedirect("login");
         } catch (Exception e) {
-        	req.setAttribute("error",error);
+            // this.terminate(req,resp,"Erreur d'inscription, vous devez renseignez tous les champs");
+            //return;
+            error = "Erreur d'inscription, vous devez renseignez tous les champs" + e;
+            req.setAttribute("error",error);
             this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
+            // this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
         }
         // Everything went well
-        this.terminate(req,resp,"Nous avons bien pris en compte le nouveau utilisateur, merci.");
+        String message = "Nous avons bien pris en compte le nouveau utilisateur, merci.";
+        req.setAttribute("message",message);
+        this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
+        // this.terminate(req,resp,"Nous avons bien pris en compte le nouveau utilisateur, merci.");
     }
     /**
      * Terminates the response of this servlet by displaying table of contents and a message.
@@ -63,7 +54,7 @@ public class RegisterUserServlet extends HttpServlet {
      * @param message The message to be forwarded to table of contents
      */
     protected void terminate (HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
-        response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/toc.jsp?message="+message));
+        // response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/toc.jsp?message="+message));
     }
     @Override
     public void destroy () {

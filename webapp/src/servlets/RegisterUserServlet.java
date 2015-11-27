@@ -32,20 +32,22 @@ public class RegisterUserServlet extends HttpServlet {
         	session.setAttribute("email",email);
 			User user = new User(lname,fname,email,pwd);
 			new UserDBHandler().getDb().create(user);
-			resp.sendRedirect("login");
         } catch (Exception e) {
             // this.terminate(req,resp,"Erreur d'inscription, vous devez renseignez tous les champs");
             //return;
             error = "Erreur d'inscription, vous devez renseignez tous les champs" + e;
             req.setAttribute("error",error);
             this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
-            // this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
+            // this.getServletContext().getRequestDispatcher("/views/signup.jsp" ).forward( req, resp );
         }
         // Everything went well
-        String message = "Nous avons bien pris en compte le nouveau utilisateur, merci.";
-        req.setAttribute("message",message);
-        this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
-        // this.terminate(req,resp,"Nous avons bien pris en compte le nouveau utilisateur, merci.");
+        String message = "Bienvenue"+" "+fname+" "+lname+", votre compte a été créé avec succès";
+        session.setAttribute("info",message);
+        session.setAttribute("currentUserEmail",email);
+        session.setAttribute("currentUserPwd",pwd);
+        resp.sendRedirect("profil");
+        //req.setAttribute("message",message);
+        //this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
     }
     /**
      * Terminates the response of this servlet by displaying table of contents and a message.

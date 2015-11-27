@@ -38,6 +38,7 @@ public class UserDBHandler
         if (UserDBHandler.db==null) {
             UserDBHandler.initialize();
         }
+        System.out.println("getDB");
         return UserDBHandler.db;
     }
 
@@ -60,14 +61,13 @@ public class UserDBHandler
      * @throws SQLException if any problem occurs for accessing the database
      */
     private static void initialize () throws NamingException, SQLException {
-        //InitialContext InitialContext = new InitialContext();
         String host=InitialContext.doLookup("java:comp/env/host");
         String database=InitialContext.doLookup("java:comp/env/database");
         String username=InitialContext.doLookup("java:comp/env/username");
         String password=InitialContext.doLookup("java:comp/env/password");
         String table=InitialContext.doLookup("java:comp/env/table");
         UserDBHandler.db=new SQLUserDB(UserDBHandler.getLink(host,database,username,password),table);
-        // UserDBHandler.db.createTables();
+        UserDBHandler.db.createTables();
     }
 
     /**

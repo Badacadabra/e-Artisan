@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * A Servlet which reads a list of strings and prints it sorted.
@@ -19,14 +20,24 @@ public class ProfilServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        //HttpSession session = req.getSession();
-        /*String email =req.getParameter("email");
-        String password =req.getParameter("password");
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("email", email);
-        //String email = request.getAttribute("email");*/
-        this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
-     
+        HttpSession session = req.getSession();
+        String email = (String) session.getAttribute("currentUserEmail");
+        String password = (String) session.getAttribute("currentUserPwd");
+        String info = (String) session.getAttribute("info");
+        //req.setAttribute("email",email);
+        //req.setAttribute("password",password);
+        if (info !=null) {
+             req.setAttribute("info",info);
+             session.removeAttribute("info");
+        }
+        if (email!=null && password!=null) {
+            this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+        } else {
+            String error = "Vous avez pas le droit d'accéder à cette page.";
+            req.setAttribute("error",error);
+            this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+        }
+        
     }
 
 }

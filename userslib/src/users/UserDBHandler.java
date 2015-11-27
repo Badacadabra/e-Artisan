@@ -65,7 +65,7 @@ public class UserDBHandler
         String database=InitialContext.doLookup("java:comp/env/database");
         String username=InitialContext.doLookup("java:comp/env/username");
         String password=InitialContext.doLookup("java:comp/env/password");
-        String table=InitialContext.doLookup("java:comp/env/table");
+        String table=InitialContext.doLookup("java:comp/env/users");
         UserDBHandler.db=new SQLUserDB(UserDBHandler.getLink(host,database,username,password),table);
         UserDBHandler.db.createTables();
     }

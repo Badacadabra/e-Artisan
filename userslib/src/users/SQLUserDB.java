@@ -109,7 +109,6 @@ public class SQLUserDB
         }
         return res;
     }
-
     /**
      * Retrieves a User in the database.
      * @param name The name of the User
@@ -141,7 +140,7 @@ public class SQLUserDB
      * @throws SQLException if a database access error occurs
      */
     public void delete (User User) throws SQLException {  
-        String query="DELETE FROM `"+this.table+"` WHERE name=\""+User.getName()+"\"";
+        String query="DELETE FROM `"+this.table+"` WHERE email=\""+User.getEmail()+"\"";
         Statement statement=this.link.createStatement();
         statement.execute(query);
     }

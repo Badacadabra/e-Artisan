@@ -56,17 +56,17 @@
     <env-entry>
       <env-entry-name>database</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>21411850_6</env-entry-value>
+      <env-entry-value>21410938_dev</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>username</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>21411850</env-entry-value>
+      <env-entry-value>21410938</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>password</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>6J29B20</env-entry-value>
+      <env-entry-value>uuveekaechohjohx</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>table</env-entry-name>

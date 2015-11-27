@@ -21,15 +21,15 @@ public class TestServiceDB {
      */
     public static void test(IServiceDB instance) throws Exception {
     	
-    	instance.create(new Service("TOTO", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
+    	instance.create(new Service("TOTO", "desc", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
     			new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13)));
-       	instance.create(new Service("TATA", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
+       	instance.create(new Service("TATA", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
        			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15)));
-       	instance.create(new Service("TITI", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
+       	instance.create(new Service("TITI", "desc", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
        			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25)));
-       	instance.create(new Service("TUTU", new GregorianCalendar(2015, GregorianCalendar.JANUARY, 1),
+       	instance.create(new Service("TUTU", "desc", new GregorianCalendar(2015, GregorianCalendar.JANUARY, 1),
        			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 31)));
-       	instance.create(new Service("TETE", new GregorianCalendar(2000, GregorianCalendar.MARCH, 10),
+       	instance.create(new Service("TETE", "desc", new GregorianCalendar(2000, GregorianCalendar.MARCH, 10),
        			new GregorianCalendar(2001, GregorianCalendar.APRIL, 27)));
 
         // Testing "R" methods
@@ -52,7 +52,7 @@ public class TestServiceDB {
         assert "TETE".equals(tete.getName());
 
         // Testing "U" methods
-        instance.update(2,new Service("TYTY", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
+        instance.update(2,new Service("TYTY", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
        			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15)));
         assert instance.exists(2);
         Service tyty = instance.retrieve(2);

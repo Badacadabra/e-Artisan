@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -15,6 +16,9 @@ public class Service {
 	/** The name of the service. */
 	protected String name;
 	
+	/** The description of the service. */
+	protected String description;
+	
 	/** The publication date of the service. */
 	protected GregorianCalendar publicationDate;
 	
@@ -27,11 +31,37 @@ public class Service {
      * @param publicationDate The publication date of the service
      * @param deadline The deadline of the service
      */
-	public Service(String name, GregorianCalendar publicationDate, GregorianCalendar deadline)
+	public Service(String name, String description, GregorianCalendar publicationDate, GregorianCalendar deadline)
 	{
 		this.name = name;
+		this.description = description;
 		this.publicationDate = publicationDate;
 		this.deadline = deadline;
+	}
+	
+    /**
+     * Builds a new service.
+     * @param name The name of the service
+     * @param publicationDate The publication date of the service
+     * @param deadline The deadline of the service
+     */
+	public Service(String name, String description, Date publicationDate, Date deadline)
+	{
+		this.name = name;
+		this.description = description;
+		this.publicationDate = dateToGregorianCalendar(publicationDate);
+		this.deadline = dateToGregorianCalendar(deadline);
+	}
+	
+	/**
+	 * Convert a Date object to a GregorianCalendar object 
+	 * @param date The date to convert
+	 * @return The converted date
+	 */
+	private static GregorianCalendar dateToGregorianCalendar(Date date) {
+		GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
+		cal.setTime(date);
+		return cal;
 	}
 	
 	/**
@@ -58,6 +88,24 @@ public class Service {
 	public void setName(String name) 
 	{
 		this.name = name;
+	}
+	
+	/**
+	 * Returns the description of the service
+	 * @return The name of the service
+	 */
+	public String getDescription() 
+	{
+		return description;
+	}
+	
+	/**
+	 * Sets the description of the service
+	 * @param name The name of the service
+	 */
+	public void setDescription(String description) 
+	{
+		this.description = description;
 	}
 	
 	/**

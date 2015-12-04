@@ -111,12 +111,12 @@ public class SQLUserDB
     }
     /**
      * Retrieves a User in the database.
-     * @param name The name of the User
+     * @param email The email of the User
      * @return A User, or null if none with the given name exists in the database
      * @throws SQLException if a database access error occurs
      */
-    public User retrieve (String name) throws SQLException {
-        this.retrieveUserStatement.setString(1,name);
+    public User retrieve (String email) throws SQLException {
+        this.retrieveUserStatement.setString(1,email);
         ResultSet rs=this.retrieveUserStatement.executeQuery();
         if (!rs.next()) {
             return null;

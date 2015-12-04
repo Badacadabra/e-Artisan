@@ -38,7 +38,6 @@ public class UserDBHandler
         if (UserDBHandler.db==null) {
             UserDBHandler.initialize();
         }
-        System.out.println("getDB");
         return UserDBHandler.db;
     }
 

@@ -69,8 +69,13 @@
       <env-entry-value>uuveekaechohjohx</env-entry-value>
     </env-entry>
     <env-entry>
-      <env-entry-name>table</env-entry-name>
+      <env-entry-name>users</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
       <env-entry-value>users</env-entry-value>
+    </env-entry>
+    <env-entry>
+      <env-entry-name>services</env-entry-name>
+      <env-entry-type>java.lang.String</env-entry-type>
+      <env-entry-value>services</env-entry-value>
     </env-entry>
 </web-app> 

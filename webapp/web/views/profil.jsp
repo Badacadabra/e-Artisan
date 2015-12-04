@@ -13,5 +13,8 @@
     <c:if test="${! empty error}">
         <p>${error} <a href="login">Veuillez vous connecter</a></p>
     </c:if>
+    <c:if test="${! empty user}">
+        <p>Bonjour <b>user.name</b></p>
+    </c:if>
   </body>
 </html>

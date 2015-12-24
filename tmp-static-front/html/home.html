@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Espace personnel | e-Artisan</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Macky Dieng, Baptiste Vannesson">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="../semantic/dist/semantic.min.css">
+    </head>
+    <body class="mCustomScrollbar" data-mcs-theme="dark">
+        <header id="main-header">
+            <a href="index.html">
+                <h1>e-Artisan</h1>
+            </a>
+            <h2>Le réseau social qui va vous rendre service !</h2>
+        </header>
+        <div class="ui grid container">
+            <nav>
+                <div class="ui secondary vertical pointing menu">
+                    <a class="active item" href="home.html">Accueil</a>
+                    <a class="item" href="profil.html">Mon profil</a>
+                    <a class="item" href="besoins.html">Mes besoins</a>
+                    <a class="item" href="offres.html">Mes offres</a>
+                    <a class="item" href="cycles.html">Cycles de services</a>
+                    <a id="logout" class="item">Déconnexion</a>
+                </div>
+            </nav>
+            <section id="main-section" class="reset">
+                <div class="ui orange message">
+                    <div class="content">
+                        <h3 class="header">Bonjour, Toto ! Comment pouvons-nous vous aider ?</h3>
+                        <p>Vous êtes ici dans votre espace personnel.</p>
+                        <p>Pour profiter au maximum des fonctionnalités offertes par le site, veuillez valider toutes les étapes listées ci-dessous.</p>
+                        <p>À l'issue de la procédure, vous pourrez générer automatiquement des cycles de services car nous serons alors en mesure de voir les échanges possibles au sein du réseau, en fonction de ce que vous souhaitez recevoir et de ce que vous êtes capable d'offrir.</p>
+                        <p>Découvrez le vrai sens du mot « service » sur e-Artisan !</p>
+                    </div>
+                </div>
+                <div class="ui fluid vertical steps">
+                    <div class="link completed step">
+                        <i class="user icon"></i>
+                        <div class="content">
+                            <div class="title">Profil</div>
+                            <div class="description">Complétez votre profil</div>
+                        </div>
+                    </div>
+                    <div class="link active step">
+                        <i class="announcement icon"></i>
+                        <div class="content">
+                            <div class="title">Besoins</div>
+                            <div class="description">Dites-nous quels services vous souhaitez recevoir</div>
+                        </div>
+                    </div>
+                    <div class="link step">
+                        <i class="configure icon"></i>
+                        <div class="content">
+                            <div class="title">Offres</div>
+                            <div class="description">Dites-nous quels services vous pouvez rendre</div>
+                        </div>
+                    </div>
+                    <div class="link disabled step">
+                        <i class="refresh icon"></i>
+                        <div class="content">
+                            <div class="title">Cycles</div>
+                            <div class="description">Générez vos cycles de services</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+<!--
+        <footer></footer>
+-->
+        <!-- Pop-up -->
+        <div id="logout-modal" class="ui small modal">
+            <div class="ui icon header">
+                <i class="power icon"></i>
+                Voulez-vous vraiment vous déconnecter ?
+            </div>
+            <div class="actions ui grid container">
+                <div class="ui black cancel button">
+                    <i class="remove icon"></i>
+                    Non
+                </div>
+                <div class="ui orange ok button">
+                    <i class="checkmark icon"></i>
+                    Oui
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery-2.1.1.js"></script>
+        <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../semantic/dist/semantic.min.js"></script>
+        <script src="../js/gui.js"></script>
+    </body>
+</html>

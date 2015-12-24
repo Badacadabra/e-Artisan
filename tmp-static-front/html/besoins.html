@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mes besoins | e-Artisan</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Macky Dieng, Baptiste Vannesson">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="../semantic/dist/semantic.min.css">
+        <link rel="stylesheet" href="../semantic/dist/semantic.min.css">
+        <link rel="stylesheet" href="../css/pickadate.css">
+        <link rel="stylesheet" href="../css/pickadate.date.css">
+    </head>
+    <body class="mCustomScrollbar" data-mcs-theme="dark">
+        <header id="main-header">
+            <a href="index.html">
+                <h1>e-Artisan</h1>
+            </a>
+            <h2>Le réseau social qui va vous rendre service !</h2>
+        </header>
+        <div class="ui grid container">
+            <nav>
+                <div class="ui secondary vertical pointing menu">
+                    <a class="item" href="home.html">Accueil</a>
+                    <a class="item" href="profil.html">Mon profil</a>
+                    <a class="active item" href="besoins.html">Mes besoins</a>
+                    <a class="item" href="offres.html">Mes offres</a>
+                    <a class="item" href="cycles.html">Cycles de services</a>
+                    <a id="logout" class="item">Déconnexion</a>
+                </div>
+            </nav>
+            <section id="main-section">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Nom</label>
+                        <input name="name" placeholder="Nom du service" type="text">
+                    </div>
+                    <div class="field">
+                        <label>Description</label>
+                        <textarea name="description" placeholder="Description du service"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Date limite</label>
+                        <input class="datepicker" name="deadline" placeholder="Date limite du service" type="text">
+                    </div>
+                    <div class="ui large buttons">
+                        <button class="ui black button" type="reset">Annuler</button>
+                        <button class="ui orange button" type="submit">Ajouter</button>
+                    </div>
+                </form>
+                <div class="ui orange segment">
+                    <div class="ui relaxed divided list">
+                        <div class="item">
+                            <i class="large announcement middle aligned icon"></i>
+                            <div class="content">
+                                <a class="header">Besoin n°1</a>
+                                <div class="description">Ajouté il y a 2 minutes</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="large announcement middle aligned icon"></i>
+                            <div class="content">
+                                <a class="header">Besoin n°2</a>
+                                <div class="description">Ajouté il y a 1 heure</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <i class="large announcement middle aligned icon"></i>
+                            <div class="content">
+                                <a class="header">Besoin n°3</a>
+                                <div class="description">Ajouté il y a 1 semaine</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Pop-up -->
+        <div id="logout-modal" class="ui small modal">
+            <div class="ui icon header">
+                <i class="power icon"></i>
+                Voulez-vous vraiment vous déconnecter ?
+            </div>
+            <div class="actions ui grid container">
+                <div class="ui black cancel button">
+                    <i class="remove icon"></i>
+                    Non
+                </div>
+                <div class="ui orange ok button">
+                    <i class="checkmark icon"></i>
+                    Oui
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery-2.1.1.js"></script>
+        <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../semantic/dist/semantic.min.js"></script>
+        <script src="../js/gui.js"></script>
+        <script src="../js/pickadate-legacy.js"></script>
+        <script src="../js/pickadate.js"></script>
+        <script src="../js/pickadate.date.js"></script>
+        <script src="../js/pickadate-fr_FR.js"></script>
+        <script>
+            $( document ).ready(function() {
+                $( ".datepicker" ).pickadate();
+            });
+        </script>
+    </body>
+</html>

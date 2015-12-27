@@ -18,8 +18,8 @@
             </div>
 
             <nav class="cd-primary-nav">
-                <a href="#0" id="sign-in-link">Connexion</a>
-                <a href="#0" id="sign-up-link">Inscription</a>
+                <a href="#0" class="sign-in-link">Connexion</a>
+                <a href="#0" class="sign-up-link">Inscription</a>
             </nav> <!-- .cd-primary-nav -->
         </header>
 
@@ -106,64 +106,65 @@
         <div id="sign-in" class="ui small modal" style="display:none;">
             <div class="header">Connexion</div>
             <div class="content">
-                <form class="ui form" enctype="multipart/form-data">
-                    <div class="field">
-                        <label>Identifiant</label>
-                        <input name="login" placeholder="Votre e-mail ou pseudo" type="text">
-                    </div>
-                    <div class="field">
-                        <label>Mot de passe</label>
-                        <input name="password" placeholder="Votre mot de passe" type="password">
+                <form method="post" action="#" class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Identifiant</label>
+                            <input name="login" placeholder="Votre e-mail" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Mot de passe</label>
+                            <input name="password" placeholder="Votre mot de passe" type="password">
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="actions ui grid container">
                 <div class="ui black cancel button">
                     <i class="remove icon"></i>
-                    Non
+                    Annuler
                 </div>
                 <div class="ui orange ok button">
                     <i class="checkmark icon"></i>
-                    Oui
+                    Valider
                 </div>
             </div>
         </div>
         <div id="sign-up" class="ui small modal" style="display:none;">
             <div class="header">Inscription</div>
             <div class="content">
-                <form class="ui form">
-                    <div class="field">
-                        <label>Nom</label>
-                        <input name="lastName" placeholder="Votre nom" type="text">
-                    </div>
-                    <div class="field">
-                        <label>Prénom</label>
-                        <input name="firstName" placeholder="Votre prénom" type="text">
-                    </div>
-                    <div class="field">
-                        <label>E-mail</label>
-                        <input name="email" placeholder="Votre e-mail" type="text">
+                <form method="post" action="#" class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Nom <span class="mandatory">*</span></label>
+                            <input name="lastName" placeholder="Votre nom" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Prénom <span class="mandatory">*</span></label>
+                            <input name="firstName" placeholder="Votre prénom" type="text">
+                        </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
-                            <label>Mot de passe</label>
-                            <input name="password" type="text">
+                            <label>E-mail <span class="mandatory">*</span></label>
+                            <input name="email" placeholder="Votre e-mail" type="text">
                         </div>
                         <div class="field">
-                            <label>Confirmation du mot de passe</label>
-                            <input name="password" type="text">
+                            <label>Mot de passe <span class="mandatory">*</span></label>
+                            <input name="password" type="password" placeholder="Votre mot de passe">
                         </div>
                     </div>
+                    <span class="mandatory">* Champs requis</span>
                 </form>
             </div>
             <div class="actions ui grid container">
                 <div class="ui black cancel button">
                     <i class="remove icon"></i>
-                    Non
+                    Annuler
                 </div>
                 <div class="ui orange ok button">
                     <i class="checkmark icon"></i>
-                    Oui
+                    Valider
                 </div>
             </div>
         </div>
@@ -173,21 +174,7 @@
         <script src="../js/hero-slider-main.js"></script>
         <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="../semantic/dist/semantic.min.js"></script>
-        <script>
-            // Gestion de la scrollbar
-            $( "body" ).mCustomScrollbar({
-                scrollInertia: 0
-            });
-
-            // Gestion des pop-ups
-            showSignModal( "sign-in-link" );
-            showSignModal( "sign-up-link" );
-
-            function showSignModal(id) {
-                $( "#" + id ).click(function() {
-                    $('#' + id.substring(0,7)).modal('setting', 'transition', 'browse').modal('show');
-                });
-            }
-        </script>
+        <script src="../js/gui.js"></script>
+        <script src="../js/formValidation.js"></script>
     </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Mes besoins | e-Artisan</title>
+        <title>Zone d'administration | e-Artisan</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Macky Dieng, Baptiste Vannesson">
         <link rel="stylesheet" href="../css/style.css">
@@ -17,7 +17,7 @@
             <a href="index.html">
                 <h1>e-Artisan</h1>
             </a>
-            <h2>Le réseau social qui va vous rendre service !</h2>
+            <h2>Zone d'administration</h2>
         </header>
         <div class="ui grid container">
             <nav>
@@ -25,95 +25,86 @@
                     <a class="item" href="home.html">Accueil</a>
                     <a class="item" href="actus.html">Mon fil d'actualité</a>
                     <a class="item" href="profil.html">Mon profil</a>
-                    <a class="active item" href="besoins.html">Mes besoins</a>
+                    <a class="item" href="besoins.html">Mes besoins</a>
                     <a class="item" href="offres.html">Mes offres</a>
                     <a class="item" href="cycles.html">Cycles de services</a>
                     <a id="logout" class="item">Déconnexion</a>
-                    <a id="admin" class="item" href="admin.html">Administration</a>
+                    <a id="admin" class="active item" href="admin.html">Administration</a>
                 </div>
             </nav>
             <section id="main-section">
-                <h2 class="ui center aligned icon header need-modal-link">
-                    <i class="circular announcement icon"></i>
-                    Ajouter un besoin
+                <h2 class="ui center aligned icon header user-modal-link">
+                    <i class="circular user icon"></i>
+                    Ajouter un utilisateur
                 </h2>
                 <div class="ui middle aligned divided list">
                     <div class="item">
                         <div class="right floated content">
-                            <div id="list-elt-1-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button need-modal-link">Modifier</div>
+                            <div class="ui inverted orange button list-elt-link">Afficher</div>
+                            <div class="ui inverted brown button user-modal-link">Modifier</div>
                             <div class="ui inverted red button delete-btn">Supprimer</div>
                         </div>
-                        <i class="large announcement middle aligned icon"></i>
+                        <i class="large user middle aligned icon"></i>
                         <div class="content">
-                            <span class="bold">Besoin n°1</span>
-                            <div class="description">Ajouté il y a 2 minutes</div>
+                            <span class="bold">Utilisateur n°1</span>
+                            <div class="description">Membre depuis 2 minutes</div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="right floated content">
-                            <div id="list-elt-2-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button need-modal-link">Modifier</div>
+                            <div class="ui inverted orange button list-elt-link">Afficher</div>
+                            <div class="ui inverted brown button user-modal-link">Modifier</div>
                             <div class="ui inverted red button delete-btn">Supprimer</div>
                         </div>
-                        <i class="large announcement middle aligned icon"></i>
+                        <i class="large user middle aligned icon"></i>
                         <div class="content">
-                            <span class="bold">Besoin n°2</span>
-                            <div class="description">Ajouté il y a 1 heure</div>
+                            <span class="bold">Utilisateur n°2</span>
+                            <div class="description">Membre depuis 1 heure</div>
                         </div>
                     </div>
                     <div class="item">
                         <div class="right floated content">
-                            <div id="list-elt-3-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button need-modal-link">Modifier</div>
+                            <div class="ui inverted orange button list-elt-link">Afficher</div>
+                            <div class="ui inverted brown button user-modal-link">Modifier</div>
                             <div class="ui inverted red button delete-btn">Supprimer</div>
                         </div>
-                        <i class="large announcement middle aligned icon"></i>
+                        <i class="large user middle aligned icon"></i>
                         <div class="content">
-                            <span class="bold">Besoin n°3</span>
-                            <div class="description">Ajouté il y a 1 semaine</div>
+                            <span class="bold">Utilisateur n°3</span>
+                            <div class="description">Membre depuis 1 semaine</div>
                         </div>
                     </div>
-                </div>
-                <div id="list-elt-1" class="ui segment list-elt" style="display:none;">
-                    <h3>Besoin n°1</h3>
-                    <p>Description du besoin n°1</p>
-                </div>
-                <div id="list-elt-2" class="ui segment list-elt" style="display:none;">
-                    <h3>Besoin n°2</h3>
-                    <p>Description du besoin n°2</p>
-                </div>
-                <div id="list-elt-3" class="ui segment list-elt" style="display:none;">
-                    <h3>Besoin n°3</h3>
-                    <p>Description du besoin n°3</p>
                 </div>
             </section>
         </div>
         <!-- Pop-ups -->
-        <div id="need-modal" class="ui small modal">
+        <div id="user-modal" class="ui small modal">
             <div class="ui icon header">
-                Ajouter/Modifier un besoin
+                Ajouter/Modifier un utilisateur
             </div>
             <div class="content">
-                <form method="post" action="#" class="ui form">
-                    <div class="field">
-                        <label>Type <span class="mandatory">*</span></label>
-                        <div class="ui search">
-                            <div class="ui icon input">
-                                <input name="type" class="prompt" placeholder="Type de service que vous souhaitez recevoir" type="text">
-                                <i class="search icon"></i>
-                            </div>
+                <form class="ui form" method="post" action="#">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Nom <span class="mandatory">*</span></label>
+                            <input name="lastName" type="text" placeholder="Nom de l'utilisateur" value="">
+                        </div>
+                        <div class="field">
+                            <label>Prénom <span class="mandatory">*</span></label>
+                            <input name="firstName" type="text" placeholder="Prénom de l'utilisateur" value="">
                         </div>
                     </div>
-                    <div class="field">
-                        <label>Description <span class="mandatory">*</span></label>
-                        <textarea name="description" placeholder="Description du service que vous souhaitez recevoir"></textarea>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>E-mail <span class="mandatory">*</span></label>
+                            <input name="email" type="text" placeholder="E-mail de l'utilisateur" value="">
+                        </div>
+                        <div class="field">
+                            <label>Mot de passe <span class="mandatory">*</span></label>
+                            <input name="password" type="password" placeholder="Votre mot de passe">
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Date limite</label>
-                        <input class="datepicker" name="deadline" placeholder="Date limite du service que vous souhaitez recevoir" type="text">
-                    </div>
-                    <span class="mandatory">* Champs requis</span>
+                    <div class="mandatory">* Champs requis</div>
                 </form>
             </div>
             <div class="actions ui grid container">
@@ -130,7 +121,7 @@
         <div class="ui small modal delete-list-elt">
             <div class="ui icon header">
                 <i class="warning sign icon"></i>
-                Voulez-vous vraiment supprimer ce besoin ?
+                Voulez-vous vraiment supprimer cet utilisateur ?
             </div>
             <div class="actions ui grid container">
                 <div class="ui black cancel button">
@@ -164,14 +155,5 @@
         <script src="../semantic/dist/semantic.min.js"></script>
         <script src="../js/gui.js"></script>
         <script src="../js/formValidation.js"></script>
-        <script src="../js/pickadate-legacy.js"></script>
-        <script src="../js/pickadate.js"></script>
-        <script src="../js/pickadate.date.js"></script>
-        <script src="../js/pickadate-fr_FR.js"></script>
-        <script>
-            $( document ).ready(function() {
-                $( ".datepicker" ).pickadate();
-            });
-        </script>
     </body>
 </html>

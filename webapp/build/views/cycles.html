@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cycles de services | e-Artisan</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Macky Dieng, Baptiste Vannesson">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.min.css">
+        <link rel="stylesheet" href="../semantic/dist/semantic.min.css">
+    </head>
+    <body class="mCustomScrollbar" data-mcs-theme="dark">
+        <header id="main-header">
+            <a href="index.html">
+                <h1>e-Artisan</h1>
+            </a>
+            <h2>Le réseau social qui va vous rendre service !</h2>
+        </header>
+        <div class="ui grid container">
+            <nav>
+                <div class="ui secondary vertical pointing menu">
+                    <a class="item" href="home.html">Accueil</a>
+                    <a class="item" href="actus.html">Mon fil d'actualité</a>
+                    <a class="item" href="profil.html">Mon profil</a>
+                    <a class="item" href="besoins.html">Mes besoins</a>
+                    <a class="item" href="offres.html">Mes offres</a>
+                    <a class="active item" href="cycles.html">Cycles de services</a>
+                    <a id="logout" class="item">Déconnexion</a>
+                    <a id="admin" class="item" href="admin.html">Administration</a>
+                </div>
+            </nav>
+            <section id="main-section">
+                <h2 id="show-cycles" class="ui center aligned icon header">
+                    <i class="circular refresh icon"></i>
+                    Générer les cycles de services
+                </h2>
+                <table class="ui black celled table" style="display:none;">
+                    <thead class="full-width">
+                        <tr>
+                            <th>Prestataire</th>
+                            <th>Service</th>
+                            <th>Bénéficiaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Toto</td>
+                            <td>Charpenterie</td>
+                            <td>Tutu</td>
+                        </tr>
+                        <tr>
+                            <td>Tutu</td>
+                            <td>Maçonnerie</td>
+                            <td>Tata</td>
+                        </tr>
+                        <tr>
+                            <td>Tata</td>
+                            <td>Jardin/Paysage</td>
+                            <td>Toto</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th colspan="3">
+                            <div class="ui right fluid small labeled icon button">
+                                <i class="checkmark icon"></i>
+                                Accepter ce cycle
+                            </div>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+        </div>
+        <!-- Pop-up -->
+        <div id="logout-modal" class="ui small modal">
+            <div class="ui icon header">
+                <i class="power icon"></i>
+                Voulez-vous vraiment vous déconnecter ?
+            </div>
+            <div class="actions ui grid container">
+                <div class="ui black cancel button">
+                    <i class="remove icon"></i>
+                    Non
+                </div>
+                <div class="ui orange ok button">
+                    <i class="checkmark icon"></i>
+                    Oui
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery-2.1.1.js"></script>
+        <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../semantic/dist/semantic.min.js"></script>
+        <script src="../js/gui.js"></script>
+    </body>
+</html>

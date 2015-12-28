@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <project name="e-artisan" default="dist">
 
-    <property name="autodeploydir" value="../../mydomain/autodeploy" />
+    <property name="autodeploydir" value="/opt/glassfish4/glassfish/domains/domain1/autodeploy" />
 
-<path id="jee">
-  <fileset dir="/usr/local/glassfish-4.1/glassfish/modules/">
+<path id="javaEE">
+  <fileset dir="/opt/glassfish4/glassfish/modules/">
     <include name="*.jar"/>
   </fileset>
 </path>
@@ -17,7 +17,7 @@
 
 <target name="compile" depends="init">
   <javac srcdir="." destdir="build/WEB-INF/classes" includeantruntime="false">
-    <classpath refid="jee" />
+    <classpath refid="javaEE" />
     <classpath refid="external" />
   </javac>
 </target>

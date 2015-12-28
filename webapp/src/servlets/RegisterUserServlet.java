@@ -45,7 +45,7 @@ public class RegisterUserServlet extends HttpServlet {
         session.setAttribute("info",message);
         session.setAttribute("currentUserEmail",email);
         session.setAttribute("currentUserPwd",pwd);
-        resp.sendRedirect("profil");
+        resp.sendRedirect("accueil");
         //req.setAttribute("message",message);
         //this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
     }

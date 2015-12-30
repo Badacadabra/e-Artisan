@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import users.User;
 import users.UserDBHandler;
+
 /**
- * Servlet de connexion utilisateur.
- * @author Macky Dieng & Baptiste Vannesson.
+ * A servlet that handles the login form.
+ * @author Macky Dieng
+ * @author Baptiste Vannesson
  */
 public class LoginServlet extends HttpServlet {
     
@@ -20,20 +22,20 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
 
-        String email =req.getParameter("email");
-        String password =req.getParameter("password");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
         HttpSession session = req.getSession();
         
         try {
 			User user = new UserDBHandler().getDb().retrieve(email);
-            session.setAttribute("user",user);
+            session.setAttribute("user", user);
         } catch (Exception e) {
-            String msg = "Erreur de connexion avec les infos  email = "+" "+email+"et mdp = "+" "+password;
-            req.setAttribute("error",msg);
-            this.getServletContext().getRequestDispatcher( "/views/login.jsp" ).forward( req, resp );
+            String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données.";
+            req.setAttribute("errorLogin", msg);
+            this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         }
         
-        resp.sendRedirect("profil");
+        resp.sendRedirect("accueil");
     }
 
 }

@@ -29,6 +29,10 @@ body {
     color: #F0873B;
 }
 
+.errors {
+    color: red;
+}
+
 .reset {
     padding: 0 !important;
     background-color: #F2F2F2 !important;

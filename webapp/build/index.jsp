@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="fr" class="no-js">
     <head>
@@ -118,6 +119,9 @@
                             <input name="password" placeholder="Votre mot de passe" type="password">
                         </div>
                     </div>
+                    <c:if test="${!empty errorLogin}">
+                        <span class="errors">${errorLogin}</span>
+                    </c:if>
                 </form>
             </div>
             <div class="actions ui grid container">
@@ -156,6 +160,9 @@
                         </div>
                     </div>
                     <span class="mandatory">* Champs requis</span>
+                    <c:if test="${!empty errorRegister}">
+                        <span class="errors">${errorRegister}</span>
+                    </c:if>
                 </form>
             </div>
             <div class="actions ui grid container">
@@ -177,5 +184,19 @@
         <script src="semantic/dist/semantic.min.js"></script>
         <script src="js/gui.js"></script>
         <script src="js/formValidation.js"></script>
+        <c:if test="${!empty errorLogin}">
+            <script>
+                $(function() {
+                    $( ".sign-in-link" ).trigger( "click" );
+                });
+            </script>
+        </c:if>
+        <c:if test="${!empty errorRegister}">
+            <script>
+                $(function() {
+                    $( ".sign-up-link" ).trigger( "click" );
+                });
+            </script>
+        </c:if>
     </body>
 </html>

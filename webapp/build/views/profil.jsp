@@ -25,7 +25,7 @@
                 <p class="italic">Inscrit le...</p>
                 <img id="user-photo" src="${root}/assets/default_image.png" alt="Nom du membre">
                 <p id="user-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque faucibus est, sed finibus velit lacinia gravida. Donec eros libero, aliquet a elit vitae, commodo dictum ligula. Cras urna sem, auctor ut massa nec, cursus dignissim lorem. Integer auctor tortor et justo ullamcorper, et placerat elit pretium. Praesent vel euismod dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque luctus urna metus, in faucibus diam scelerisque condimentum. Praesent a lacinia ex. Nunc eu finibus arcu, ac bibendum turpis. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras tempor faucibus augue in mollis. Proin vitae sem id felis pharetra vehicula ut quis neque. In sodales vel odio sed interdum.</p>
-                <form id="edit-profile-form" class="ui form" method="post" action="#" enctype="multipart/form-data" style="display:none;">
+                <form id="edit-profile-form" class="ui form" method="post" action="modifProfil" enctype="multipart/form-data" style="display:none;">
                     <div class="two fields">
                         <div class="field">
                             <label>Nom <span class="mandatory">*</span></label>

@@ -79,7 +79,7 @@
                 Ajouter/Modifier un besoin
             </div>
             <div class="content">
-                <form method="post" action="#" class="ui form">
+                <form method="post" action="ajoutService" class="ui form">
                     <div class="field">
                         <label>Type <span class="mandatory">*</span></label>
                         <div class="ui search">
@@ -98,6 +98,7 @@
                         <input class="datepicker" name="deadline" placeholder="Date limite du service que vous souhaitez recevoir" type="text">
                     </div>
                     <span class="mandatory">* Champs requis</span>
+                    <input type="hidden" name="needOrOffer" value="need">
                 </form>
             </div>
             <div class="actions ui grid container">

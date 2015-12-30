@@ -8,7 +8,9 @@
     id="WebApp_ID"
     version="3.0">
 
-    <!-- New servlets  -->
+<!-- Servlets  -->
+    
+  <!-- JSP -->
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <jsp-file>/views/home.jsp</jsp-file>
@@ -38,7 +40,28 @@
         <jsp-file>/views/admin.jsp</jsp-file>
     </servlet>
 
-    <!-- Servlets mappings -->
+  <!-- Classes -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>servlets.RegisterUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifyProfileServlet</servlet-name>
+        <servlet-class>servlets.ModifyProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <servlet-class>servlets.AddServiceServlet</servlet-class>
+    </servlet>
+
+
+<!-- Servlets mappings -->
+   
+  <!-- JSP -->
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/accueil</url-pattern>
@@ -67,28 +90,32 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
-
-    <!-- OLD -->
-    <servlet>
-        <servlet-name>RegisterServlet</servlet-name>
-        <servlet-class>servlets.RegisterUserServlet</servlet-class>
-    </servlet>
-    <servlet>
+    
+  <!-- Classes -->
+    <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>servlets.LoginServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ProfilServlet</servlet-name>
-        <servlet-class>servlets.ProfilServlet</servlet-class>
-    </servlet>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/auth</url-pattern>
+        <servlet-name>ModifyProfileServlet</servlet-name>
+        <url-pattern>/modifProfil</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <url-pattern>/ajoutService</url-pattern>
+    </servlet-mapping>
+
+
+<!-- OLD -->
+    
+    <servlet>
+        <servlet-name>ProfilServlet</servlet-name>
+        <servlet-class>servlets.ProfilServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProfilServlet</servlet-name>
         <url-pattern>/profil-old</url-pattern>
@@ -109,8 +136,10 @@
         <servlet-name>LoginForm</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+
+
+<!-- Environment variables -->
     
-    <!-- Environment variables -->
     <env-entry>
         <env-entry-name>host</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
@@ -141,4 +170,5 @@
       <env-entry-type>java.lang.String</env-entry-type>
       <env-entry-value>services</env-entry-value>
     </env-entry>
+
 </web-app> 

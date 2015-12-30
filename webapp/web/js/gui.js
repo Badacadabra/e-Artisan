@@ -33,7 +33,7 @@ function submitModal(id) {
             switch (id) {
                 case "sign-in":
                 case "sign-up":
-                    location.href = "accueil";
+                    // location.href = "accueil";
                     break;
                 case "need-modal":
                     location.href = "besoins";
@@ -46,7 +46,7 @@ function submitModal(id) {
                     break; 
             }
             // On bloque la redirection par défaut du navigateur
-            return false;
+            // return false;
         }
     });
 }

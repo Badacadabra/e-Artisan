@@ -12,7 +12,7 @@ import users.User;
 import users.UserDBHandler;
 
 /**
- * A Servlet which reads a list of strings and prints it sorted.
+ * A servlet that handles the registration form.
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -22,32 +22,27 @@ public class RegisterUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         
-    	String fname =req.getParameter("firstName");
-        String lname =req.getParameter("lastName");
-        String email =req.getParameter("email");
-        String pwd = req.getParameter("password");
+    	String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
         HttpSession session = req.getSession();
-        String error = "Default";
+        
         try {
-        	session.setAttribute("email",email);
-			User user = new User(lname,fname,email,pwd);
+        	session.setAttribute("email", email);
+			User user = new User(lastName, firstName, email, password);
 			new UserDBHandler().getDb().create(user);
         } catch (Exception e) {
-            // this.terminate(req,resp,"Erreur d'inscription, vous devez renseignez tous les champs");
-            //return;
-            error = "Erreur d'inscription, vous devez renseignez tous les champs" + e;
-            req.setAttribute("error",error);
-            this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
-            // this.getServletContext().getRequestDispatcher("/views/signup.jsp" ).forward( req, resp );
+            String msg = "Erreur d'inscription : vous devez renseigner tous les champs !";
+            req.setAttribute("errorRegister", msg);
+            this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         }
         // Everything went well
-        String message = "Bienvenue"+" "+fname+" "+lname+", votre compte a été créé avec succès";
-        session.setAttribute("info",message);
-        session.setAttribute("currentUserEmail",email);
-        session.setAttribute("currentUserPwd",pwd);
+        session.setAttribute("userFirstName", firstName);
+        session.setAttribute("userLastName", lastName);
+        session.setAttribute("userEmail", email);
+        session.setAttribute("userPassword", password);
         resp.sendRedirect("accueil");
-        //req.setAttribute("message",message);
-        //this.getServletContext().getRequestDispatcher( "/views/signup.jsp" ).forward( req, resp );
     }
     /**
      * Terminates the response of this servlet by displaying table of contents and a message.

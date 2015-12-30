@@ -67,7 +67,7 @@
                 Ajouter/Modifier un utilisateur
             </div>
             <div class="content">
-                <form class="ui form" method="post" action="#">
+                <form class="ui form" method="post" action="register">
                     <div class="two fields">
                         <div class="field">
                             <label>Nom <span class="mandatory">*</span></label>

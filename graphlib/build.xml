@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<project name="Graph Library" default="dist">
+
+<path id="external">
+  <fileset dir="lib/">
+    <include name="*.jar"/>
+  </fileset>
+</path>
+
+<target name="compile" depends="init">				
+    <javac srcdir="src" destdir="build" includeantruntime="false" classpathref="external">
+    <include name="graph/**/*.java" />
+  </javac>
+</target>
+
+<target name="dist" depends="init,compile">
+  <jar basedir="build" excludes="tests/**" destfile="dist/graph.jar" />
+</target>
+
+<target name="doc" depends="init,compile">
+  <javadoc packagenames="graph" sourcepath="src" destdir="doc" classpathref="external"/>
+</target>
+
+<target name="compiletests" depends="compile">
+  <javac srcdir="." destdir="build" classpathref="external" includeantruntime="false">
+    <include name="tests/**/*.java" />
+  </javac>
+</target>
+
+<target name="test" depends="compiletests">
+  <java fork="yes" classname="tests.TestGraphDBStub" classpathref="external">
+    <jvmarg value="-ea" />
+  </java>
+</target>
+
+<target name="init">
+  <mkdir dir="build" />
+  <mkdir dir="dist" />
+  <mkdir dir="doc" />
+</target>
+
+<target name="clear">
+  <antcall target="clean" />
+  <delete dir="build" />
+  <delete dir="dist" />
+  <delete dir="doc" />
+</target>
+
+<target name="clean">
+  <delete verbose="true">
+    <fileset dir="." includes="**/*~"  defaultexcludes="no" />
+  </delete>
+</target>
+
+</project>

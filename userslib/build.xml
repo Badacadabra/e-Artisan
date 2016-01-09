@@ -8,7 +8,7 @@
 </path>
 
 <target name="compile" depends="init">				
-    <javac target="1.7" srcdir="src" destdir="build" includeantruntime="false" classpathref="external">
+    <javac srcdir="src" destdir="build" includeantruntime="false" classpathref="external">
     <include name="users/**/*.java" />
   </javac>
 </target>

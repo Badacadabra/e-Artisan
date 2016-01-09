@@ -70,9 +70,9 @@ public class SQLUserDB
      */
     public void createTables () throws SQLException {
         String query="CREATE TABLE IF NOT EXISTS `"+this.table+"` (";
-        query+="`email`  VARCHAR(100) NOT NULL, ";
         query+="`name` VARCHAR(100) NOT NULL, ";
         query+="`firstname` VARCHAR(100) NOT NULL, ";
+        query+="`email`  VARCHAR(100) NOT NULL, ";
         query+="`passwd`  VARCHAR(100) NOT NULL, ";
         query+="PRIMARY KEY (`email`)";
         query+=")";

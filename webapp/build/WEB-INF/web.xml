@@ -11,9 +11,9 @@
 <!-- Servlets  -->
     
   <!-- JSP -->
-    <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <jsp-file>/views/home.jsp</jsp-file>
+	<servlet>
+        <servlet-name>IndexServlet</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>NewsFeedServlet</servlet-name>
@@ -41,9 +41,17 @@
     </servlet>
 
   <!-- Classes -->
+	<servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>servlets.HomeServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>servlets.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -62,6 +70,10 @@
 <!-- Servlets mappings -->
    
   <!-- JSP -->
+	<servlet-mapping>
+        <servlet-name>IndexServlet</servlet-name>
+        <url-pattern>/e-artisan</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/accueil</url-pattern>
@@ -95,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
@@ -143,22 +159,22 @@
     <env-entry>
         <env-entry-name>host</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value>mysql.info.unicaen.fr</env-entry-value>
+        <env-entry-value>localhost</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>database</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>21410938_dev</env-entry-value>
+      <env-entry-value>e_artisan</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>username</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>21410938</env-entry-value>
+      <env-entry-value>dieng444</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>password</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>uuveekaechohjohx</env-entry-value>
+      <env-entry-value>black</env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>users</env-entry-name>

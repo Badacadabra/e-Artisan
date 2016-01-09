@@ -39,9 +39,7 @@ public class RegisterUserServlet extends HttpServlet {
         }
         // Everything went well
         session.setAttribute("userFirstName", firstName);
-        session.setAttribute("userLastName", lastName);
         session.setAttribute("userEmail", email);
-        session.setAttribute("userPassword", password);
         resp.sendRedirect("accueil");
     }
     /**

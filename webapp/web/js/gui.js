@@ -58,13 +58,13 @@ function submitModal(id) {
 //~ });
 
 // Déconnexion
-$( "#logout" ).click(function() {
+/*$( "#logout" ).click(function() {
     $('#logout-modal').modal('setting', {
         'onApprove': function() {
             location.href = "index.jsp";
         }
     }).modal('show');
-});
+});*/
 
 // Formulaire de modification de profil
 $( "#edit-profile-button" ).click(function() {

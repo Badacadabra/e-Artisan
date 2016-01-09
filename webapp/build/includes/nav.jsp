@@ -8,7 +8,7 @@
         <a class="${param.besoins} item" href="besoins">Mes besoins</a>
         <a class="${param.offres} item" href="offres">Mes offres</a>
         <a class="${param.cycles} item" href="cycles">Cycles de services</a>
-        <a id="logout" class="item">Déconnexion</a>
+        <a id="logout" class="item" href="logout">Déconnexion</a>
         <a id="admin" class="${param.admin} item" href="admin">Administration</a>
     </div>
 </nav>

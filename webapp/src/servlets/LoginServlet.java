@@ -22,15 +22,16 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
 
-        String email = req.getParameter("email");
-        String password = req.getParameter("password");
+        String email = req.getParameter("login");
+        //String password = req.getParameter("password");
         HttpSession session = req.getSession();
         
         try {
 			User user = new UserDBHandler().getDb().retrieve(email);
             session.setAttribute("user", user);
+            session.setAttribute("fname", user.getFirstName());
         } catch (Exception e) {
-            String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données.";
+            String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données."+ e.getMessage();
             req.setAttribute("errorLogin", msg);
             this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         }

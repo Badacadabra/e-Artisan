@@ -17,7 +17,7 @@
             <section id="main-section" class="reset">
                 <div class="ui orange message">
                     <div class="content">
-                        <h3 class="header">Bonjour, Toto ! Comment pouvons-nous vous aider ?</h3>
+                        <h3 class="header">Bonjour,  ${user.firstName} ! Comment pouvons-nous vous aider ?</h3>
                         <p>Vous êtes ici dans votre espace personnel.</p>
                         <p>Pour profiter au maximum des fonctionnalités offertes par le site, vous pouvez suivre les étapes listées ci-dessous.</p>
                         <p>À l'issue de la procédure, vous pourrez générer automatiquement des cycles de services car nous serons alors en mesure de voir les échanges possibles au sein du réseau, en fonction de ce que vous souhaitez recevoir et de ce que vous êtes capable d'offrir.</p>

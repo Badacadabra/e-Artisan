@@ -1,15 +1,12 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import users.User;
-import users.UserDBHandler;
 /**
  * A Servlet which reads a list of strings and prints it sorted.
  * @author Bruno Zanuttini, Universit&eacute; de Caen Basse-Normandie, France.

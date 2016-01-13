@@ -99,6 +99,7 @@
                     </div>
                     <span class="mandatory">* Champs requis</span>
                     <input type="hidden" name="needOrOffer" value="need">
+                    <input type="hidden" name="publicationDate" value="12/01/2016">
                 </form>
             </div>
             <div class="actions ui grid container">

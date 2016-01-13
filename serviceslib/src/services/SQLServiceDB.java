@@ -38,7 +38,7 @@ public class SQLServiceDB
         this.link = link;
         this.table = table;
         String query = null;
-        query = "INSERT INTO `" + this.table + "(name,description,publicationDate,deadline)` VALUES(?,?,?,?)";
+        query = "INSERT INTO `" + this.table + "(name,description,publicationDate,deadline,status)` VALUES(?,?,?,?,?)";
         this.createServiceStatement = this.link.prepareStatement(query);
         query = "SELECT * FROM `" + this.table + "` WHERE id=?";
         this.retrieveServiceStatement = this.link.prepareStatement(query);
@@ -71,10 +71,12 @@ public class SQLServiceDB
      */
     public void createTables () throws SQLException {
         String query="CREATE TABLE IF NOT EXISTS `"+this.table+"` (";
+        query +="`id` int(255) NOT NULL AUTO_INCREMENT,";
         query += "`name` VARCHAR(100) NOT NULL, ";
         query += "`description` TEXT NOT NULL, ";
         query += "`publicationDate` DATETIME NOT NULL, ";
         query += "`deadline` DATETIME NOT NULL, ";
+        query += "`status` VARCHAR(20) NOT NULL, ";
         query += "PRIMARY KEY (`id`)";
         query += ")";
         Statement statement = this.link.createStatement();
@@ -91,6 +93,7 @@ public class SQLServiceDB
         this.createServiceStatement.setString(2,service.getDescription());
         this.createServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
         this.createServiceStatement.setDate(4,new Date(service.getDeadline().getTimeInMillis()));
+        this.createServiceStatement.setString(5,service.getStatus());
         this.createServiceStatement.execute();
     }
 

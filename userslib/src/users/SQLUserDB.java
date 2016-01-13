@@ -23,6 +23,9 @@ public class SQLUserDB
 
     /** A prepared statement for retrieval of one User. */
     private PreparedStatement retrieveUserStatement;
+    
+    /** A prepared statement for retrieval of one User. */
+    private PreparedStatement updateUserStatement;
 
     /** A link to the database. */
     protected Connection link;
@@ -41,6 +44,8 @@ public class SQLUserDB
         this.createUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
+        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = ? where email = ?";
+        this.updateUserStatement=this.link.prepareStatement(query);
     }
 
     //@Override
@@ -72,6 +77,8 @@ public class SQLUserDB
         String query="CREATE TABLE IF NOT EXISTS `"+this.table+"` (";
         query+="`name` VARCHAR(100) NOT NULL, ";
         query+="`firstname` VARCHAR(100) NOT NULL, ";
+        query+="`description` text NULL, ";
+        query+="`image` VARCHAR(100) NULL, ";
         query+="`email`  VARCHAR(100) NOT NULL, ";
         query+="`passwd`  VARCHAR(100) NOT NULL, ";
         query+="PRIMARY KEY (`email`)";
@@ -121,7 +128,7 @@ public class SQLUserDB
         if (!rs.next()) {
             return null;
         }
-        return new User(rs.getString("name"),rs.getString("firstName"),rs.getString("email"),rs.getString("passwd"));
+        return new User(rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"));
     }
 
     /**
@@ -143,5 +150,15 @@ public class SQLUserDB
         String query="DELETE FROM `"+this.table+"` WHERE email=\""+User.getEmail()+"\"";
         Statement statement=this.link.createStatement();
         statement.execute(query);
+    }
+    public void update (User user, String email) throws SQLException {  
+    	this.updateUserStatement.setString(1,user.getName());
+        this.updateUserStatement.setString(2,user.getFirstName());
+        this.updateUserStatement.setString(3,user.getDescription());
+        this.updateUserStatement.setString(4,user.getImage());
+        this.updateUserStatement.setString(5,user.getEmail());
+        this.updateUserStatement.setString(6,user.getPassword());
+        this.updateUserStatement.setString(7,email);
+        this.updateUserStatement.execute();
     }
 }

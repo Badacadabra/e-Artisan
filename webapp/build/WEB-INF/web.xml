@@ -20,10 +20,6 @@
         <jsp-file>/views/actus.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <jsp-file>/views/profil.jsp</jsp-file>
-    </servlet>
-    <servlet>
         <servlet-name>NeedsServlet</servlet-name>
         <jsp-file>/views/besoins.jsp</jsp-file>
     </servlet>
@@ -44,6 +40,10 @@
 	<servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>servlets.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfilServlet</servlet-name>
+        <servlet-class>servlets.ProfilServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -83,10 +83,6 @@
         <url-pattern>/actus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProfileServlet</servlet-name>
-        <url-pattern>/profil</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>NeedsServlet</servlet-name>
         <url-pattern>/besoins</url-pattern>
     </servlet-mapping>
@@ -104,6 +100,10 @@
     </servlet-mapping>
     
   <!-- Classes -->
+	<servlet-mapping>
+        <servlet-name>ProfilServlet</servlet-name>
+        <url-pattern>/profil</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/auth</url-pattern>
@@ -128,14 +128,6 @@
 
 <!-- OLD -->
     
-    <servlet>
-        <servlet-name>ProfilServlet</servlet-name>
-        <servlet-class>servlets.ProfilServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProfilServlet</servlet-name>
-        <url-pattern>/profil-old</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>SignupForm</servlet-name>
         <jsp-file>/views/signup.jsp</jsp-file>

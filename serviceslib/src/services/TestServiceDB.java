@@ -22,15 +22,15 @@ public class TestServiceDB {
     public static void test(IServiceDB instance) throws Exception {
     	
     	instance.create(new Service("TOTO", "desc", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
-    			new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13)));
+    			new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),"need"));
        	instance.create(new Service("TATA", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
-       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15)));
+       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15),"need"));
        	instance.create(new Service("TITI", "desc", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
-       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25)));
+       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25),"offer"));
        	instance.create(new Service("TUTU", "desc", new GregorianCalendar(2015, GregorianCalendar.JANUARY, 1),
-       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 31)));
+       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 31),"offer"));
        	instance.create(new Service("TETE", "desc", new GregorianCalendar(2000, GregorianCalendar.MARCH, 10),
-       			new GregorianCalendar(2001, GregorianCalendar.APRIL, 27)));
+       			new GregorianCalendar(2001, GregorianCalendar.APRIL, 27),"offer"));
 
         // Testing "R" methods
        	Collection<Service> all = instance.retrieveAll().values();
@@ -53,7 +53,7 @@ public class TestServiceDB {
 
         // Testing "U" methods
         instance.update(2,new Service("TYTY", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
-       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15)));
+       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15),"offer"));
         assert instance.exists(2);
         Service tyty = instance.retrieve(2);
         assert "TYTY".equals(tyty.getName());

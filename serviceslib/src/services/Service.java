@@ -24,19 +24,22 @@ public class Service {
 	
 	/** The deadline of the service. */
 	protected GregorianCalendar deadline;
-	
-    /**
+	/****Status of the service (need or offer)*****/
+	protected String status;
+
+	/**
      * Builds a new service.
      * @param name The name of the service
      * @param publicationDate The publication date of the service
      * @param deadline The deadline of the service
      */
-	public Service(String name, String description, GregorianCalendar publicationDate, GregorianCalendar deadline)
+	public Service(String name, String description, GregorianCalendar publicationDate, GregorianCalendar deadline,String status)
 	{
 		this.name = name;
 		this.description = description;
 		this.publicationDate = publicationDate;
 		this.deadline = deadline;
+		this.status = status;
 	}
 	
     /**
@@ -133,5 +136,16 @@ public class Service {
 	public void setDeadline(GregorianCalendar deadline) 
 	{
 		this.deadline = deadline;
+	}
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setPublicationDate(GregorianCalendar publicationDate) {
+		this.publicationDate = publicationDate;
 	}
 }

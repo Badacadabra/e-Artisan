@@ -71,12 +71,12 @@ $( "#edit-profile-button" ).click(function() {
     $( "#edit-profile-form" ).slideToggle();
 });
 
-$( "#edit-profile-form" ).submit(function(e) {
+/*$( "#edit-profile-form" ).submit(function(e) {
     e.preventDefault();
     if ($( this ).form('is valid')) {
-        location.href = "profil";
+        location.href = "";
     }
-});
+});*/
 
 // Affichage des détails pour les besoins et les offres
 $( ".list-elt-button" ).each(function() {

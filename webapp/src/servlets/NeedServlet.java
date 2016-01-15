@@ -1,10 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ public class NeedServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
         if (user!=null) {
         	try {
-        		List<Service> listService = new ServiceDBHandler().getDb().retrieveAll();
+        		List<Service> listService = new ServiceDBHandler().getDb().retrieveAll("need");
         		req.setAttribute("listService", listService);
 			} catch (Exception e) {
 				// TODO: handle exception

@@ -13,7 +13,7 @@ showModal("user-modal-link", "user-modal");
 function showModal(classLink, idModal) {
     $( "." + classLink ).click(function() {
 		var needId = $(this).next().next().val();
-		if ($(this).attr("id")!="add-need") {
+		if ($(this).attr("id")!="add-need" && $(this).attr("id")!="add-offer") {
 			$('input[name="type"]').val($("#list-elt-"+needId+" h3").text());
 			$('textarea[name="description"]').text($("#list-elt-"+needId+" p").text());
 			//$('input[name="deadline"]').val($("list-elt-"+needId+" h3").text());

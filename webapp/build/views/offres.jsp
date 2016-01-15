@@ -5,7 +5,7 @@
 <html lang="fr">
     <head>
         <jsp:include page="includes/head.jsp">
-            <jsp:param name="title" value="Mes offres" />
+            <jsp:param name="title" value="Mes besoins" />
         </jsp:include>
         <link rel="stylesheet" href="${root}/css/pickadate.css">
         <link rel="stylesheet" href="${root}/css/pickadate.date.css">
@@ -17,60 +17,33 @@
                 <jsp:param name="offres" value="active" />
             </jsp:include>
             <section id="main-section">
-                <h2 class="ui center aligned icon header offer-modal-link">
+                <h2 class="ui center aligned icon header offer-modal-link" id="add-offer">
                     <i class="circular configure icon"></i>
                     Ajouter une offre
                 </h2>
                 <div class="ui middle aligned divided list">
-                    <div class="item">
-                        <div class="right floated content">
-                            <div id="list-elt-1-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button offer-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large configure middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Offre n°1</span>
-                            <div class="description">Ajouté il y a 2 minutes</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="right floated content">
-                            <div id="list-elt-2-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button offer-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large configure middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Offre n°2</span>
-                            <div class="description">Ajouté il y a 1 heure</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="right floated content">
-                            <div id="list-elt-3-button" class="ui inverted orange button list-elt-button">Afficher</div>
-                            <div class="ui inverted brown button offer-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large configure middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Offre n°3</span>
-                            <div class="description">Ajouté il y a 1 semaine</div>
-                        </div>
-                    </div>
+                    <c:forEach items="${listService}" var="item">
+						 <div class="item">
+							<div class="right floated content">
+								<div id="list-elt-${item.id}-button" class="ui inverted orange button list-elt-button">Afficher</div>
+								<div class="ui inverted brown button offer-modal-link">Modifier</div>
+								<div class="ui inverted red button delete-btn">Supprimer</div>
+								<input type="hidden" value="${item.id}">
+							</div>
+							<i class="large announcement middle aligned icon"></i>
+							<div class="content">
+								<span class="bold">${item.name}</span>
+								<div class="description">Ajouté il y a 1 heure</div>
+							</div>
+						</div>
+					</c:forEach>
                 </div>
-                <div id="list-elt-1" class="ui segment list-elt" style="display:none;">
-                    <h3>Offre n°1</h3>
-                    <p>Description de l'offre n°1</p>
-                </div>
-                <div id="list-elt-2" class="ui segment list-elt" style="display:none;">
-                    <h3>Offre n°2</h3>
-                    <p>Description de l'offre n°2</p>
-                </div>
-                <div id="list-elt-3" class="ui segment list-elt" style="display:none;">
-                    <h3>Offre n°3</h3>
-                    <p>Description de l'offre n°3</p>
-                </div>
+                <c:forEach items="${listService}" var="item">
+					<div id="list-elt-${item.id}" class="ui segment list-elt" style="display:none;">
+						<h3>${item.name}</h3>
+						<p>${item.description}</p>
+					</div>
+				</c:forEach>
             </section>
         </div>
         <!-- Pop-ups -->
@@ -99,6 +72,9 @@
                     </div>
                     <span class="mandatory">* Champs requis</span>
                     <input type="hidden" name="needOrOffer" value="offer">
+                    <input type="hidden" name="publicationDate" value="12/01/2016">
+                    <input type="hidden" id="serviceId" name="serviceId">
+                    <input type="hidden" name="mode" value="insert">
                 </form>
             </div>
             <div class="actions ui grid container">
@@ -115,7 +91,7 @@
         <div class="ui small modal delete-list-elt">
             <div class="ui icon header">
                 <i class="warning sign icon"></i>
-                Voulez-vous vraiment supprimer cette offre ?
+                Voulez-vous vraiment supprmer cette offre ?
             </div>
             <div class="actions ui grid container">
                 <div class="ui black cancel button">

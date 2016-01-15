@@ -18,6 +18,11 @@ import java.util.Queue;
 public class Graph<V> implements IGraph<V> {
 
     /**
+     * The name of the graph.
+     */
+    private String name;
+    
+    /**
      * The list of all vertices of the graph.
      */
     private List<V> vertices;
@@ -31,6 +36,7 @@ public class Graph<V> implements IGraph<V> {
      * Constructor of an empty graph.
      */
     public Graph() {
+        name = "Graph n°1";
         vertices = new ArrayList<>();
         edges = new ArrayList<>();
     }
@@ -139,12 +145,10 @@ public class Graph<V> implements IGraph<V> {
         // We iterate through the graph
         while(!queue.isEmpty()) {
             V currentVertex = (V) queue.poll();
-            System.out.println(currentVertex);
             level = getCurrentLevel(map, currentVertex) + 1;
             for (V vertexSuccessor : getSuccessors(currentVertex)) {
                 // Handle
                 if (vertexSuccessor.equals(startVertex)) { // A cycle is found
-                    // computeCycle(map, startVertex, currentVertex);
                     return computeCycle(map, startVertex, currentVertex);
                 } else if (map.get(vertexSuccessor) == null) { // We find an unknown vertex
                     queue.add(vertexSuccessor);
@@ -162,6 +166,14 @@ public class Graph<V> implements IGraph<V> {
         return null;
     }
 
+    /**
+     * Helper method that computes cycles.
+     * 
+     * @param map A map which links a vertex with a list of associations (vertex/level).
+     * @param startVertex The vertex from which the crawl started.
+     * @param currentVertex The current vertex in the crawl process.
+     * @return The computed cycles.
+     */
     private List<V> computeCycle(Map<V,List<Association<V>>> map, V startVertex, V currentVertex) {
         V v = currentVertex;
         LinkedList<V> list = new LinkedList<>();
@@ -169,16 +181,43 @@ public class Graph<V> implements IGraph<V> {
             list.addFirst(v);
             v = map.get(v).get(0).getVertex();
         }
-        list.addFirst(v); // ou startVertex 
+        list.addFirst(v); // = startVertex 
         return list;
     }
     
+    /**
+     * Helper method which allows to access the current level.
+     * 
+     * @param map A map which links a vertex with a list of associations (vertex/level).
+     * @param vertex The reference vertex.
+     * @return The current level.
+     */
     private int getCurrentLevel(Map<V,List<Association<V>>> map, V vertex) {
         return map.get(vertex).get(0).getLevel();
     }
     
+    /**
+     * Helper method which allows to add a new association (vertex/level) in a list.
+     * 
+     * @param list A list of associations.
+     * @param vertex The vertex of the new association.
+     * @param level The level of the new association.
+     */
     private void addAssociation(List<Association<V>> list, V vertex, int level) {
         list.add(new Association<V>(vertex, level));
+    }
+    
+    /**
+     * Set the graph name.
+     * 
+     * @param name The graph name.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String toString() {
+        return name; 
     }
     
 }

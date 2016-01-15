@@ -19,6 +19,9 @@
                     <i class="circular refresh icon"></i>
                     Générer les cycles de services
                 </h2>
+                <c:forEach items="${cycles2}" var="item">
+                    <div>${item}</div>
+                </c:forEach>
                 <table class="ui black celled table" style="display:none;">
                     <thead class="full-width">
                         <tr>

@@ -26,6 +26,10 @@ public class SQLUserDB
     
     /** A prepared statement for retrieval of one User. */
     private PreparedStatement updateUserStatement;
+    
+    /** A prepared statement for retrieval of one User. */
+    private PreparedStatement checkUserStatement;
+    
 
     /** A link to the database. */
     protected Connection link;
@@ -40,12 +44,14 @@ public class SQLUserDB
         this.link=link;
         this.table=table;
         String query=null;
-        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,?)";
+        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,MD5(?))";
         this.createUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
-        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = ? where email = ?";
+        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = MD5(?) where email = ?";
         this.updateUserStatement=this.link.prepareStatement(query);
+        query="SELECT * FROM `"+this.table+"` WHERE email=? and passwd=MD5(?)";
+        this.checkUserStatement=this.link.prepareStatement(query);
     }
 
     //@Override
@@ -162,5 +168,15 @@ public class SQLUserDB
         this.updateUserStatement.setString(6,user.getPassword());
         this.updateUserStatement.setString(7,email);
         this.updateUserStatement.execute();
+    }
+    public boolean isValidUser(String email,String password) throws SQLException {
+    	 this.checkUserStatement.setString(1,email);
+    	 this.checkUserStatement.setString(2,password);
+    	 ResultSet rs=this.checkUserStatement.executeQuery();
+         if (!rs.next()) {
+             return false;
+         } else {
+        	 return true;
+         }
     }
 }

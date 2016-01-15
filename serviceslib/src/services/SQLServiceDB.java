@@ -114,12 +114,22 @@ public class SQLServiceDB
         rs=statement.executeQuery(query);
         List<Service> res = new ArrayList<Service>();
         while (rs.next()) {
-            //res.add(new Service(rs.getString("name"), rs.getString("description"), rs.getDate("publicationDate"), rs.getDate("deadline"),rs.getString("status")));
         	res.add(new Service(rs.getInt("id"),rs.getString("name"), rs.getString("description"),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),rs.getString("status")));
         }
         return res;
     }
-
+    public List<Service> retrieveAll (String status) throws SQLException {
+        String query = "SELECT * FROM `" + this.table + "` where status=?";
+        ResultSet rs = null;
+        PreparedStatement statement = this.link.prepareStatement(query);
+        statement.setString(1, status);
+        rs=statement.executeQuery();
+        List<Service> res = new ArrayList<Service>();
+        while (rs.next()) {
+        	res.add(new Service(rs.getInt("id"),rs.getString("name"), rs.getString("description"),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),rs.getString("status")));
+        }
+        return res;
+    }
     /**
      * Retrieves a Service in the database.
      * @param name The name of the Service

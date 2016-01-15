@@ -40,10 +40,10 @@ public class AddServiceServlet extends HttpServlet {
             String publicationDate = req.getParameter("publicationDate");
             String deadline = req.getParameter("deadline");
             String status = req.getParameter("needOrOffer");
-            String serviceId = req.getParameter("serviceId");
             String mode = req.getParameter("mode");
             
             
+            //System.out.println(serviceId);
             // Conversion from strings to dates
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             
@@ -67,8 +67,14 @@ public class AddServiceServlet extends HttpServlet {
            
             	Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
             	if (mode.equals("insert")) {
+            		System.out.println(name);
+                    System.out.println(description);
+                    System.out.println(status);
+                    System.out.println(mode);
         			new ServiceDBHandler().getDb().create(service);
+        			
             	} else {
+            		String serviceId = req.getParameter("serviceId");
             		new ServiceDBHandler().getDb().update(service,Integer.parseInt(serviceId));
             	}
             } catch (Exception e) {

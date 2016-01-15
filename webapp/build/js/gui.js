@@ -13,11 +13,13 @@ showModal("user-modal-link", "user-modal");
 function showModal(classLink, idModal) {
     $( "." + classLink ).click(function() {
 		var needId = $(this).next().next().val();
-		$('input[name="type"]').val($("#list-elt-"+needId+" h3").text());
-		$('textarea[name="description"]').text($("#list-elt-"+needId+" p").text());
-		//$('input[name="deadline"]').val($("list-elt-"+needId+" h3").text());
-		$('input[name="mode"]').val("update");
-		$('#serviceId').val(needId);
+		if ($(this).attr("id")!="add-need") {
+			$('input[name="type"]').val($("#list-elt-"+needId+" h3").text());
+			$('textarea[name="description"]').text($("#list-elt-"+needId+" p").text());
+			//$('input[name="deadline"]').val($("list-elt-"+needId+" h3").text());
+			$('input[name="mode"]').val("update");
+			$('#serviceId').val(needId);
+		}
         $('#' + idModal).modal('setting', {
             'onApprove': function() {
                 $( "#" + idModal + " form" ).trigger( "submit" );

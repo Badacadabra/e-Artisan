@@ -10,6 +10,11 @@ cd ../serviceslib/
 ant dist
 cp dist/services.jar ../webapp/lib/
 
+# Package graph
+cd ../graphlib/
+ant dist
+cp dist/graph.jar ../webapp/lib/
+
 # Exécution
 cd ../webapp
 ant deploy

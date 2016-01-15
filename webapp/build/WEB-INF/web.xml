@@ -20,15 +20,6 @@
         <jsp-file>/views/actus.jsp</jsp-file>
     </servlet>
     <servlet>
-<<<<<<< HEAD
-        <servlet-name>CyclesServlet</servlet-name>
-        <jsp-file>/views/cycles.jsp</jsp-file>
-=======
-        <servlet-name>OffersServlet</servlet-name>
-        <jsp-file>/views/offres.jsp</jsp-file>
->>>>>>> b62aac6c7cbe5f71a3ccabf87d124bdd38c703ec
-    </servlet>
-    <servlet>
         <servlet-name>AdminServlet</servlet-name>
         <jsp-file>/views/admin.jsp</jsp-file>
     </servlet>
@@ -67,13 +58,12 @@
         <servlet-class>servlets.NeedServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>OffersServlet</servlet-name>
         <servlet-class>servlets.OfferServlet</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>CyclesServlet</servlet-name>
         <servlet-class>servlets.CyclesServlet</servlet-class>
->>>>>>> b62aac6c7cbe5f71a3ccabf87d124bdd38c703ec
     </servlet>
 
 <!-- Servlets mappings -->
@@ -90,15 +80,6 @@
     <servlet-mapping>
         <servlet-name>NewsFeedServlet</servlet-name>
         <url-pattern>/actus</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>CyclesServlet</servlet-name>
-        <url-pattern>/cycles</url-pattern>
-=======
-        <servlet-name>OffersServlet</servlet-name>
-        <url-pattern>/offres</url-pattern>
->>>>>>> b62aac6c7cbe5f71a3ccabf87d124bdd38c703ec
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
@@ -135,15 +116,13 @@
         <url-pattern>/ajoutService</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>OffersServlet</servlet-name>
         <url-pattern>/offres</url-pattern>
-=======
+    </servlet-mapping>
+	<servlet-mapping>
         <servlet-name>CyclesServlet</servlet-name>
         <url-pattern>/cycles</url-pattern>
->>>>>>> b62aac6c7cbe5f71a3ccabf87d124bdd38c703ec
     </servlet-mapping>
-
 
 <!-- OLD -->
     

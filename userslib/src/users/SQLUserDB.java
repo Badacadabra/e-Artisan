@@ -40,7 +40,7 @@ public class SQLUserDB
         this.link=link;
         this.table=table;
         String query=null;
-        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?)";
+        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,?)";
         this.createUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
@@ -95,8 +95,10 @@ public class SQLUserDB
     public void create (User User) throws SQLException {
         this.createUserStatement.setString(1,User.getName());
         this.createUserStatement.setString(2,User.getFirstName());
-        this.createUserStatement.setString(3,User.getEmail());
-        this.createUserStatement.setString(4,User.getPassword());
+        this.createUserStatement.setString(3,User.getDescription());
+        this.createUserStatement.setString(4,User.getImage());
+        this.createUserStatement.setString(5,User.getEmail());
+        this.createUserStatement.setString(6,User.getPassword());
         this.createUserStatement.execute();
     }
 

@@ -17,7 +17,7 @@
                 <jsp:param name="besoins" value="active" />
             </jsp:include>
             <section id="main-section">
-                <h2 class="ui center aligned icon header need-modal-link">
+                <h2 class="ui center aligned icon header need-modal-link" id="add-need">
                     <i class="circular announcement icon"></i>
                     Ajouter un besoin
                 </h2>

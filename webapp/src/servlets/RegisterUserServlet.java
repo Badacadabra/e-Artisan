@@ -29,17 +29,16 @@ public class RegisterUserServlet extends HttpServlet {
         HttpSession session = req.getSession();
         
         try {
-        	session.setAttribute("email", email);
-			User user = new User(lastName, firstName, email, password);
+			User user = new User(lastName,firstName,"_none", "_none",email,password);
 			new UserDBHandler().getDb().create(user);
+			session.setAttribute("user", user);
         } catch (Exception e) {
-            String msg = "Erreur d'inscription : vous devez renseigner tous les champs !";
+            String msg = "Erreur d'inscription : vous devez renseigner tous les champs !"+e.getMessage();
+            System.out.println(e.getMessage());
             req.setAttribute("errorRegister", msg);
             this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         }
-        // Everything went well
-        session.setAttribute("userFirstName", firstName);
-        session.setAttribute("userEmail", email);
+      
         resp.sendRedirect("accueil");
     }
     /**

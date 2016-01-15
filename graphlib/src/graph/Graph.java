@@ -125,7 +125,7 @@ public class Graph<V> implements IGraph<V> {
      *  @return Cycles in the graph, using shortest paths.
      */
     @Override
-    public boolean bfs(V startVertex) {
+    public List<V> bfs(V startVertex) {
         // BFS with a stack would give DFS
         // Each vertex references a lit of associations (vertex/level)
         Map<V,List<Association<V>>> map = new HashMap<>();
@@ -137,25 +137,48 @@ public class Graph<V> implements IGraph<V> {
         Queue<V> queue = new LinkedList<>();
         queue.add(startVertex);
         // We iterate through the graph
-        while(map.size() != getVertices().size()) {
+        while(!queue.isEmpty()) {
             V currentVertex = (V) queue.poll();
-            level++;
+            System.out.println(currentVertex);
+            level = getCurrentLevel(map, currentVertex) + 1;
             for (V vertexSuccessor : getSuccessors(currentVertex)) {
                 // Handle
                 if (vertexSuccessor.equals(startVertex)) { // A cycle is found
-                    return true;
+                    // computeCycle(map, startVertex, currentVertex);
+                    return computeCycle(map, startVertex, currentVertex);
                 } else if (map.get(vertexSuccessor) == null) { // We find an unknown vertex
                     queue.add(vertexSuccessor);
-                    associations.add(new Association<V>(currentVertex, level));
-                    map.put(vertexSuccessor, associations);
-                // We find an unknown vertex, but it is not added to the queue
-                } else if (map.get(vertexSuccessor).get(0).getLevel() == map.get(startVertex).get(0).getLevel() + 1) {
-                    associations.add(new Association<V>(currentVertex, level));
-                    map.put(vertexSuccessor, associations);
+                    List<Association<V>> currentAssociations = new ArrayList<>();
+                    addAssociation(currentAssociations, currentVertex, level);
+                    map.put(vertexSuccessor, currentAssociations);
+                // We find an well-known vertex and it is not added to the queue (already in)
+                // Useful to generate several cycles
+                } else if (getCurrentLevel(map, vertexSuccessor) == level) {
+                    List<Association<V>> successorsAssociations = map.get(vertexSuccessor);
+                    addAssociation(successorsAssociations, currentVertex, level);
                 }
             }
         }
-        return false;
+        return null;
     }
 
+    private List<V> computeCycle(Map<V,List<Association<V>>> map, V startVertex, V currentVertex) {
+        V v = currentVertex;
+        LinkedList<V> list = new LinkedList<>();
+        while (v != startVertex) {
+            list.addFirst(v);
+            v = map.get(v).get(0).getVertex();
+        }
+        list.addFirst(v); // ou startVertex 
+        return list;
+    }
+    
+    private int getCurrentLevel(Map<V,List<Association<V>>> map, V vertex) {
+        return map.get(vertex).get(0).getLevel();
+    }
+    
+    private void addAssociation(List<Association<V>> list, V vertex, int level) {
+        list.add(new Association<V>(vertex, level));
+    }
+    
 }

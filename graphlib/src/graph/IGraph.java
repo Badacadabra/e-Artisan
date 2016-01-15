@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.List;
+
 /**
  * Interface which gives a means to crawl a graph using a BFS algorithm.
  * 
@@ -16,6 +18,6 @@ public interface IGraph<V> {
      * @param vertex The vertex from which the crawl starts.
      * @return Cycles in the graph, using shortest paths.
      */
-    boolean bfs(V vertex);
+    List<V> bfs(V vertex);
     
 }

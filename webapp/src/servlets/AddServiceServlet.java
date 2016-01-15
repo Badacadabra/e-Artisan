@@ -35,11 +35,14 @@ public class AddServiceServlet extends HttpServlet {
 		User userSession = (User) session.getAttribute("user");
         
         if (userSession!=null) {
-        	String name = req.getParameter("name");
+        	String name = req.getParameter("type");
             String description = req.getParameter("description");
             String publicationDate = req.getParameter("publicationDate");
             String deadline = req.getParameter("deadline");
             String status = req.getParameter("needOrOffer");
+            String serviceId = req.getParameter("serviceId");
+            String mode = req.getParameter("mode");
+            
             
             // Conversion from strings to dates
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,22 +62,24 @@ public class AddServiceServlet extends HttpServlet {
     		} catch (ParseException e1) {
     			e1.printStackTrace();
     		}
-            
-            
-            
             String error = "";
             try {
-    			Service Service = new Service(name, description, calPublication, calDeadline, status);
-    			new ServiceDBHandler().getDb().create(Service);
-    			
+           
+            	Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
+            	if (mode.equals("insert")) {
+        			new ServiceDBHandler().getDb().create(service);
+            	} else {
+            		new ServiceDBHandler().getDb().update(service,Integer.parseInt(serviceId));
+            	}
             } catch (Exception e) {
                 error = "Erreur dans l'ajout du service." + e;
-                req.setAttribute("error", error);
-                if (status.equals("need")) {
+                //req.setAttribute("error", error);
+                System.out.println(error);
+                /*if (status.equals("need")) {
                     this.getServletContext().getRequestDispatcher( "/views/besoins.jsp" ).forward( req, resp );
                 } else {
                     this.getServletContext().getRequestDispatcher( "/views/offres.jsp" ).forward( req, resp );
-                }
+                }*/
             }
             // If everything went well
             String message = "Service créé avec succès !";
@@ -87,7 +92,7 @@ public class AddServiceServlet extends HttpServlet {
             	
             
         } else {
-        	resp.sendRedirect("e-artisan");
+        	resp.sendRedirect(req.getContextPath());
         }
         
     }

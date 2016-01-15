@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user);
             session.setAttribute("fname", user.getFirstName());
         } catch (Exception e) {
-            String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données."+ e.getMessage();
+            String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données.";
             req.setAttribute("errorLogin", msg);
             this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( req, resp );
         }

@@ -22,7 +22,7 @@ public class ProfilServlet extends HttpServlet {
         if (user!=null) {
             this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
         } else {
-        	resp.sendRedirect("e-artisan");
+        	resp.sendRedirect(req.getContextPath());
         }
         
     }

@@ -20,10 +20,6 @@
         <jsp-file>/views/actus.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>NeedsServlet</servlet-name>
-        <jsp-file>/views/besoins.jsp</jsp-file>
-    </servlet>
-    <servlet>
         <servlet-name>OffersServlet</servlet-name>
         <jsp-file>/views/offres.jsp</jsp-file>
     </servlet>
@@ -65,7 +61,10 @@
         <servlet-name>AddServiceServlet</servlet-name>
         <servlet-class>servlets.AddServiceServlet</servlet-class>
     </servlet>
-
+	<servlet>
+        <servlet-name>NeedServlet</servlet-name>
+        <servlet-class>servlets.NeedServlet</servlet-class>
+    </servlet>
 
 <!-- Servlets mappings -->
    
@@ -83,10 +82,6 @@
         <url-pattern>/actus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>NeedsServlet</servlet-name>
-        <url-pattern>/besoins</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>OffersServlet</servlet-name>
         <url-pattern>/offres</url-pattern>
     </servlet-mapping>
@@ -100,6 +95,10 @@
     </servlet-mapping>
     
   <!-- Classes -->
+	 <servlet-mapping>
+        <servlet-name>NeedServlet</servlet-name>
+        <url-pattern>/besoins</url-pattern>
+    </servlet-mapping>
 	<servlet-mapping>
         <servlet-name>ProfilServlet</servlet-name>
         <url-pattern>/profil</url-pattern>

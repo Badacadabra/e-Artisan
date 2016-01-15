@@ -12,6 +12,12 @@ showModal("user-modal-link", "user-modal");
 
 function showModal(classLink, idModal) {
     $( "." + classLink ).click(function() {
+		var needId = $(this).next().next().val();
+		$('input[name="type"]').val($("#list-elt-"+needId+" h3").text());
+		$('textarea[name="description"]').text($("#list-elt-"+needId+" p").text());
+		//$('input[name="deadline"]').val($("list-elt-"+needId+" h3").text());
+		$('input[name="mode"]').val("update");
+		$('#serviceId').val(needId);
         $('#' + idModal).modal('setting', {
             'onApprove': function() {
                 $( "#" + idModal + " form" ).trigger( "submit" );
@@ -83,6 +89,11 @@ $( ".list-elt-button" ).each(function() {
     var idLink = $( this ).attr( "id" ); // id du lien : list-elt-1-link
     var idElement = idLink.substr(0, 10); // résultat attendu : list-elt-1
     $( "#" + idLink ).click(function() {
+		console.log($("#" + idLink).next().next().next().val());
+		var idToSend = $("#" + idLink).next().next().next().val();
+		//Récupération du besoin à afficher via ajax
+		//performAjax("http://localhost:8080/e-artisan/besoins/",{id:idToSend},"GET",parseNeeds);
+		
         if ($( "#" + idLink ).text() == "Afficher") {
             $( "#" + idLink ).text( "Masquer" );
         } else {
@@ -99,6 +110,7 @@ $( ".list-elt-link" ).click(function() {
 
 // Gestion de la suppression d'un besoin, d'une offre, et d'un utilisateur
 $( ".delete-btn" ).click(function() {
+	console.log($(this).next().val());
     var currentElt = $( this );
     $('.delete-list-elt').modal('setting', {
         'onApprove': function() {
@@ -130,3 +142,15 @@ $('.ui.search')
     source: content
   })
 ;
+function parseNeeds(result) {
+	console.log(result);
+}
+//AJax
+function performAjax(url,data,type,callback) {
+	$.ajax({
+		  url: url,
+		  data : data,
+		  type: type,
+		  dataType: "json"
+		}).success(callback);
+}

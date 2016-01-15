@@ -48,12 +48,14 @@ public class Service {
      * @param publicationDate The publication date of the service
      * @param deadline The deadline of the service
      */
-	public Service(String name, String description, Date publicationDate, Date deadline)
+	public Service(int id, String name, String description, GregorianCalendar publicationDate, GregorianCalendar deadline,String status)
 	{
 		this.name = name;
 		this.description = description;
-		this.publicationDate = dateToGregorianCalendar(publicationDate);
-		this.deadline = dateToGregorianCalendar(deadline);
+		this.publicationDate = publicationDate;
+		this.deadline = deadline;
+		this.status = status;
+		this.id = id;
 	}
 	
 	/**

@@ -84,7 +84,7 @@ public class ModifyProfileServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
             }
         } else {
-        	resp.sendRedirect("e-artisan");
+        	resp.sendRedirect(req.getContextPath());
         }
     }/**
      * Méthode permettant de récupérer le nom de l'image uploader

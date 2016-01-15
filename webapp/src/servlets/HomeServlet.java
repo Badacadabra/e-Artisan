@@ -21,7 +21,7 @@ public class HomeServlet extends HttpServlet {
             //req.setAttribute("user",user);
             this.getServletContext().getRequestDispatcher( "/views/home.jsp" ).forward( req, resp );
         } else {
-        	resp.sendRedirect("e-artisan");
+        	resp.sendRedirect(req.getContextPath());
         }
         
     }

@@ -16,6 +16,7 @@ import users.User;
 
 /**
  * A servlet that handles cycles.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */

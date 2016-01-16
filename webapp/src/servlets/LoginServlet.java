@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +11,7 @@ import users.UserDBHandler;
 
 /**
  * A servlet that handles the login form.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -27,16 +26,17 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession();
         
         try {
-        	if (new UserDBHandler().getDb().isValidUser(email, password)) {
-        		User user = new UserDBHandler().getDb().retrieve(email);
+            if (new UserDBHandler().getDb().isValidUser(email, password)) {
+        	User user = new UserDBHandler().getDb().retrieve(email);
                 session.setAttribute("user", user);
-        	}
+            }
         } catch (Exception e) {
             this.performError(req,resp,e);
         }
         resp.sendRedirect("accueil");
     }
-    public void performError(HttpServletRequest req,HttpServletResponse resp,Exception e) 
+    
+    private void performError(HttpServletRequest req,HttpServletResponse resp,Exception e) 
     		throws ServletException, IOException {
     	String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données."+e.getMessage();
         req.setAttribute("errorLogin", msg);

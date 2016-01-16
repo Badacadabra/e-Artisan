@@ -6,13 +6,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
+ * A class for accessing the database for services. This class can be used as a bean with (read-only) property "db".
+ * Strings host, database, username, password, and table are expected to be found.
+ * At any moment there is only one instance of the link to the database, and one instance of the SQLUserDB class, maintained by this class.
+ * Connector/J is used for accessing the DBMS.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
- *
  */
-public class ServiceDBHandler
-{
-	/** The unique link to the database (null if none active). */
+public class ServiceDBHandler {
+    
+    /** The unique link to the database (null if none active). */
     private static Connection link;
 
     /** The unique instance of class SQLProductsDB (null if none). */
@@ -20,10 +24,11 @@ public class ServiceDBHandler
 
     /**
      * Builds a new instance, using the strings used in the environment.
+     * 
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
-    public ServiceDBHandler () throws NamingException, SQLException {
+    public ServiceDBHandler() throws NamingException, SQLException {
         if (ServiceDBHandler.db==null) {
             ServiceDBHandler.initialize();
         }
@@ -31,10 +36,11 @@ public class ServiceDBHandler
 
     /**
      * Returns the instance of SQLServiceDB.
+     * 
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
-    public SQLServiceDB getDb () throws NamingException, SQLException {
+    public SQLServiceDB getDb() throws NamingException, SQLException {
         if (ServiceDBHandler.db==null) {
             ServiceDBHandler.initialize();
         }
@@ -43,9 +49,10 @@ public class ServiceDBHandler
 
     /**
      * Releases the connection to the database.
+     * 
      * @throws SQLException if any problem occurs while closing the connection
      */
-    public static void close () throws SQLException {
+    public static void close() throws SQLException {
         if (ServiceDBHandler.link!=null) {
             ServiceDBHandler.link.close();
         }
@@ -54,12 +61,13 @@ public class ServiceDBHandler
     // Helper methods =====================================================================
 
     /**
-     * Initializes the connection to the database and the instance of SQLProductsDB.
+     * Initializes the connection to the database and the instance of SQLServiceDB.
      * For each of these objects, nothing occurs if it is already initialized.
+     * 
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
-    private static void initialize () throws NamingException, SQLException {
+    private static void initialize() throws NamingException, SQLException {
         String host=InitialContext.doLookup("java:comp/env/host");
         String database=InitialContext.doLookup("java:comp/env/database");
         String username=InitialContext.doLookup("java:comp/env/username");
@@ -71,6 +79,7 @@ public class ServiceDBHandler
 
     /**
      * Returns the link to the database, which is active.
+     * 
      * @param host The hostname for the DBMS
      * @paam database The name for the database to use in the DBMS
      * @param username The username for connecting to the database
@@ -78,7 +87,7 @@ public class ServiceDBHandler
      * @return An active link to the database
      * @throws SQLException if no active link can be established
      */
-    private static Connection getLink (String host, String database, String username, String password) throws SQLException {
+    private static Connection getLink(String host, String database, String username, String password) throws SQLException {
         if (ServiceDBHandler.link==null) {
             MysqlDataSource ds=new MysqlDataSource();
             ds.setServerName(host);
@@ -90,5 +99,5 @@ public class ServiceDBHandler
         }
         return ServiceDBHandler.link;
     }
-}
 
+}

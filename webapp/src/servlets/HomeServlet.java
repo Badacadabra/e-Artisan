@@ -10,6 +10,12 @@ import javax.servlet.http.HttpSession;
 
 import users.User;
 
+/**
+ * A servlet that handles the home action, when a user has just logged in.
+ * 
+ * @author Macky Dieng
+ * @author Baptiste Vannesson
+ */
 public class HomeServlet extends HttpServlet {
 	
 	@Override

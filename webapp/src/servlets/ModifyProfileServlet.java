@@ -1,11 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Part;
-import java.io.File;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +15,7 @@ import users.UserDBHandler;
 
 /**
  * A servlet that handles the profile form.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -25,23 +23,20 @@ import users.UserDBHandler;
 @MultipartConfig(fileSizeThreshold=1024*1024*10,    // 10 MB 
                  maxFileSize=1024*1024*50,          // 50 MB
                  maxRequestSize=1024*1024*100)      // 100 MB
-
 public class ModifyProfileServlet extends HttpServlet {
     
-	/**
-     * Directory where uploaded files will be saved, its relative to
-     * the web application directory.
+    /**
+     * Directory where uploaded files will be saved, its relative to the web application directory.
      */
     private static final String UPLOAD_DIR = "uploads";
     
-	@Override
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
     	
         HttpSession session = req.getSession();
         User userSession = (User) session.getAttribute("user");
-        
-        
+            
         if (userSession!=null) {
         	try {
         		/* gets absolute path of the web application
@@ -66,28 +61,30 @@ public class ModifyProfileServlet extends HttpServlet {
                 System.out.println(fileName + " File uploaded successfully!");
                 
                 //req.setAttribute("message", fileName + " File uploaded successfully!");*/
-        		req.setCharacterEncoding("UTF-8");
+        	req.setCharacterEncoding("UTF-8");
             	String firstName = req.getParameter("firstName");
                 String lastName = req.getParameter("lastName");
                 String email = req.getParameter("email");
                 String password = req.getParameter("password");
                 String description = req.getParameter("description");
                 String image = "none";
-           	 	User user = new User(lastName, firstName, description, image, email, password);
-           	 	new UserDBHandler().getDb().update(user, userSession.getEmail());
-           	 	//session.invalidate();
-           	 	session.setAttribute("user", user);
-           	 	this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+           	User user = new User(lastName, firstName, description, image, email, password);
+           	new UserDBHandler().getDb().update(user, userSession.getEmail());
+           	//session.invalidate();
+           	 session.setAttribute("user", user);
+           	 this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
             } catch (Exception e) {
                 String msg = e.getLocalizedMessage();
                 req.setAttribute("error", msg);
                 this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
             }
         } else {
-        	resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath());
         }
-    }/**
-     * Méthode permettant de récupérer le nom de l'image uploader
+    }
+    
+    /**
+     * Méthode permettant de récupérer le nom de l'image uploadée
      
     private String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
@@ -102,4 +99,3 @@ public class ModifyProfileServlet extends HttpServlet {
     }*/
 
 }
-

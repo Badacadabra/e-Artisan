@@ -30,8 +30,8 @@
         <servlet-class>servlets.HomeServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfilServlet</servlet-name>
-        <servlet-class>servlets.ProfilServlet</servlet-class>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>servlets.ProfileServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -92,7 +92,7 @@
         <url-pattern>/besoins</url-pattern>
     </servlet-mapping>
 	<servlet-mapping>
-        <servlet-name>ProfilServlet</servlet-name>
+        <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profil</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

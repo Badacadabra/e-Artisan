@@ -13,6 +13,7 @@ import users.UserDBHandler;
 
 /**
  * A servlet that handles the registration form.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -29,9 +30,9 @@ public class RegisterUserServlet extends HttpServlet {
         HttpSession session = req.getSession();
         
         try {
-			User user = new User(lastName,firstName,"_none", "_none",email,password);
-			new UserDBHandler().getDb().create(user);
-			session.setAttribute("user", user);
+            User user = new User(lastName,firstName,"_none", "_none",email,password);
+            new UserDBHandler().getDb().create(user);
+            session.setAttribute("user", user);
         } catch (Exception e) {
             String msg = "Erreur d'inscription : vous devez renseigner tous les champs !"+e.getMessage();
             System.out.println(e.getMessage());
@@ -41,21 +42,14 @@ public class RegisterUserServlet extends HttpServlet {
       
         resp.sendRedirect("accueil");
     }
-    /**
-     * Terminates the response of this servlet by displaying table of contents and a message.
-     * @param request The request for this call
-     * @param response The response for this call
-     * @param message The message to be forwarded to table of contents
-     */
-    protected void terminate (HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
-        // response.sendRedirect(response.encodeRedirectURL(request.getContextPath()+"/toc.jsp?message="+message));
-    }
+    
     @Override
-    public void destroy () {
+    public void destroy() {
         try {
             UserDBHandler.close();
         } catch (SQLException e) {
             this.log("Erreur lors de la cl&ocirc;ture de la connexion SQL ("+e+").");
        }
     }
+    
 }

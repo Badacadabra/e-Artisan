@@ -2,6 +2,12 @@ package test;
 
 import graph.Graph;
 
+/**
+ * A class for running some basic tests on classes which implement interfaces IGraph or BFS.
+ * 
+ * @author Macky Dieng
+ * @author Baptiste Vannesson
+ */
 public class TestGraph {
 
     public static void main(String[] args) {

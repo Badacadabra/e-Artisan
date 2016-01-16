@@ -15,24 +15,18 @@ import java.util.Queue;
  *
  * @param <V> The type of vertex.
  */
-public class Graph<V> implements IGraph<V> {
+public class Graph<V> implements IGraph<V>, BFS<V>, DFS<V> {
 
-    /**
-     * The name of the graph.
-     */
+    /** The name of the graph. */
     private String name;
     
-    /**
-     * The list of all vertices of the graph.
-     */
+    /** The list of all vertices of the graph. */
     private List<V> vertices;
     
-    /**
-     * The list of all edges of the graph.
-     */
+    /** The list of all edges of the graph. */
     private List<Edge> edges;
     
-    /**
+    /** 
      * Constructor of an empty graph.
      */
     public Graph() {
@@ -46,6 +40,7 @@ public class Graph<V> implements IGraph<V> {
      * 
      * @param vertex The vertex to add.
      */
+    @Override
     public void addVertex(V vertex) {
         vertices.add(vertex);
     }
@@ -56,6 +51,7 @@ public class Graph<V> implements IGraph<V> {
      * @param vertex1 First vertex connected to an edge.
      * @param vertex2 Second vertex connected to an edge.
      */
+    @Override
     public void addEdge(V vertex1, V vertex2) {
         Edge tmp = new Edge(); 
         tmp.origin = vertex1;
@@ -78,6 +74,7 @@ public class Graph<V> implements IGraph<V> {
      * @param vertex The vertex for which we want to know the successors.
      * @return The list of successors of the specified vertex.
      */
+    @Override
     public List<V> getSuccessors(V vertex) {
         List<V> successors = new ArrayList<>();
         for (Edge e : edges) {
@@ -94,6 +91,7 @@ public class Graph<V> implements IGraph<V> {
      * @param vertex The vertex for which we want to know the predecessors.
      * @return The list of predecessors of the specified vertex.
      */
+    @Override
     public List<V> getPredecessors(V vertex) {
         List<V> predecessors = new ArrayList<>();
         for (Edge e : edges) {
@@ -155,7 +153,7 @@ public class Graph<V> implements IGraph<V> {
                     List<Association<V>> currentAssociations = new ArrayList<>();
                     addAssociation(currentAssociations, currentVertex, level);
                     map.put(vertexSuccessor, currentAssociations);
-                // We find an well-known vertex and it is not added to the queue (already in)
+                // We find a well-known vertex and it is not added to the queue (already in)
                 // Useful to generate several cycles
                 } else if (getCurrentLevel(map, vertexSuccessor) == level) {
                     List<Association<V>> successorsAssociations = map.get(vertexSuccessor);
@@ -163,6 +161,18 @@ public class Graph<V> implements IGraph<V> {
                 }
             }
         }
+        return null;
+    }
+    
+    /**
+     *  This method provides a means to crawl a graph using a DFS algorithm.
+     *  (Not implemented yet.)
+     *  
+     *  @param The vertex from which the crawl starts.
+     *  @return Cycles in the graph, using shortest paths.
+     */
+    @Override
+    public List<V> dfs(V vertex) {
         return null;
     }
 
@@ -216,6 +226,9 @@ public class Graph<V> implements IGraph<V> {
         this.name = name;
     }
     
+    /**
+     * Get the graph name only.
+     */
     public String toString() {
         return name; 
     }

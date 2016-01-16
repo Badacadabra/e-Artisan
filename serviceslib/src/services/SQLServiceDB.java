@@ -10,22 +10,24 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
+ * A class for SQL storage of services in a database.
+ * The id of the service is taken to be its primary key.
+ * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
- *
  */
-public class SQLServiceDB
-{
-	/** The name for the SQL table where to store Services. */
+public class SQLServiceDB {
+    
+    /** The name for the SQL table where to store services. */
     protected String table;
 
     /** A prepared statement for creations. */
     private PreparedStatement createServiceStatement;
 
-    /** A prepared statement for retrieval of one Service. */
+    /** A prepared statement for retrieval of one service. */
     private PreparedStatement retrieveServiceStatement;
     
-    /** A prepared statement for update a service. */
+    /** A prepared statement to update a service. */
     private PreparedStatement updateServiceStatement;
 
     /** A link to the database. */
@@ -33,11 +35,12 @@ public class SQLServiceDB
 
     /**
      * Builds a new instance.
+     * 
      * @param link An active connection to an SQL database
      * @param table The name of the table where to store Services
      * @throws SQLException if a database access error occurs
      */
-    public SQLServiceDB (Connection link, String table) throws SQLException {
+    public SQLServiceDB(Connection link, String table) throws SQLException {
         this.link = link;
         this.table = table;
         String query = null;
@@ -49,32 +52,42 @@ public class SQLServiceDB
         this.updateServiceStatement = this.link.prepareStatement(query);
     }
 
-    //@Override
-    public void addService (Service Service) throws SQLException {
+    /**
+     * Adds a new service in the database.
+     * 
+     * @param The service to add in the database.
+     * @throws SQLException if a database access error occurs
+     */
+    public void addService(Service Service) throws SQLException {
         this.create(Service);
     }
 
-    //@Override
-    public List<Service> getAll () throws SQLException {
+    /**
+     * Gets all services in the database.
+     * 
+     * @return All services in the database
+     * @throws SQLException if a database access error occurs
+     */
+    public List<Service> getAll() throws SQLException {
         return this.retrieveAll();
     }
-
-    // Methods
 
     /**
      * Resets the link to the database.
      * This method can be used in case the connection breaks down.
+     * 
      * @param link An active link to the database
      */
-    public void setLink (Connection link) {
+    public void setLink(Connection link) {
         this.link=link;
     }
 
     /**
      * Creates the necessary table in the database. Nothing occurs if the table already exists.
+     * 
      * @throws SQLException if a database access error occurs
      */
-    public void createTables () throws SQLException {
+    public void createTables() throws SQLException {
         String query="CREATE TABLE IF NOT EXISTS `"+this.table+"` (";
         query +="`id` int(255) NOT NULL AUTO_INCREMENT,";
         query += "`name` VARCHAR(100) NOT NULL, ";
@@ -89,11 +102,12 @@ public class SQLServiceDB
     }
 
     /**
-     * Stores a new Service in the database.
-     * @param Service The Service to store
+     * Stores a new service in the database.
+     * 
+     * @param service The service to store
      * @throws SQLException if a database access error occurs
      */
-    public void create (Service service) throws SQLException {
+    public void create(Service service) throws SQLException {
         this.createServiceStatement.setString(1,service.getName());
         this.createServiceStatement.setString(2,service.getDescription());
         this.createServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
@@ -103,11 +117,12 @@ public class SQLServiceDB
     }
 
     /**
-     * Retrieves all the Services in the database.
-     * @return A list of all Services in the database
+     * Retrieves all services in the database.
+     * 
+     * @return A list of all services in the database
      * @throws SQLException if a database access error occurs
      */
-    public List<Service> retrieveAll () throws SQLException {
+    public List<Service> retrieveAll() throws SQLException {
         String query = "SELECT * FROM `" + this.table + "`";
         ResultSet rs = null;
         Statement statement = this.link.createStatement();
@@ -118,7 +133,15 @@ public class SQLServiceDB
         }
         return res;
     }
-    public List<Service> retrieveAll (String status) throws SQLException {
+    
+    /**
+     * Retrieves all services in the database, given a certain status.
+     * 
+     * @param status The status
+     * @return All services that have the given status
+     * @throws SQLException if a database access error occurs
+     */
+    public List<Service> retrieveAll(String status) throws SQLException {
         String query = "SELECT * FROM `" + this.table + "` where status=?";
         ResultSet rs = null;
         PreparedStatement statement = this.link.prepareStatement(query);
@@ -130,13 +153,15 @@ public class SQLServiceDB
         }
         return res;
     }
+    
     /**
-     * Retrieves a Service in the database.
-     * @param name The name of the Service
-     * @return A Service, or null if none with the given name exists in the database
+     * Retrieves a service in the database.
+     * 
+     * @param name The name of the service
+     * @return A service, or null if none with the given name exists in the database
      * @throws SQLException if a database access error occurs
      */
-    public Service retrieve (int id) throws SQLException {
+    public Service retrieve(int id) throws SQLException {
         this.retrieveServiceStatement.setInt(1,id);
         ResultSet rs = this.retrieveServiceStatement.executeQuery();
         if (!rs.next()) {
@@ -147,32 +172,34 @@ public class SQLServiceDB
 
     /**
      * Drops the table from the database. Nothing occurs if the table does not exist.
+     * 
      * @throws SQLException if a database access error occurs
      */
-    public void deleteTables () throws SQLException {
+    public void deleteTables() throws SQLException {
         String query = "DROP TABLE IF EXISTS `" + this.table + "`";
         Statement statement = this.link.createStatement();
         statement.execute(query);
     }
 
     /**
-     * Deletes a Service. Nothing occurs in case the Service does not exist in the database.
-     * @param Service The Service
+     * Deletes a service. Nothing occurs in case the service does not exist in the database.
+     * 
+     * @param Service The service
      * @throws SQLException if a database access error occurs
      */
-    public void delete (Service service) throws SQLException {  
+    public void delete(Service service) throws SQLException {  
         String query = "DELETE FROM `" + this.table + "` WHERE name=\"" + service.getName() + "\"";
         Statement statement = this.link.createStatement();
         statement.execute(query);
     }
     
     /**
-     * Stores a new Service in the database.
-     * @param Service The Service to store
+     * Stores a new service in the database.
+     * 
+     * @param service The service to store
      * @throws SQLException if a database access error occurs
      */
-    public void update (Service service, int id) throws SQLException {
-    	System.out.println(id);
+    public void update(Service service, int id) throws SQLException {
         this.updateServiceStatement.setString(1,service.getName());
         this.updateServiceStatement.setString(2,service.getDescription());
         this.updateServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
@@ -181,5 +208,5 @@ public class SQLServiceDB
         this.updateServiceStatement.setInt(6,id);
         this.updateServiceStatement.execute();
     }
-}
 
+}

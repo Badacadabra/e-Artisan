@@ -8,14 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * A servlet that handles logout.
+ * 
+ * @author Macky Dieng
+ * @author Baptiste Vannesson
+ */
 public class LogoutServlet extends HttpServlet {
 	    
-	    @Override
-	    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-	        throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+        throws ServletException, IOException {
 	    	
-	    	HttpSession session = req.getSession();
-	    	session.invalidate();
-	    	resp.sendRedirect(req.getContextPath());
-	    }
+    	HttpSession session = req.getSession();
+    	session.invalidate();
+    	resp.sendRedirect(req.getContextPath());
+    }
+    
 }

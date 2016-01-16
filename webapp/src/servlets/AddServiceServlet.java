@@ -19,7 +19,8 @@ import services.ServiceDBHandler;
 import users.User;
 
 /**
- * A servlet which adds a service. 
+ * A servlet which adds a service.
+ *  
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -32,10 +33,10 @@ public class AddServiceServlet extends HttpServlet {
     	// We get parameters from query
     	//String id = req.getParameter("id");
     	HttpSession session = req.getSession();
-		User userSession = (User) session.getAttribute("user");
+	User userSession = (User) session.getAttribute("user");
         
         if (userSession!=null) {
-        	String name = req.getParameter("type");
+            String name = req.getParameter("type");
             String description = req.getParameter("description");
             String publicationDate = req.getParameter("publicationDate");
             String deadline = req.getParameter("deadline");
@@ -51,20 +52,19 @@ public class AddServiceServlet extends HttpServlet {
             GregorianCalendar calPublication = null;
             GregorianCalendar calDeadline = null;
     		try {
-    			// Date 1
-    			date1 = df.parse(publicationDate);
-    			calPublication = new GregorianCalendar(); 
-    			calPublication.setTime(date1);
-    			// Date 2
-    	        date2 = df.parse(deadline);
-    	        calDeadline = new GregorianCalendar();
-    	        calDeadline.setTime(date2);
+    		    // Date 1
+    		    date1 = df.parse(publicationDate);
+    		    calPublication = new GregorianCalendar(); 
+    		    calPublication.setTime(date1);
+    		    // Date 2
+    		    date2 = df.parse(deadline);
+    	            calDeadline = new GregorianCalendar();
+    	            calDeadline.setTime(date2);
     		} catch (ParseException e1) {
-    			e1.printStackTrace();
+    		    e1.printStackTrace();
     		}
             String error = "";
             try {
-           
             	Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
             	if (mode.equals("insert")) {
             		System.out.println(name);
@@ -96,7 +96,6 @@ public class AddServiceServlet extends HttpServlet {
             	resp.sendRedirect("offres");
             }
             	
-            
         } else {
         	resp.sendRedirect(req.getContextPath());
         }
@@ -111,5 +110,6 @@ public class AddServiceServlet extends HttpServlet {
             this.log("Erreur lors de la cl&ocirc;ture de la connexion SQL ("+e+").");
        }
     }
+
 }
 

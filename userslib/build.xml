@@ -28,7 +28,7 @@
 </target>
 
 <target name="test" depends="compiletests">
-  <java fork="yes" classname="tests.TestUserDBStub" classpathref="external">
+  <java fork="yes" classname="test.TestUserDB" classpathref="external">
     <jvmarg value="-ea" />
   </java>
 </target>

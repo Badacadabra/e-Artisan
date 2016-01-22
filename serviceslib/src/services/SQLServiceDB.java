@@ -30,6 +30,10 @@ public class SQLServiceDB {
     /** A prepared statement to update a service. */
     private PreparedStatement updateServiceStatement;
 
+    
+    /** A prepared statement to see if a service exists */
+    private PreparedStatement isServiceStatement;
+    
     /** A link to the database. */
     protected Connection link;
 
@@ -50,6 +54,8 @@ public class SQLServiceDB {
         this.retrieveServiceStatement = this.link.prepareStatement(query);
         query = "UPDATE `" + this.table + "` SET name = ?, description = ?, publicationDate = ?, deadline = ?, status = ? where id = ?";
         this.updateServiceStatement = this.link.prepareStatement(query);
+        query = "SELECT * FROM `" + this.table + "` WHERE id = ?";
+        this.isServiceStatement=this.link.prepareStatement(query);
     }
 
     /**
@@ -169,6 +175,35 @@ public class SQLServiceDB {
         }
         return new Service(rs.getInt("id"),rs.getString("name"), rs.getString("description"),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),rs.getString("status"));
     }
+    
+    /**
+     * Checks if a service exists in the database.
+     * 
+     * @param id The service's id
+     * @return True or false
+     * @throws SQLException if a database access error occurs
+     */
+    public boolean exists(int id) throws SQLException {
+        this.isServiceStatement.setInt(1,id);
+        ResultSet rs=this.isServiceStatement.executeQuery();
+        return rs.next();
+    }
+    
+    /**
+     * Stores a new service in the database.
+     * 
+     * @param service The service to store
+     * @throws SQLException if a database access error occurs
+     */
+    public void update(Service service, int id) throws SQLException {
+        this.updateServiceStatement.setString(1,service.getName());
+        this.updateServiceStatement.setString(2,service.getDescription());
+        this.updateServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
+        this.updateServiceStatement.setDate(4,new Date(service.getDeadline().getTimeInMillis()));
+        this.updateServiceStatement.setString(5,service.getStatus());
+        this.updateServiceStatement.setInt(6,id);
+        this.updateServiceStatement.execute();
+    }
 
     /**
      * Drops the table from the database. Nothing occurs if the table does not exist.
@@ -193,20 +228,4 @@ public class SQLServiceDB {
         statement.execute(query);
     }
     
-    /**
-     * Stores a new service in the database.
-     * 
-     * @param service The service to store
-     * @throws SQLException if a database access error occurs
-     */
-    public void update(Service service, int id) throws SQLException {
-        this.updateServiceStatement.setString(1,service.getName());
-        this.updateServiceStatement.setString(2,service.getDescription());
-        this.updateServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
-        this.updateServiceStatement.setDate(4,new Date(service.getDeadline().getTimeInMillis()));
-        this.updateServiceStatement.setString(5,service.getStatus());
-        this.updateServiceStatement.setInt(6,id);
-        this.updateServiceStatement.execute();
-    }
-
 }

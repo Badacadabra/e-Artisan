@@ -31,9 +31,9 @@ public class TestGraph {
         graph.addEdge(str2, str3);
         graph.addEdge(str3, str4);
         graph.addEdge(str4, str5);
-        assert graph.bfs(str1) == null : "BFS de « " + str1 + " » a trouvé un cycle alors qu'il n'aurait pas dû sur le graphe « " + graph + " »";
+        assert graph.bfs(str1) == null : "BFS from \"" + str1 + "\" has found an invalid cycle on the graph \"" + graph + "\"";
         graph.addEdge(str5, str1);
-        assert graph.bfs(str1) != null : "BFS de « " + str1 + " » n'a pas trouvé de cycle alors qu'il aurait dû sur le graphe « " + graph + " »";
+        assert graph.bfs(str1) != null : "BFS from \"" + str1 + "\" has not found a valid cycle on the graph \"" + graph + "\"";
         
     }
 

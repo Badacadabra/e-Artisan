@@ -3,71 +3,104 @@ package test;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 
-import services.IServiceDB;
+import services.SQLServiceDB;
 import services.Service;
 
+import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import services.Service;
+import services.SQLServiceDB;
+
 /**
- * A class for running some basic tests on classes which implement interface IServiceDB.
+ * A class for running some basic tests on SQLServiceDB.
  * 
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 public class TestServiceDB {
 
-    /**
-     * Runs a series of tests on an instance of a class which implements IServiceDB.
-     * The instance is assumed to represent an empty database of services when passed to
-     * this method. If tests go well, the database is empty again when the method exits.
-     * The method uses assertions to run tests.
-     * 
-     * @param instance An instance of the class to be tested, representing an empty database of services
-     * @throws Exception if an unexpected error occurs
-     */
-    public static void test(IServiceDB instance) throws Exception {
-    	
-    	instance.create(new Service("TOTO", "desc", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
-    			new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),"need"));
-       	instance.create(new Service("TATA", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
-       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15),"need"));
-       	instance.create(new Service("TITI", "desc", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
-       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25),"offer"));
-       	instance.create(new Service("TUTU", "desc", new GregorianCalendar(2015, GregorianCalendar.JANUARY, 1),
-       			new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 31),"offer"));
-       	instance.create(new Service("TETE", "desc", new GregorianCalendar(2000, GregorianCalendar.MARCH, 10),
-       			new GregorianCalendar(2001, GregorianCalendar.APRIL, 27),"offer"));
-
-        // Testing "R" methods
-       	Collection<Service> all = instance.retrieveAll().values();
-        assert all.size() == 5;
-        boolean totoFound = false;
-        for (Service s: all) {
-            if ("TOTO".equals(s.getName())) {
-                totoFound = true;
+    // Arguments: DBMS host, database, username, and password, resp., in args[0], ..., args[3]
+    public static void main(String [] args) {
+        if (args.length!=4) {
+            System.err.println("You must specify DB host, database, username, and password as arguments");
+            System.exit(1);
+        }
+        System.out.print("Testing class SQLServiceDB... ");
+        System.out.flush();
+        SQLServiceDB db=null;
+        Connection link=null;
+        try {
+            link=TestServiceDB.createLink(args[0],args[1],args[2],args[3]);
+            db=new SQLServiceDB(link,"tableServicesTest");
+            TestServiceDB.test(db);
+        } catch (SQLException e) {
+            System.out.println("Exception: "+e);
+        } catch (AssertionError e) {
+            System.out.println("AssertionError e: "+e);
+        } finally {
+            try {
+                db.deleteTables();
+            } catch (SQLException e) {
+                System.out.println("Exception: "+e);
+            }
+            try {
+                link.close();
+            } catch (SQLException e) {
+                System.out.println("Exception: "+e);
             }
         }
-        assert totoFound;
-        assert instance.exists(3);
-        assert !instance.exists(999);
-        Service toto = instance.retrieve(1);
-        Service titi = instance.retrieve(3);
-        Service tete = instance.retrieve(5);
-        assert "TOTO".equals(toto.getName());
-        assert "TITI".equals(titi.getName());
-        assert "TETE".equals(tete.getName());
-
-        // Testing "U" methods
-        instance.update(2,new Service("TYTY", "desc", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
-       			new GregorianCalendar(2015, GregorianCalendar.MARCH, 15),"offer"));
-        assert instance.exists(2);
-        Service tyty = instance.retrieve(2);
-        assert "TYTY".equals(tyty.getName());
-
-        // Testing "D" methods
-        instance.delete(4);
-        assert instance.retrieveAll().size() == 4;
-        assert !instance.exists(4);
-        assert instance.exists(5);
-
+        System.out.println("OK");
     }
-	
+
+    protected static Connection createLink(String host, String database, String username, String password) throws SQLException {
+        MysqlDataSource ds=new MysqlDataSource();
+        ds.setServerName(host);
+        ds.setDatabaseName(database);
+        Connection link=ds.getConnection(username,password);
+        if (!link.isValid(0)) {
+            throw new SQLException("Failed to initialize a valid connection to database.");
+        }
+        return link;
+    }
+
+    protected static void test(SQLServiceDB db) throws SQLException, AssertionError {
+        // C
+        db.createTables();
+        
+        db.create(new Service(1, "Service1", "Description du service 1", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
+                new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13), "besoin"));
+        db.create(new Service(2, "Service2", "Description du service 2", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
+                new GregorianCalendar(2015, GregorianCalendar.MARCH, 15), "besoin"));
+        db.create(new Service(3, "Service3", "Description du service 3", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
+                new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25), "offre"));
+        
+        // R
+        List<Service> res=db.retrieveAll();
+        assert res.size()==3 : "READ - Inconsistent number of services in database";
+        boolean service1Found=false;
+        for (Service s : res) {
+            if ("Service1".equals(s.getName())) {
+                service1Found=true;
+                break;
+            }
+        }
+        assert service1Found : "READ - A valid service is not found in database";
+        Service service2=db.retrieve(2);
+        assert "Service2".equals(service2.getName()) : "READ - Name mismatch";
+        
+        // U
+        Service newService = new Service(3, "Service3Modifié", "Description modifiée du service 3", 
+                new GregorianCalendar(2015, GregorianCalendar.JANUARY, 6),
+                new GregorianCalendar(2015, GregorianCalendar.JANUARY, 19), "besoin"); 
+        db.update(newService, 3);
+        assert db.exists(3) : "UPDATE - Incorrect update";
+        
+        // D
+        db.delete(newService);
+        assert db.retrieveAll().size()==2;
+        assert db.retrieve(3)==null : "DELETE - The service should not exist in database";
+    }
+
 }

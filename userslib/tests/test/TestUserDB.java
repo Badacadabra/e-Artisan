@@ -68,7 +68,7 @@ public class TestUserDB {
         
         // R
         List<User> res=db.retrieveAll();
-        assert res.size()==3;
+        assert res.size()==3 : "READ - Inconsistent number of users in database";
         boolean totoFound=false;
         for (User u : res) {
             if ("Toto".equals(u.getName())) {
@@ -76,18 +76,19 @@ public class TestUserDB {
                 break;
             }
         }
-        assert totoFound;
+        assert totoFound : "READ - A valid user is not found in database";
         User tata=db.retrieve("tata@gmail.com");
-        assert "Tata".equals(tata.getName());
+        assert "Tata".equals(tata.getName()) : "READ - Name mismatch";
         
         // U
-        db.update(new User("Tutu", "Tutu", "tutu@gmail.com", "mdp4"), "tata@gmail.com");
-        assert db.exists("tutu@gmail.com");
+        User tutu=new User("Tutu", "Tutu", "tutu@gmail.com", "mdp4");
+        db.update(tutu, "tata@gmail.com");
+        assert db.exists("tutu@gmail.com") : "UPDATE - Incorrect update";
         
         // D
-        db.delete(tata);
-        assert db.retrieveAll().size()==2;
-        assert db.retrieve("tata@gmail.com")==null;
+        db.delete(tutu);
+        assert db.retrieveAll().size()==2 : "DELETE - Inconsistent number of users in database after deletion";
+        assert db.retrieve("tata@gmail.com")==null : "Delete - The user should not exist in database";
     }
 
 }

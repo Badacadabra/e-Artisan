@@ -28,8 +28,12 @@
 </target>
 
 <target name="test" depends="compiletests">
-  <java fork="yes" classname="tests.TestServiceDBStub" classpathref="external">
+  <java fork="yes" classname="test.TestServiceDB" classpath="build:lib/mysql-connector-java-5.1.37-bin.jar">
     <jvmarg value="-ea" />
+      <arg value="${host}" />
+      <arg value="${database}" />
+      <arg value="${username}" />
+      <arg value="${password}" />
   </java>
 </target>
 

@@ -132,11 +132,39 @@ $( "#show-cycles" ).click(function() {
 
 // Types de services
 var content = [
-  { title: 'Charpenterie' },
-  { title: 'Maçonnerie' },
-  { title: 'Paysage/Jardin' },
-  // etc.
+	{ title: 'Charpenterie' },
+	{ title: 'Maçonnerie' },
+	{ title: 'Paysage/Jardin' },
+	{ title: "Serrurerie" },
+	{ title: "volets roulants" },
+	{ title: "terrassement" },
+	{ title: "Pose – Réparation" },
+	{ title: "Ouverture de Porte" },
+	{ title: "Ebénisterie - cuisiniste - agencement – parquet" },
+	{ title: "Spécialiste de la piscine" },
+	{ title: "entetien" },
+	{ title: "dépannage" },
+	{ title: "Serrurerie" },
+	{ title: "Métallerie-ferronnerie" },
+	{ title: "portes blindées" },
+	{ title: "grilles" },
+	{ title: "rampes" },
+	{ title: "portails automatismes" },
+	{ title: "coffre-forts"},
+	{ title: "menuiserie métallique et PVC." },
+	{ title: "Maintenance" },
+	{ title: "Dépannage" },
+	{ title: "Chaudières Fioul/Gaz" },
+	{ title: "Electricité Générale" },
+	{ title: "Climatisation réversible" },
+	{ title: "Alarmes" },
+	{ title: "Antennes" },
+	{ title: "Automatisme de portail" },
+	{ title: "Poste MT BT" },
+	{ title: "Professionnel conventionnés VIVRELEC" }
+	  // etc.
 ];
+
 
 // Gestion de l'autocomplétion pour les types de services
 $('.ui.search')

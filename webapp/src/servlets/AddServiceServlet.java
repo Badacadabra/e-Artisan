@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import cycles.CycleDBHandler;
 import services.Service;
 import services.ServiceDBHandler;
 import users.User;
@@ -33,7 +34,7 @@ public class AddServiceServlet extends HttpServlet {
     	// We get parameters from query
     	//String id = req.getParameter("id");
     	HttpSession session = req.getSession();
-	User userSession = (User) session.getAttribute("user");
+    	User userSession = (User) session.getAttribute("user");
         
         if (userSession!=null) {
             String name = req.getParameter("type");
@@ -71,8 +72,8 @@ public class AddServiceServlet extends HttpServlet {
                     System.out.println(description);
                     System.out.println(status);
                     System.out.println(mode);
-        			new ServiceDBHandler().getDb().create(service);
-        			
+        			int last_inserted_id = new ServiceDBHandler().getDb().create(service);
+        			new CycleDBHandler().getDb().create(userSession.getEmail(),last_inserted_id);
             	} else {
             		String serviceId = req.getParameter("serviceId");
             		new ServiceDBHandler().getDb().update(service,Integer.parseInt(serviceId));

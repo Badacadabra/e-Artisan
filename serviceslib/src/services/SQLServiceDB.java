@@ -49,7 +49,7 @@ public class SQLServiceDB {
         this.table = table;
         String query = null;
         query = "INSERT INTO `" + this.table + "` SET name = ?, description = ?, publicationDate = ?, deadline = ?, status = ?";
-        this.createServiceStatement = this.link.prepareStatement(query);
+        this.createServiceStatement = this.link.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
         query = "SELECT * FROM `" + this.table + "` WHERE id=?";
         this.retrieveServiceStatement = this.link.prepareStatement(query);
         query = "UPDATE `" + this.table + "` SET name = ?, description = ?, publicationDate = ?, deadline = ?, status = ? where id = ?";
@@ -113,13 +113,19 @@ public class SQLServiceDB {
      * @param service The service to store
      * @throws SQLException if a database access error occurs
      */
-    public void create(Service service) throws SQLException {
+    public int create(Service service) throws SQLException {
         this.createServiceStatement.setString(1,service.getName());
         this.createServiceStatement.setString(2,service.getDescription());
         this.createServiceStatement.setDate(3,new Date(service.getPublicationDate().getTimeInMillis()));
         this.createServiceStatement.setDate(4,new Date(service.getDeadline().getTimeInMillis()));
         this.createServiceStatement.setString(5,service.getStatus());
         this.createServiceStatement.execute();
+        ResultSet rs = this.createServiceStatement.getGeneratedKeys();
+        int last_inserted_id = 0;
+        if (rs != null && rs.next()) {
+        	last_inserted_id = rs.getInt(1);
+        }
+        return last_inserted_id;
     }
 
     /**

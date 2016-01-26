@@ -19,33 +19,22 @@
                     <i class="circular refresh icon"></i>
                     Générer les cycles de services
                 </h2>
-                <c:forEach items="${cycles2}" var="item">
-                    <div>${item}</div>
-                </c:forEach>
                 <table class="ui black celled table" style="display:none;">
                     <thead class="full-width">
                         <tr>
-                            <th>Prestataire</th>
+							<th>Bénéficiaire</th>
                             <th>Service</th>
-                            <th>Bénéficiaire</th>
+							<th>Prestataire</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Toto</td>
-                            <td>Charpenterie</td>
-                            <td>Tutu</td>
-                        </tr>
-                        <tr>
-                            <td>Tutu</td>
-                            <td>Maçonnerie</td>
-                            <td>Tata</td>
-                        </tr>
-                        <tr>
-                            <td>Tata</td>
-                            <td>Jardin/Paysage</td>
-                            <td>Toto</td>
-                        </tr>
+						<c:forEach items="${cycles2}" var="item">
+							<tr>
+								<td>${item.sender.firstName} ${item.sender.name}</td>
+								<td>${item.service.name}</td>
+								<td>${item.receiver.firstName} ${item.receiver.name}</td>
+							</tr>
+						</c:forEach>
                     </tbody>
                     <tfoot class="full-width">
                         <tr>

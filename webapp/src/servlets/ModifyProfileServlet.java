@@ -68,7 +68,7 @@ public class ModifyProfileServlet extends HttpServlet {
                 String password = req.getParameter("password");
                 String description = req.getParameter("description");
                 String image = "none";
-           	User user = new User(lastName, firstName, description, image, email, password);
+           	User user = new User(lastName, firstName, description, image, email, password,"user");
            	new UserDBHandler().getDb().update(user, userSession.getEmail());
            	//session.invalidate();
            	 session.setAttribute("user", user);

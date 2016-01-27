@@ -24,16 +24,21 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("login");
         String password = req.getParameter("password");
         HttpSession session = req.getSession();
-        
+        User user = null;
         try {
             if (new UserDBHandler().getDb().isValidUser(email, password)) {
-        	User user = new UserDBHandler().getDb().retrieve(email);
+        	user = new UserDBHandler().getDb().retrieve(email);
                 session.setAttribute("user", user);
+            }
+            if (user.getRole().equals("admin")){
+            	resp.sendRedirect("admin");
+            } else {
+            	resp.sendRedirect("accueil");
             }
         } catch (Exception e) {
             this.performError(req,resp,e);
         }
-        resp.sendRedirect("accueil");
+        
     }
     
     private void performError(HttpServletRequest req,HttpServletResponse resp,Exception e) 

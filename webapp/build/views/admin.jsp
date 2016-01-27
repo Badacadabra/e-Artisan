@@ -22,42 +22,20 @@
                     Ajouter un utilisateur
                 </h2>
                 <div class="ui middle aligned divided list">
-                    <div class="item">
-                        <div class="right floated content">
-                            <div class="ui inverted orange button list-elt-link">Afficher</div>
-                            <div class="ui inverted brown button user-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large user middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Utilisateur n°1</span>
-                            <div class="description">Membre depuis 2 minutes</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="right floated content">
-                            <div class="ui inverted orange button list-elt-link">Afficher</div>
-                            <div class="ui inverted brown button user-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large user middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Utilisateur n°2</span>
-                            <div class="description">Membre depuis 1 heure</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="right floated content">
-                            <div class="ui inverted orange button list-elt-link">Afficher</div>
-                            <div class="ui inverted brown button user-modal-link">Modifier</div>
-                            <div class="ui inverted red button delete-btn">Supprimer</div>
-                        </div>
-                        <i class="large user middle aligned icon"></i>
-                        <div class="content">
-                            <span class="bold">Utilisateur n°3</span>
-                            <div class="description">Membre depuis 1 semaine</div>
-                        </div>
-                    </div>
+					<c:forEach items="${users}" var="user">
+						<div class="item">
+							<div class="right floated content">
+								<div class="ui inverted orange button list-elt-link">Afficher</div>
+								<div class="ui inverted brown button user-modal-link">Modifier</div>
+								<div class="ui inverted red button delete-btn">Supprimer</div>
+							</div>
+							<i class="large user middle aligned icon"></i>
+							<div class="content">
+								<span class="bold">${user.firstName} ${user.name}</span>
+								<!-- <div class="description">Membre depuis 2 minutes</div> -->
+							</div>
+						</div>
+					</c:forEach>
                 </div>
             </section>
         </div>

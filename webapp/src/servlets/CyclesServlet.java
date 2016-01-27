@@ -46,7 +46,7 @@ public class CyclesServlet extends HttpServlet {
 					// We get all couples users/needs (vertices)
 					ResultSet rsNeed = new CycleDBHandler().getDb().retrieveAll("need");
 					while(rsNeed.next()) {
-						User user = new User(rsNeed.getString(7),rsNeed.getString(8),rsNeed.getString(11),rsNeed.getString(12));
+						User user = new User(rsNeed.getString(7),rsNeed.getString(8),rsNeed.getString(11),rsNeed.getString(12),rsNeed.getString(13));
 						Service service = new Service(rsNeed.getString(2),rsNeed.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsNeed.getString("status"));
 						Couple couple = new Couple(user,service);
 						usersNeeds.add(couple);
@@ -58,7 +58,7 @@ public class CyclesServlet extends HttpServlet {
 					// We get all couples users/offers (vertices)
 					ResultSet rsOffer = new CycleDBHandler().getDb().retrieveAll("offer");
 					while(rsOffer.next()) {
-						User user = new User(rsOffer.getString(7),rsOffer.getString(8),rsOffer.getString(11),rsOffer.getString(12));
+						User user = new User(rsOffer.getString(7),rsOffer.getString(8),rsOffer.getString(11),rsOffer.getString(12),rsNeed.getString(13));
 						Service service = new Service(rsOffer.getString(2),rsOffer.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsOffer.getString("status"));
 					
 						Couple couple = new Couple(user,service);

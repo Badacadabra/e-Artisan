@@ -19,7 +19,9 @@ public class User extends Person {
     
     /** The user's image */
     private String image;
-
+    
+    /** The user's role */
+    private String role;
     /**
      * Builds a new user.
      * 
@@ -28,12 +30,13 @@ public class User extends Person {
      * @param email The user's email address
      * @param password The user's password
      */
-    public User(String lastName, String firstName, String email, String password) {
+    public User(String lastName, String firstName, String email, String password,String role) {
         super(lastName,firstName, email);
         this.password = password;
+        this.role = role;
     }
-    
-    /**
+
+	/**
      * Builds a new user.
      * 
      * @param lastName The user's last name
@@ -43,11 +46,12 @@ public class User extends Person {
      * @param email The user's email
      * @param password The user's password
      */
-    public User(String lastName, String firstName, String desc, String image, String email, String password) {
+    public User(String lastName, String firstName, String desc, String image, String email, String password,String role) {
         super(lastName, firstName, email);
         this.password = password;
         this.description = desc;
         this.image = image;
+        this.role = role;
     }
 
     /**
@@ -103,5 +107,20 @@ public class User extends Person {
     public void setImage(String image) {
         this.image = image;
     }
-
+    /**
+     * Returns the user's role
+     * 
+     * @return The user's role
+     */
+    public String getRole() {
+		return role;
+	}
+    /**
+     * Sets the user's role
+     * 
+     * @param role The user's new role
+     */
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

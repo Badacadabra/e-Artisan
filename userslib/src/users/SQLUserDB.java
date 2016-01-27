@@ -49,11 +49,11 @@ public class SQLUserDB {
         this.link=link;
         this.table=table;
         String query=null;
-        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,MD5(?))";
+        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,MD5(?),?)";
         this.createUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
-        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = MD5(?) where email = ?";
+        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = MD5(?), role = ? where email = ?";
         this.updateUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=? and passwd=MD5(?)";
         this.checkUserStatement=this.link.prepareStatement(query);
@@ -104,6 +104,7 @@ public class SQLUserDB {
         query+="`image` VARCHAR(100) NULL, ";
         query+="`email`  VARCHAR(100) NOT NULL, ";
         query+="`passwd`  VARCHAR(100) NOT NULL, ";
+        query+="`role`  VARCHAR(100) NOT NULL, ";
         query+="PRIMARY KEY (`email`)";
         query+=")";
         Statement statement=this.link.createStatement();
@@ -123,6 +124,7 @@ public class SQLUserDB {
         this.createUserStatement.setString(4,user.getImage());
         this.createUserStatement.setString(5,user.getEmail());
         this.createUserStatement.setString(6,user.getPassword());
+        this.createUserStatement.setString(7,user.getRole());
         this.createUserStatement.execute();
     }
 
@@ -139,7 +141,7 @@ public class SQLUserDB {
         rs=statement.executeQuery(query);
         List<User> res=new ArrayList<User>();
         while (rs.next()) {
-            res.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("email"),rs.getString("passwd")));
+            res.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("email"),rs.getString("passwd"),rs.getString("role")));
         }
         return res;
     }
@@ -157,7 +159,7 @@ public class SQLUserDB {
         if (!rs.next()) {
             return null;
         }
-        return new User(rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"));
+        return new User(rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
     }
     
     /**
@@ -202,7 +204,8 @@ public class SQLUserDB {
         this.updateUserStatement.setString(4,user.getImage());
         this.updateUserStatement.setString(5,user.getEmail());
         this.updateUserStatement.setString(6,user.getPassword());
-        this.updateUserStatement.setString(7,email);
+        this.updateUserStatement.setString(7,user.getRole());
+        this.updateUserStatement.setString(8,email);
         this.updateUserStatement.execute();
     }
 

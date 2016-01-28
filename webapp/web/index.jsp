@@ -20,8 +20,17 @@
             </div>
 
             <nav class="cd-primary-nav">
-                <a href="#0" class="sign-in-link">Connexion</a>
-                <a href="#0" class="sign-up-link">Inscription</a>
+				 <c:choose>
+					<c:when test="${currentUser!=null}">
+						<a href="logout" class="sign-in-link">Déconnexion</a>
+						<a href="accueil" class="sign-up-link">Mon espace</a>
+					</c:when>    
+					<c:otherwise>
+						<a href="#0" class="sign-in-link">Connexion</a>
+						<a href="#0" class="sign-up-link">Inscription</a>
+					</c:otherwise>
+				</c:choose>
+                
             </nav> <!-- .cd-primary-nav -->
         </header>
 

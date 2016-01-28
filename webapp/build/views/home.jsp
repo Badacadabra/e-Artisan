@@ -13,11 +13,12 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="accueil" value="active" />
+                <jsp:param name="role" value="${currentUser.role}" />
             </jsp:include>
             <section id="main-section" class="reset">
                 <div class="ui orange message">
                     <div class="content">
-                        <h3 class="header">Bonjour,  ${user.firstName} ! Comment pouvons-nous vous aider ?</h3>
+                        <h3 class="header">Bonjour,  ${currentUser.firstName} ! Comment pouvons-nous vous aider ?</h3>
                         <p>Vous êtes ici dans votre espace personnel.</p>
                         <p>Pour profiter au maximum des fonctionnalités offertes par le site, vous pouvez suivre les étapes listées ci-dessous.</p>
                         <p>À l'issue de la procédure, vous pourrez générer automatiquement des cycles de services car nous serons alors en mesure de voir les échanges possibles au sein du réseau, en fonction de ce que vous souhaitez recevoir et de ce que vous êtes capable d'offrir.</p>
@@ -25,7 +26,7 @@
                     </div>
                 </div>
                 <div class="ui fluid vertical steps">
-                    <a href="profil" class="link step">
+                    <a href="profil?id=${currentUser.id}" class="link step">
                         <i class="user icon"></i>
                         <div class="content">
                             <div class="title">Profil</div>

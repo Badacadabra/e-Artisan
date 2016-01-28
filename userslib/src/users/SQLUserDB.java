@@ -35,6 +35,9 @@ public class SQLUserDB {
     /** A prepared statement to see if a user exists */
     private PreparedStatement isUserStatement;
     
+    /** A prepared statement to see if a user exists */
+    private PreparedStatement deleteStatement;
+    
     /** A link to the database. */
     protected Connection link;
 
@@ -49,16 +52,18 @@ public class SQLUserDB {
         this.link=link;
         this.table=table;
         String query=null;
-        query="INSERT INTO `"+this.table+"` VALUES(?,?,?,?,?,MD5(?),?)";
-        this.createUserStatement=this.link.prepareStatement(query);
-        query="SELECT * FROM `"+this.table+"` WHERE email=?";
+        query="INSERT INTO `"+this.table+"` SET name = ?, firstname =?, email = ?, passwd = MD5(?), role = ?";
+        this.createUserStatement=this.link.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+        query="SELECT * FROM `"+this.table+"` WHERE id=?";
         this.retrieveUserStatement=this.link.prepareStatement(query);
-        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = MD5(?), role = ? where email = ?";
+        query="UPDATE `"+this.table+"` SET name = ?, firstname =?, description = ?, image = ?, email = ?, passwd = ?, role = ? where id = ?";
         this.updateUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=? and passwd=MD5(?)";
         this.checkUserStatement=this.link.prepareStatement(query);
         query="SELECT * FROM `"+this.table+"` WHERE email=?";
         this.isUserStatement=this.link.prepareStatement(query);
+        query="DELETE FROM `"+this.table+"` WHERE id = ?";
+        this.deleteStatement=this.link.prepareStatement(query);
     }
 
     /**
@@ -98,6 +103,7 @@ public class SQLUserDB {
      */
     public void createTables() throws SQLException {
         String query="CREATE TABLE IF NOT EXISTS `"+this.table+"` (";
+        query +="`id` int(255) NOT NULL AUTO_INCREMENT,";
         query+="`name` VARCHAR(100) NOT NULL, ";
         query+="`firstname` VARCHAR(100) NOT NULL, ";
         query+="`description` text NULL, ";
@@ -105,7 +111,7 @@ public class SQLUserDB {
         query+="`email`  VARCHAR(100) NOT NULL, ";
         query+="`passwd`  VARCHAR(100) NOT NULL, ";
         query+="`role`  VARCHAR(100) NOT NULL, ";
-        query+="PRIMARY KEY (`email`)";
+        query+="PRIMARY KEY (`id`)";
         query+=")";
         Statement statement=this.link.createStatement();
         statement.execute(query);
@@ -117,15 +123,21 @@ public class SQLUserDB {
      * @param User The user to store
      * @throws SQLException if a database access error occurs
      */
-    public void create(User user) throws SQLException {
+    public int create(User user) throws SQLException {
         this.createUserStatement.setString(1,user.getName());
         this.createUserStatement.setString(2,user.getFirstName());
-        this.createUserStatement.setString(3,user.getDescription());
-        this.createUserStatement.setString(4,user.getImage());
-        this.createUserStatement.setString(5,user.getEmail());
-        this.createUserStatement.setString(6,user.getPassword());
-        this.createUserStatement.setString(7,user.getRole());
+        //this.createUserStatement.setString(3,user.getDescription());
+        //this.createUserStatement.setString(4,user.getImage());
+        this.createUserStatement.setString(3,user.getEmail());
+        this.createUserStatement.setString(4,user.getPassword());
+        this.createUserStatement.setString(5,user.getRole());
         this.createUserStatement.execute();
+        ResultSet rs = this.createUserStatement.getGeneratedKeys();
+        int last_inserted_id = 0;
+        if (rs != null && rs.next()) {
+        	last_inserted_id = rs.getInt(1);
+        }
+        return last_inserted_id;
     }
 
     /**
@@ -135,31 +147,46 @@ public class SQLUserDB {
      * @throws SQLException if a database access error occurs
      */
     public List<User> retrieveAll() throws SQLException {
-        String query="SELECT * FROM `"+this.table+"`";
+        String query="SELECT * FROM `"+this.table+"` ORDER BY firstName ASC";
         ResultSet rs=null;
         Statement statement=this.link.createStatement();
         rs=statement.executeQuery(query);
         List<User> res=new ArrayList<User>();
         while (rs.next()) {
-            res.add(new User(rs.getString("name"),rs.getString("firstName"),rs.getString("email"),rs.getString("passwd"),rs.getString("role")));
+        	res.add(new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role")));
         }
         return res;
     }
     
     /**
-     * Retrieves a user in the database.
+     * Retrieves a user in the database by he's email.
      * 
      * @param email The email of the user
      * @return A user, or null if none with the given name exists in the database
      * @throws SQLException if a database access error occurs
      */
     public User retrieve(String email) throws SQLException {
-        this.retrieveUserStatement.setString(1,email);
+        this.isUserStatement.setString(1,email);
+        ResultSet rs=this.isUserStatement.executeQuery();
+        if (!rs.next()) {
+            return null;
+        }
+        return new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
+    }
+    /**
+     * Retrieves a user in the database by he's id.
+     * 
+     * @param email The email of the user
+     * @return A user, or null if none with the given name exists in the database
+     * @throws SQLException if a database access error occurs
+     */
+    public User retrieve(int id) throws SQLException {
+        this.retrieveUserStatement.setInt(1,id);
         ResultSet rs=this.retrieveUserStatement.executeQuery();
         if (!rs.next()) {
             return null;
         }
-        return new User(rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
+        return new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
     }
     
     /**
@@ -197,7 +224,7 @@ public class SQLUserDB {
      * @param email The user's email
      * @throws SQLException if a database access error occurs
      */
-    public void update(User user, String email) throws SQLException {  
+    public void update(User user) throws SQLException {  
         this.updateUserStatement.setString(1,user.getName());
         this.updateUserStatement.setString(2,user.getFirstName());
         this.updateUserStatement.setString(3,user.getDescription());
@@ -205,7 +232,7 @@ public class SQLUserDB {
         this.updateUserStatement.setString(5,user.getEmail());
         this.updateUserStatement.setString(6,user.getPassword());
         this.updateUserStatement.setString(7,user.getRole());
-        this.updateUserStatement.setString(8,email);
+        this.updateUserStatement.setInt(8,user.getId());
         this.updateUserStatement.execute();
     }
 
@@ -226,10 +253,9 @@ public class SQLUserDB {
      * @param User The user
      * @throws SQLException if a database access error occurs
      */
-    public void delete(User user) throws SQLException {  
-        String query="DELETE FROM `"+this.table+"` WHERE email=\""+user.getEmail()+"\"";
-        Statement statement=this.link.createStatement();
-        statement.execute(query);
+    public void delete(int id) throws SQLException {  
+    	this.deleteStatement.setInt(1,id);
+    	this.deleteStatement.execute();
     }
 
 }

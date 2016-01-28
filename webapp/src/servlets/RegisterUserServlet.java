@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import users.User;
 import users.UserDBHandler;
 
@@ -27,21 +28,33 @@ public class RegisterUserServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String mode = req.getParameter("mode");
+        String id = req.getParameter("currentUserId");
+        
         HttpSession session = req.getSession();
-        User userSession = (User) session.getAttribute("user");
+        User userSession = (User) session.getAttribute("currentUser");
         
         try {
-            User user = new User(lastName,firstName,"_none", "_none",email,password,"user");
-            new UserDBHandler().getDb().create(user);
-            
+        	User user = null;
             if (userSession!=null) { //Here the register request come from the admin zone
             	if (userSession.getRole().equals("admin")){
+            		if (mode!=null && mode.equals("insert")) {
+            			user = new User(lastName,firstName,email,password,"user");
+            			new UserDBHandler().getDb().create(user);
+            		} else {
+            			User tmpUser = new UserDBHandler().getDb().retrieve(Integer.parseInt(id));
+            			user = new User(tmpUser.getId(),lastName,firstName,tmpUser.getDescription(),tmpUser.getImage(),email,password,"user");
+            			new UserDBHandler().getDb().update(user);
+            		}
  	            	resp.sendRedirect("admin");
  	            } else {
  	            	resp.sendRedirect(req.getContextPath());
  	            }
             } else { //Here the register request come from the public zone
-            	session.setAttribute("user", user);
+            	user = new User(lastName,firstName,email,password,"user");
+            	int userId = new UserDBHandler().getDb().create(user);
+                User currentUser =  new User(userId,lastName,firstName,null,null,email,password,"user");
+            	session.setAttribute("currentUser", currentUser);
             	resp.sendRedirect("accueil");
             }
         } catch (Exception e) {

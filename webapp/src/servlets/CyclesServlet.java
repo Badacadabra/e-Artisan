@@ -33,7 +33,7 @@ public class CyclesServlet extends HttpServlet {
         throws ServletException, IOException {
 
 	    	HttpSession session = req.getSession();
-	    	User userSession = (User) session.getAttribute("user");
+	    	User userSession = (User) session.getAttribute("currentUser");
 	        
 	    	if (userSession!=null) {
 	    		

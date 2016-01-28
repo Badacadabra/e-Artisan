@@ -17,10 +17,12 @@
             <section id="main-section">
                 <div id="profile-header">
                     <h2>${user.firstName} ${user.name}</h2>
-                    <button id="edit-profile-button" class="ui inverted orange button">
-                        <i class="write icon"></i>
-                        Modifier le profil
-                    </button>
+                     <c:if test="${currentUser.id==user.id}">
+						 <button id="edit-profile-button" class="ui inverted orange button">
+							<i class="write icon"></i>
+							Modifier le profil
+						</button>
+					</c:if>
                 </div>
                 <p class="italic">Inscrit le...</p>
                 <img id="user-photo" src="${root}/assets/default_image.png" alt="${user.firstName} ${user.name}">
@@ -64,6 +66,7 @@
                         <button class="ui black button" type="reset">Annuler</button>
                         <button class="ui orange button" type="submit">Valider</button>
                     </div>
+                    <input type="hidden" name="currentUserId" value="${user.id}">
                     <c:if test="${! empty error}">
 						<p>${error}</p>
 					</c:if>

@@ -30,21 +30,20 @@ public class NeedServlet extends HttpServlet {
         throws ServletException, IOException {
     
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("currentUser");
         
         if (user!=null) {
             try {
             	List<Service> listService = new ArrayList<>(); //getDb().retrieveAll("need");
-            	ResultSet rsNeed = new CycleDBHandler().getDb().retrieveAll(user.getEmail(),"need");
+            	ResultSet rsNeed = new CycleDBHandler().getDb().retrieveAll(user.getId(),"need");
 				while(rsNeed.next()) {
-					Service service = new Service(rsNeed.getString(2),rsNeed.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsNeed.getString("status"));
+					Service service = new Service(rsNeed.getInt(1),rsNeed.getString(2),rsNeed.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsNeed.getString("status"));
 					listService.add(service);
 				}
-        	req.setAttribute("listService", listService);
+				req.setAttribute("listService", listService);
             } catch (Exception e) {
-		// TODO: handle exception
-		String error = "Erreur lors de la récupération des données" + e;
-		System.out.println(error);
+            	String error = "Erreur lors de la récupération des données" + e;
+            	System.out.println(error);
             }	
             this.getServletContext().getRequestDispatcher( "/views/besoins.jsp" ).forward( req, resp );
         } else {

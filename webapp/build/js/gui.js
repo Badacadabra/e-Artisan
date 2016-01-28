@@ -12,14 +12,35 @@ showModal("user-modal-link", "user-modal");
 
 function showModal(classLink, idModal) {
     $( "." + classLink ).click(function() {
-		var needId = $(this).next().next().val();
-		if ($(this).attr("id")!="add-need" && $(this).attr("id")!="add-offer") {
-			$('input[name="type"]').val($("#list-elt-"+needId+" h3").text());
-			$('textarea[name="description"]').text($("#list-elt-"+needId+" p").text());
-			//$('input[name="deadline"]').val($("list-elt-"+needId+" h3").text());
+		var serviceId = $(this).next().next().val();
+		var user = $(this).next().next(); //User to upade from the admin page
+		//Initialisation
+		$('input[name="mode"]').val("insert");
+		$('input[name="type"]').val("");
+		$('textarea[name="description"]').text("");
+		if ($(this).attr("id")!="add-need" && $(this).attr("id")!="add-offer" && $(this).attr("id")!="add-user") {
+			$('input[name="type"]').val($("#list-elt-"+serviceId+" h3").text());
+			$('textarea[name="description"]').text($("#list-elt-"+serviceId+" p").text());
 			$('input[name="mode"]').val("update");
-			$('#serviceId').val(needId);
+			$('#serviceId').val(serviceId);
 		}
+		//The admin zone user manager
+		//Initialization when it insert mode
+		$('input[name="lastName"]').val("");
+		$('input[name="firstName"]').val("");
+		$('input[name="email"]').val("");
+		$('input[name="password"]').val("");
+		if (user.attr("id")=="tmpId_"+user.val()) {
+			$('input[name="lastName"]').val($('#tmpName_'+user.val()).val());
+			$('input[name="firstName"]').val($('#tmpFirstName_'+user.val()).val());
+			$('input[name="email"]').val($('#tmpEmail_'+user.val()).val());
+			$('input[name="password"]').val($('#tmpPassword_'+user.val()).val());
+			$('#currentUserId').val(user.val()); //id of the user to update
+			$('input[name="mode"]').val("update");
+		}
+		//var classs = $(".user-modal-link")[1].nodeName;
+		//console.log(class)
+		//if ($(this).attr("class")==)
         $('#' + idModal).modal('setting', {
             'onApprove': function() {
                 $( "#" + idModal + " form" ).trigger( "submit" );
@@ -107,20 +128,24 @@ $( ".list-elt-button" ).each(function() {
 
 // Affichage d'une page de profil depuis la zone d'administration
 $( ".list-elt-link" ).click(function() {
-    window.open("profil", "_blank");
+	var userId = $(this).next().next().next().val();
+	console.log(userId);
+    window.open("profil?id="+userId, "_blank");
 });
 
 // Gestion de la suppression d'un besoin, d'une offre, et d'un utilisateur
 $( ".delete-btn" ).click(function() {
-	console.log($(this).next().val());
+	var userId = $(this).next().val();
     var currentElt = $( this );
     $('.delete-list-elt').modal('setting', {
         'onApprove': function() {
             currentElt.parent().parent().remove();
-            $( ".list-elt" ).slideUp();
-            $( ".list-elt-button" ).each(function() {
-                $( this ).text( "Afficher" );
+            $(".list-elt" ).slideUp();
+            $(".list-elt-button" ).each(function() {
+                $( this ).text("Afficher");
             });
+            var status = $('input[name="needOrOffer"]').val();
+            window.open("delete?id="+userId+"&status="+status);
         }
     }).modal('show');
 });

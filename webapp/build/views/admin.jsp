@@ -15,19 +15,26 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="admin" value="active" />
+                <jsp:param name="userId" value="${currentUser.id}" />
             </jsp:include>
             <section id="main-section">
-                <h2 class="ui center aligned icon header user-modal-link">
+                <h2 class="ui center aligned icon header user-modal-link" id="add-user">
                     <i class="circular user icon"></i>
                     Ajouter un utilisateur
                 </h2>
                 <div class="ui middle aligned divided list">
-					<c:forEach items="${users}" var="user">
+					<c:forEach items="${users}" var="user" varStatus="loop">
 						<div class="item">
 							<div class="right floated content">
 								<div class="ui inverted orange button list-elt-link">Afficher</div>
 								<div class="ui inverted brown button user-modal-link">Modifier</div>
 								<div class="ui inverted red button delete-btn">Supprimer</div>
+								<input type="hidden" name="tmpId_${user.id}" id="tmpId_${user.id}" value="${user.id}">
+								<input type="hidden" name="tmpName_${user.id}" id="tmpName_${user.id}" value="${user.name}">
+								<input type="hidden" name="tmpFirstName_${user.id}" id="tmpFirstName_${user.id}" value="${user.firstName}">
+								<input type="hidden" name="tmpEmail_${user.id}" id="tmpEmail_${user.id}" value="${user.email}">
+								<input type="hidden" name="tmpPassword_${user.id}" id="tmpPassword_${user.id}" value="${user.password}">
+								<input type="hidden" name="needOrOffer" value="admin">
 							</div>
 							<i class="large user middle aligned icon"></i>
 							<div class="content">
@@ -67,6 +74,8 @@
                         </div>
                     </div>
                     <div class="mandatory">* Champs requis</div>
+                    <input type="hidden" name="currentUserId" id="currentUserId"/>
+                    <input type="hidden" name="mode" value="insert"/>
                 </form>
             </div>
             <div class="actions ui grid container">

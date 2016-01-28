@@ -34,6 +34,9 @@ public class SQLServiceDB {
     /** A prepared statement to see if a service exists */
     private PreparedStatement isServiceStatement;
     
+    /** A prepared statement to see if a service exists */
+    private PreparedStatement deleteStatement;
+    
     /** A link to the database. */
     protected Connection link;
 
@@ -56,6 +59,8 @@ public class SQLServiceDB {
         this.updateServiceStatement = this.link.prepareStatement(query);
         query = "SELECT * FROM `" + this.table + "` WHERE id = ?";
         this.isServiceStatement=this.link.prepareStatement(query);
+        query = "DELETE FROM `" + this.table + "` WHERE id = ?";
+        this.deleteStatement = this.link.prepareStatement(query);
     }
 
     /**
@@ -228,10 +233,9 @@ public class SQLServiceDB {
      * @param Service The service
      * @throws SQLException if a database access error occurs
      */
-    public void delete(Service service) throws SQLException {  
-        String query = "DELETE FROM `" + this.table + "` WHERE name=\"" + service.getName() + "\"";
-        Statement statement = this.link.createStatement();
-        statement.execute(query);
+    public void delete(int id) throws SQLException {  
+    	this.deleteStatement.setInt(1, id);
+    	this.deleteStatement.execute();
     }
     
 }

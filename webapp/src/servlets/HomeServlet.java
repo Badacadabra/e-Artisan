@@ -22,7 +22,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("currentUser");
         if (user!=null) {
             //req.setAttribute("user",user);
             this.getServletContext().getRequestDispatcher( "/views/home.jsp" ).forward( req, resp );

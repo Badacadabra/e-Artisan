@@ -11,7 +11,10 @@ import persons.*;
  */
 public class User extends Person {
 
-    /** The user's passowrd */
+	/** The user's id */
+    private int id;
+    
+	/** The user's passowrd */
     private String password;
     
     /** The user's description */
@@ -46,14 +49,30 @@ public class User extends Person {
      * @param email The user's email
      * @param password The user's password
      */
-    public User(String lastName, String firstName, String desc, String image, String email, String password,String role) {
+    public User(int id, String lastName, String firstName, String desc, String image, String email, String password,String role) {
         super(lastName, firstName, email);
+        this.id = id;
         this.password = password;
         this.description = desc;
         this.image = image;
         this.role = role;
     }
-
+    /**
+     * Returns the user's id
+     * 
+     * @return id The user's id
+     */
+    public int getId() {
+		return id;
+	}
+    /**
+     * Sets the user's id
+     * 
+     * @param id The user's id
+     */
+	public void setId(int id) {
+		this.id = id;
+	}
     /**
      * Returns the user's password.
      * 

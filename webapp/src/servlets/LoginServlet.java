@@ -27,14 +27,18 @@ public class LoginServlet extends HttpServlet {
         User user = null;
         try {
             if (new UserDBHandler().getDb().isValidUser(email, password)) {
-        	user = new UserDBHandler().getDb().retrieve(email);
-                session.setAttribute("user", user);
-            }
-            if (user.getRole().equals("admin")){
-            	resp.sendRedirect("admin");
+            	user = new UserDBHandler().getDb().retrieve(email);
+                session.setAttribute("currentUser", user);
+                
+                if (user.getRole().equals("admin")){
+                	resp.sendRedirect("admin");
+                } else {
+                	resp.sendRedirect("accueil");
+                }
             } else {
-            	resp.sendRedirect("accueil");
+            	this.performError(req,resp,new Exception());
             }
+            
         } catch (Exception e) {
             this.performError(req,resp,e);
         }

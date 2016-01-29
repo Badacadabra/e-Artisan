@@ -45,6 +45,7 @@ public class CyclesServlet extends HttpServlet {
 	        	try {
 					// We get all couples users/needs (vertices)
 					ResultSet rsNeed = new CycleDBHandler().getDb().retrieveAll("need");
+					System.out.println(rsNeed.next());
 					while(rsNeed.next()) {
 						User user = new User(rsNeed.getString(7),rsNeed.getString(8),rsNeed.getString(11),rsNeed.getString(12),rsNeed.getString(13));
 						Service service = new Service(rsNeed.getString(2),rsNeed.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsNeed.getString("status"));
@@ -102,10 +103,7 @@ public class CyclesServlet extends HttpServlet {
 						String error = "Aucun cycle trouvé";
 						req.setAttribute("cycleError", error);
 					}
-				} catch (SQLException e) {
-					String error = "Erreur lors de la récupération des données : "+ e.getMessage();
-					System.out.println(error);
-				} catch (NamingException e) {
+				} catch (Exception e) {
 					String error = "Erreur lors de la récupération des données : "+ e.getMessage();
 					System.out.println(error);
 				}

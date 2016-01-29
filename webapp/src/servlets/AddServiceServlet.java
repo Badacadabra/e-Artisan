@@ -32,7 +32,6 @@ public class AddServiceServlet extends HttpServlet {
         throws ServletException, IOException {
        
     	// We get parameters from query
-    	//String id = req.getParameter("id");
     	HttpSession session = req.getSession();
     	User userSession = (User) session.getAttribute("currentUser");
         
@@ -44,8 +43,6 @@ public class AddServiceServlet extends HttpServlet {
             String status = req.getParameter("needOrOffer");
             String mode = req.getParameter("mode");
             
-            
-            //System.out.println(serviceId);
             // Conversion from strings to dates
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             
@@ -68,10 +65,6 @@ public class AddServiceServlet extends HttpServlet {
             try {
             	Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
             	if (mode.equals("insert")) {
-            		System.out.println(name);
-                    System.out.println(description);
-                    System.out.println(status);
-                    System.out.println(mode);
         			int last_inserted_id = new ServiceDBHandler().getDb().create(service);
         			new CycleDBHandler().getDb().create(userSession.getId(),last_inserted_id);
             	} else {
@@ -80,13 +73,8 @@ public class AddServiceServlet extends HttpServlet {
             	}
             } catch (Exception e) {
                 error = "Erreur dans l'ajout du service." + e;
-                //req.setAttribute("error", error);
+                req.setAttribute("error", error);
                 System.out.println(error);
-                /*if (status.equals("need")) {
-                    this.getServletContext().getRequestDispatcher( "/views/besoins.jsp" ).forward( req, resp );
-                } else {
-                    this.getServletContext().getRequestDispatcher( "/views/offres.jsp" ).forward( req, resp );
-                }*/
             }
             // If everything went well
             String message = "Service créé avec succès !";

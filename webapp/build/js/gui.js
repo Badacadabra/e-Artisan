@@ -15,21 +15,14 @@ function showModal(classLink, idModal) {
 		var serviceId = $(this).next().next().val();
 		var user = $(this).next().next(); //User to upade from the admin page
 		//Initialisation
+		initializeElements();
 		$('input[name="mode"]').val("insert");
-		$('input[name="type"]').val("");
-		$('textarea[name="description"]').text("");
 		if ($(this).attr("id")!="add-need" && $(this).attr("id")!="add-offer" && $(this).attr("id")!="add-user") {
 			$('input[name="type"]').val($("#list-elt-"+serviceId+" h3").text());
 			$('textarea[name="description"]').text($("#list-elt-"+serviceId+" p").text());
 			$('input[name="mode"]').val("update");
 			$('#serviceId').val(serviceId);
 		}
-		//The admin zone user manager
-		//Initialization when it insert mode
-		$('input[name="lastName"]').val("");
-		$('input[name="firstName"]').val("");
-		$('input[name="email"]').val("");
-		$('input[name="password"]').val("");
 		if (user.attr("id")=="tmpId_"+user.val()) {
 			$('input[name="lastName"]').val($('#tmpName_'+user.val()).val());
 			$('input[name="firstName"]').val($('#tmpFirstName_'+user.val()).val());
@@ -38,19 +31,33 @@ function showModal(classLink, idModal) {
 			$('#currentUserId').val(user.val()); //id of the user to update
 			$('input[name="mode"]').val("update");
 		}
-		//var classs = $(".user-modal-link")[1].nodeName;
-		//console.log(class)
-		//if ($(this).attr("class")==)
-        $('#' + idModal).modal('setting', {
-            'onApprove': function() {
-                $( "#" + idModal + " form" ).trigger( "submit" );
-                return false; // On bloque la fermeture de la modale
-            },
-        }).modal('show');
+		var href = $(this).attr("href"); //CurrentButton href
+		if (href != "logout" && href != "accueil") {
+			$('#' + idModal).modal('setting', {
+				'onApprove': function() {
+					$( "#" + idModal + " form" ).trigger( "submit" );
+					return false; // On bloque la fermeture de la modale
+				},
+			}).modal('show');
+		}
     });
 }
 
-submitModal("sign-in");
+function initializeElements() {
+		
+	$("input").each(function(){
+		var type = $(this).attr("type");
+		if(type == "text" || type == "password")
+			$(this).val("");
+	});
+	$("textarea").each(function(){
+		var tagName = $(this).prop("tagName").toLowerCase();
+		if(tagName == "textarea")
+			$(this).text("");
+	});
+}
+
+/*submitModal("sign-in");
 submitModal("sign-up");
 submitModal("need-modal");
 submitModal("offer-modal");
@@ -68,7 +75,7 @@ function submitModal(id) {
                     location.href = "besoins";
                     break;
                 case "offer-modal":
-                    location.href = "offres";
+                    //location.href = "offres";
                     break;
                 case "user-modal":
                     location.href = "admin";
@@ -78,34 +85,11 @@ function submitModal(id) {
             // return false;
         }
     });
-}
-
-// Menu vertical
-//~ $( ".ui.vertical.menu .item" ).click(function() {
-    //~ $( this ).addClass( "active" );
-    //~ $( this ).siblings( ".item" ).removeClass( "active" );
-//~ });
-
-// Déconnexion
-/*$( "#logout" ).click(function() {
-    $('#logout-modal').modal('setting', {
-        'onApprove': function() {
-            location.href = "index.jsp";
-        }
-    }).modal('show');
-});*/
-
+}*/
 // Formulaire de modification de profil
 $( "#edit-profile-button" ).click(function() {
     $( "#edit-profile-form" ).slideToggle();
 });
-
-/*$( "#edit-profile-form" ).submit(function(e) {
-    e.preventDefault();
-    if ($( this ).form('is valid')) {
-        location.href = "";
-    }
-});*/
 
 // Affichage des détails pour les besoins et les offres
 $( ".list-elt-button" ).each(function() {
@@ -114,8 +98,6 @@ $( ".list-elt-button" ).each(function() {
     $( "#" + idLink ).click(function() {
 		console.log($("#" + idLink).next().next().next().val());
 		var idToSend = $("#" + idLink).next().next().next().val();
-		//Récupération du besoin à afficher via ajax
-		//performAjax("http://localhost:8080/e-artisan/besoins/",{id:idToSend},"GET",parseNeeds);
 		
         if ($( "#" + idLink ).text() == "Afficher") {
             $( "#" + idLink ).text( "Masquer" );
@@ -135,7 +117,7 @@ $( ".list-elt-link" ).click(function() {
 
 // Gestion de la suppression d'un besoin, d'une offre, et d'un utilisateur
 $( ".delete-btn" ).click(function() {
-	var userId = $(this).next().val();
+	var userId = $(this).next().val(); 
     var currentElt = $( this );
     $('.delete-list-elt').modal('setting', {
         'onApprove': function() {
@@ -145,7 +127,7 @@ $( ".delete-btn" ).click(function() {
                 $( this ).text("Afficher");
             });
             var status = $('input[name="needOrOffer"]').val();
-            window.open("delete?id="+userId+"&status="+status);
+            location.href = "delete?id="+userId+"&status="+status;
         }
     }).modal('show');
 });
@@ -190,22 +172,9 @@ var content = [
 	  // etc.
 ];
 
-
 // Gestion de l'autocomplétion pour les types de services
 $('.ui.search')
   .search({
     source: content
   })
 ;
-function parseNeeds(result) {
-	console.log(result);
-}
-//AJax
-function performAjax(url,data,type,callback) {
-	$.ajax({
-		  url: url,
-		  data : data,
-		  type: type,
-		  dataType: "json"
-		}).success(callback);
-}

@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
     
     private void performError(HttpServletRequest req,HttpServletResponse resp,Exception e) 
     		throws ServletException, IOException {
-    	String msg = "Connexion refusée. Ce compte n'existe pas dans notre base de données."+e.getMessage();
+    	String msg = "Connexion refusée : Ce compte n'existe pas dans notre base de données.";
         req.setAttribute("errorLogin", msg);
         this.getServletContext().getRequestDispatcher(req.getContextPath()).forward( req, resp );
     }

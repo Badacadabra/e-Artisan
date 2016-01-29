@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.NamingException;
+
+import services.ServiceDBHandler;
+
 /**
  * A class for SQL storage of services in a database.
  * The id of the service is taken to be its primary key.
@@ -21,8 +25,12 @@ public class SQLCycleDB {
     private PreparedStatement retrieveCouplesStatement;
     /*************Retrieve a couple*****************/
     private PreparedStatement retrieveAllCouplesStatement;
+    /*************Retrieve all user couple*****************/
+    private PreparedStatement retrieveUserCouplesStatement;
     /*************Retrieve a couple*****************/
     private PreparedStatement createCoupleStatement;
+    /*************Remove a couple*****************/
+    private PreparedStatement removeCoupleStatement;
     /**
      * Builds a new instance.
      * 
@@ -38,9 +46,14 @@ public class SQLCycleDB {
         query = "SELECT services.* FROM `services`, `users`, `user_services` WHERE users.id = "+
         		"user_services.user_id AND services.id = user_services.service_id AND services.status = ? AND users.id = ?";
         this.retrieveCouplesStatement = this.link.prepareStatement(query);
+        query = "SELECT services.* FROM `services`, `users`, `user_services` WHERE users.id = "+
+        		"user_services.user_id AND services.id = user_services.service_id AND users.id = ?";
+        this.retrieveUserCouplesStatement = this.link.prepareStatement(query);
         query = "SELECT services.*, users.* FROM `services`, `users`, `user_services` WHERE users.id = "+
         		"user_services.user_id AND services.id = user_services.service_id AND services.status = ?";
         this.retrieveAllCouplesStatement = this.link.prepareStatement(query);
+        query = "DELETE FROM `user_services` WHERE user_id = ? AND service_id = ?";
+        this.removeCoupleStatement = this.link.prepareStatement(query);
         
     }
     /**
@@ -89,10 +102,6 @@ public class SQLCycleDB {
     	this.retrieveCouplesStatement.setString(1,status);
     	this.retrieveCouplesStatement.setInt(2,userId);
         ResultSet rs = this.retrieveCouplesStatement.executeQuery();
-        /*if (!rs.next()) {
-        	//System.out.println("Aucune donnée");
-            return null;
-        }*/
         return rs;
     }
     /**
@@ -104,10 +113,44 @@ public class SQLCycleDB {
     public ResultSet retrieveAll(String status) throws SQLException {
     	this.retrieveAllCouplesStatement.setString(1,status);
         ResultSet rs = this.retrieveAllCouplesStatement.executeQuery();
-        /*if (!rs.next()) {
-            return null;
-        }*/
         return rs;
+    }
+    /**
+     * Retrieves all services in the database.
+     * 
+     * @return A list of all services in the database
+     * @throws SQLException if a database access error occurs
+     */
+    public ResultSet retrieveUserServices(int userId) throws SQLException {
+    	this.retrieveUserCouplesStatement.setInt(1,userId);
+        ResultSet rs = this.retrieveUserCouplesStatement.executeQuery();
+        return rs;
+    }
+    /**
+     * Remove user's couple
+     * 
+     */
+    public void remove(int userId,int serviceId) throws SQLException {
+    	this.removeCoupleStatement.setInt(1,userId);
+    	this.removeCoupleStatement.setInt(2,serviceId);
+        this.removeCoupleStatement.execute();
+    }
+    /**
+     * Remove all user's couples
+     * 
+     * @return void
+     */
+    public void removeAllUserCouples(int userId) throws SQLException {
+    	try {
+    		ResultSet rs = this.retrieveUserServices(userId);
+    		System.out.println(rs.getInt("id"));
+    		while(rs.next()) {
+				new ServiceDBHandler().getDb().delete(rs.getInt("id"));
+				this.remove(userId,rs.getInt("id"));
+    		}
+		} catch (Exception e) {
+			System.out.println("Erreur lors de la suppression des services"+e.getMessage());
+		}
     }
     
 }

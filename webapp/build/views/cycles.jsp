@@ -13,6 +13,7 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="cycles" value="active" />
+                <jsp:param name="userId" value="${currentUser.id}" />
             </jsp:include>
             <section id="main-section">
                 <h2 id="show-cycles" class="ui center aligned icon header">

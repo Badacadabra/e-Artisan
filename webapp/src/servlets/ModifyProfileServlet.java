@@ -40,15 +40,18 @@ public class ModifyProfileServlet extends HttpServlet {
                 String password = req.getParameter("password");
                 String description = req.getParameter("description");
                 String image = "none";
-                String id = req.getParameter("currentUserId");
-                
-            	User user = new User(Integer.parseInt(id),lastName, firstName, description, image, email, password,"user");
+                int id = Integer.parseInt(req.getParameter("currentUserId"));
+                String role = "user";
+                if (userSession.getRole().equals("admin"))
+                	role = "admin";
+            	User user = new User(id,lastName, firstName, description, image, email, password,role);
 	           	new UserDBHandler().getDb().update(user);
 	           	session.setAttribute("currentUser", user);
-	           	this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+	           	//this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+	           	resp.sendRedirect("profil?id="+id);
 	           	
             } catch (Exception e) {
-                String msg = e.getLocalizedMessage();
+                String msg = e.getMessage();
                 req.setAttribute("error", msg);
                 this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
             }

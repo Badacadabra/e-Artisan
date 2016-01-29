@@ -67,8 +67,8 @@
          <servlet-class>servlets.AdminServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteServiceServlet</servlet-name>
-         <servlet-class>servlets.DeleteServiceServlet</servlet-class>
+        <servlet-name>DeleteServlet</servlet-name>
+         <servlet-class>servlets.DeleteServlet</servlet-class>
     </servlet>
 <!-- Servlets mappings -->
    
@@ -128,7 +128,7 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteServiceServlet</servlet-name>
+        <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     

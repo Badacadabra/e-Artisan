@@ -13,6 +13,7 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="profil" value="active" />
+                <jsp:param name="userId" value="${currentUser.id}" />
             </jsp:include>
             <section id="main-section">
                 <div id="profile-header">

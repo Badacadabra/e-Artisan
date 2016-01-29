@@ -15,6 +15,7 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="besoins" value="active" />
+                <jsp:param name="userId" value="${currentUser.id}" />
             </jsp:include>
             <section id="main-section">
                 <h2 class="ui center aligned icon header need-modal-link" id="add-need">

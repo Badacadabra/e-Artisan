@@ -24,7 +24,9 @@ public class SQLCycleDB {
     /*************Retrieve a couple*****************/
     private PreparedStatement retrieveCouplesStatement;
     /*************Retrieve a couple*****************/
-    private PreparedStatement retrieveAllCouplesStatement;
+    private PreparedStatement retrieveAllCouplesNeedsStatement;
+    /*************Retrieve all user couple*****************/
+    private PreparedStatement retrieveAllCouplesOffersStatement;
     /*************Retrieve all user couple*****************/
     private PreparedStatement retrieveUserCouplesStatement;
     /*************Retrieve a couple*****************/
@@ -51,7 +53,10 @@ public class SQLCycleDB {
         this.retrieveUserCouplesStatement = this.link.prepareStatement(query);
         query = "SELECT services.*, users.* FROM `services`, `users`, `user_services` WHERE users.id = "+
         		"user_services.user_id AND services.id = user_services.service_id AND services.status = ?";
-        this.retrieveAllCouplesStatement = this.link.prepareStatement(query);
+        this.retrieveAllCouplesNeedsStatement = this.link.prepareStatement(query);
+        query = "SELECT services.*, users.* FROM `services`, `users`, `user_services` WHERE users.id = "+
+        		"user_services.user_id AND services.id = user_services.service_id AND services.status = ?";
+        this.retrieveAllCouplesOffersStatement = this.link.prepareStatement(query);
         query = "DELETE FROM `user_services` WHERE user_id = ? AND service_id = ?";
         this.removeCoupleStatement = this.link.prepareStatement(query);
         
@@ -110,9 +115,20 @@ public class SQLCycleDB {
      * @return A list of all services in the database
      * @throws SQLException if a database access error occurs
      */
-    public ResultSet retrieveAll(String status) throws SQLException {
-    	this.retrieveAllCouplesStatement.setString(1,status);
-        ResultSet rs = this.retrieveAllCouplesStatement.executeQuery();
+    public ResultSet retrieveAllNeeds(String status) throws SQLException {
+    	this.retrieveAllCouplesNeedsStatement.setString(1,status);
+        ResultSet rs = this.retrieveAllCouplesNeedsStatement.executeQuery();
+        return rs;
+    }
+    /**
+     * Retrieves all services in the database.
+     * 
+     * @return A list of all services in the database
+     * @throws SQLException if a database access error occurs
+     */
+    public ResultSet retrieveAllOffers(String status) throws SQLException {
+    	this.retrieveAllCouplesOffersStatement.setString(1,status);
+        ResultSet rs = this.retrieveAllCouplesOffersStatement.executeQuery();
         return rs;
     }
     /**
@@ -151,6 +167,5 @@ public class SQLCycleDB {
 		} catch (Exception e) {
 			System.out.println("Erreur lors de la suppression des services"+e.getMessage());
 		}
-    }
-    
+    }   
 }

@@ -2,6 +2,10 @@
 $( "body" ).mCustomScrollbar({
     scrollInertia: 0
 });
+//Surbrillance de couleur sur la cellule de la personne 
+//qui rends service dans le tableau
+$(".table tr:nth-child(2)").prev().children().first().next().next()
+.css("background","rgba(181, 230, 29, 0.8)");
 
 // Gestion des pop-ups
 showModal("sign-in-link", "sign-in");

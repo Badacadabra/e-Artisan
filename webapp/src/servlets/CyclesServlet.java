@@ -41,14 +41,16 @@ public class CyclesServlet extends HttpServlet {
 	        	List<Couple> usersNeeds = new ArrayList<>();
 	        	List<Couple> usersOffers = new ArrayList<>();
 	        	Graph<Couple> graph = new Graph<>();
-	        	
+	        	ResultSet rs = null;
 	        	try {
 					// We get all couples users/needs (vertices)
-					ResultSet rsNeed = new CycleDBHandler().getDb().retrieveAll("need");
-					System.out.println(rsNeed.next());
-					while(rsNeed.next()) {
-						User user = new User(rsNeed.getString(7),rsNeed.getString(8),rsNeed.getString(11),rsNeed.getString(12),rsNeed.getString(13));
-						Service service = new Service(rsNeed.getString(2),rsNeed.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsNeed.getString("status"));
+					rs = new CycleDBHandler().getDb().retrieveAllNeeds("need");
+					//CycleDBHandler.close();
+					//System.out.println(rsNeed.next());
+					System.out.println("need");
+					while(rs.next()) {
+						User user = new User(rs.getString(8),rs.getString(9),rs.getString(12),rs.getString(13),rs.getString(14));
+						Service service = new Service(rs.getString(2),rs.getString(3),new GregorianCalendar(),new GregorianCalendar(),rs.getString("status"));
 						Couple couple = new Couple(user,service);
 						usersNeeds.add(couple);
 						graph.addVertex(couple);
@@ -56,15 +58,18 @@ public class CyclesServlet extends HttpServlet {
 							currentUserNeeds.add(couple);
 						}
 					}
+					rs.close();
 					// We get all couples users/offers (vertices)
-					ResultSet rsOffer = new CycleDBHandler().getDb().retrieveAll("offer");
-					while(rsOffer.next()) {
-						User user = new User(rsOffer.getString(7),rsOffer.getString(8),rsOffer.getString(11),rsOffer.getString(12),rsNeed.getString(13));
-						Service service = new Service(rsOffer.getString(2),rsOffer.getString(3),new GregorianCalendar(),new GregorianCalendar(),rsOffer.getString("status"));
+					rs = new CycleDBHandler().getDb().retrieveAllOffers("offer");
+					System.out.println("offer");
+					while(rs.next()) {
+						User user = new User(rs.getString(8),rs.getString(9),rs.getString(12),rs.getString(13),rs.getString(14));
+						Service service = new Service(rs.getString(2),rs.getString(3),new GregorianCalendar(),new GregorianCalendar(),rs.getString("status"));
 					
 						Couple couple = new Couple(user,service);
 						usersOffers.add(couple);
 					}
+					System.out.println("after offer");
 					// We build an edge between two couples user/service
 					// The edge is built when the need of a user corresponds to the offer of another user.
 					int i = 0;
@@ -83,6 +88,7 @@ public class CyclesServlet extends HttpServlet {
 						}
 						i++;
 					}
+					System.out.println("after couple");
 					// We launch BFS on the graph to find cycles
 					Couple currentUserService = currentUserNeeds.get(0);
 					try {
@@ -98,6 +104,7 @@ public class CyclesServlet extends HttpServlet {
 				                    }
 				                }
 				            }
+				            System.out.println("after cycle");
 			            req.setAttribute("cycles2", cycles2);
 					} catch (NullPointerException e) {
 						String error = "Aucun cycle trouvé";
@@ -106,6 +113,11 @@ public class CyclesServlet extends HttpServlet {
 				} catch (Exception e) {
 					String error = "Erreur lors de la récupération des données : "+ e.getMessage();
 					System.out.println(error);
+				} finally{
+				   try{
+					   if (rs != null)
+					        rs.close();
+					   }catch(SQLException e){}
 				}
 	        	this.getServletContext().getRequestDispatcher( "/views/cycles.jsp" ).forward( req, resp );
 	    	} else {

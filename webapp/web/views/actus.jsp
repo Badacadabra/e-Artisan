@@ -13,6 +13,7 @@
         <div class="ui grid container">
             <jsp:include page="includes/nav.jsp">
                 <jsp:param name="actus" value="active" />
+                <jsp:param name="userId" value="${currentUser.id}" />
             </jsp:include>
             <section id="main-section" class="reset">
                 <div class="ui feed">
@@ -22,7 +23,7 @@
                         </div>
                         <div class="content">
                             <div class="summary">
-                                <a href="profil">Tutu</a> a refusé un cycle qui vous concerne.
+                                <a href="#">Tutu</a> a refusé un cycle qui vous concerne.
                                 <div class="date">
                                     Il y a 1 jour
                                 </div>
@@ -35,7 +36,7 @@
                         </div>
                         <div class="content">
                             <div class="summary">
-                                <a href="profil">Tata</a> a accepté un cycle qui vous concerne.
+                                <a href="#">Tata</a> a accepté un cycle qui vous concerne.
                                 <div class="date">
                                     Il y a 3 jours
                                 </div>
@@ -58,7 +59,7 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
     </body>
 </html>

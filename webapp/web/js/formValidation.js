@@ -37,7 +37,7 @@ $('#sign-up form, #user-modal form')
             prompt : 'Veuillez entrer un nom.'
           },
           {
-            type   : 'regExp[/^[a-zA-Z- ]{2,30}$/g]',
+            type   : 'regExp[/^[a-zA-Z-àâçéèêëîïôöûùüæœÀÂÇÉÈÊËÎÏÔÖÛÙÜÆŒ ]{2,30}$/g]',
             prompt : 'Veuillez entrer un nom valide.'
           }
         ]
@@ -50,7 +50,7 @@ $('#sign-up form, #user-modal form')
             prompt : 'Veuillez entrer un prénom.'
           },
           {
-            type   : 'regExp[/^[a-zA-Z- ]{2,30}$/g]',
+            type   : 'regExp[/^[a-zA-Z-àâçéèêëîïôöûùüæœÀÂÇÉÈÊËÎÏÔÖÛÙÜÆŒ ]{2,30}$/g]',
             prompt : 'Veuillez entrer un prénom valide.'
           }
         ]
@@ -98,7 +98,7 @@ $('#edit-profile-form')
             prompt : 'Veuillez entrer un nom.'
           },
           {
-            type   : 'regExp[/^[a-zA-Z- ]{2,30}$/g]',
+            type   : 'regExp[/^[a-zA-Z-àâçéèêëîïôöûùüæœÀÂÇÉÈÊËÎÏÔÖÛÙÜÆŒ ]{2,30}$/g]',
             prompt : 'Veuillez entrer un nom valide.'
           }
         ]
@@ -111,7 +111,7 @@ $('#edit-profile-form')
             prompt : 'Veuillez entrer un prénom.'
           },
           {
-            type   : 'regExp[/^[a-zA-Z- ]{2,30}$/g]',
+            type   : 'regExp[/^[a-zA-Z-àâçéèêëîïôöûùüæœÀÂÇÉÈÊËÎÏÔÖÛÙÜÆŒ ]{2,30}$/g]',
             prompt : 'Veuillez entrer un prénom valide.'
           }
         ]
@@ -153,7 +153,7 @@ $('#need-modal form, #offer-modal form')
             prompt : 'Veuillez entrer un type de service.'
           },
           {
-            type   : 'regExp[/^[a-zA-Z0-9-\/ ]{2,30}$/g]',
+            type   : 'regExp[/^[a-zA-Z0-9-\/&àâçéèêëîïôöûùüæœÀÂÇÉÈÊËÎÏÔÖÛÙÜÆŒ ]{2,30}$/g]',
             prompt : 'Veuillez choisir un service valide.'
           }
         ]

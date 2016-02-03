@@ -15,12 +15,7 @@
         <servlet-name>IndexServlet</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
-    <servlet>
-        <servlet-name>NewsFeedServlet</servlet-name>
-        <jsp-file>/views/actus.jsp</jsp-file>
-    </servlet>
    
-
   <!-- Classes -->
 	<servlet>
         <servlet-name>HomeServlet</servlet-name>
@@ -70,16 +65,17 @@
         <servlet-name>DeleteServlet</servlet-name>
          <servlet-class>servlets.DeleteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewsFeedServlet</servlet-name>
+        <servlet-class>servlets.NewsFeedServlet</servlet-class>
+    </servlet>
+
 <!-- Servlets mappings -->
    
   <!-- JSP -->
 	<servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/e-artisan</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>NewsFeedServlet</servlet-name>
-        <url-pattern>/actus</url-pattern>
     </servlet-mapping>
     
   <!-- Classes -->
@@ -131,6 +127,10 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewsFeedServlet</servlet-name>
+        <url-pattern>/actus</url-pattern>
+    </servlet-mapping>
     
 <!-- Environment variables -->
     
@@ -152,7 +152,7 @@
     <env-entry>
       <env-entry-name>password</env-entry-name>
       <env-entry-type>java.lang.String</env-entry-type>
-      <env-entry-value>black</env-entry-value>
+      <env-entry-value></env-entry-value>
     </env-entry>
     <env-entry>
       <env-entry-name>users</env-entry-name>

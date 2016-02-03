@@ -15,7 +15,7 @@ import services.SQLServiceDB;
 
 /**
  * A class for running some basic tests on SQLServiceDB.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -68,14 +68,14 @@ public class TestServiceDB {
     protected static void test(SQLServiceDB db) throws SQLException, AssertionError {
         // C
         db.createTables();
-        
+
         db.create(new Service(1, "Service1", "Description du service 1", new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13),
                 new GregorianCalendar(2015, GregorianCalendar.NOVEMBER, 13), "besoin"));
         db.create(new Service(2, "Service2", "Description du service 2", new GregorianCalendar(2014, GregorianCalendar.FEBRUARY, 9),
                 new GregorianCalendar(2015, GregorianCalendar.MARCH, 15), "besoin"));
         db.create(new Service(3, "Service3", "Description du service 3", new GregorianCalendar(2011, GregorianCalendar.DECEMBER, 1),
                 new GregorianCalendar(2015, GregorianCalendar.DECEMBER, 25), "offre"));
-        
+
         // R
         List<Service> res=db.retrieveAll();
         assert res.size()==3 : "READ - Inconsistent number of services in database";
@@ -89,16 +89,16 @@ public class TestServiceDB {
         assert service1Found : "READ - A valid service is not found in database";
         Service service2=db.retrieve(2);
         assert "Service2".equals(service2.getName()) : "READ - Name mismatch";
-        
+
         // U
-        Service newService = new Service(3, "Service3Modifié", "Description modifiée du service 3", 
+        Service newService = new Service(3, "Service3Modifié", "Description modifiée du service 3",
                 new GregorianCalendar(2015, GregorianCalendar.JANUARY, 6),
-                new GregorianCalendar(2015, GregorianCalendar.JANUARY, 19), "besoin"); 
+                new GregorianCalendar(2015, GregorianCalendar.JANUARY, 19), "besoin");
         db.update(newService, 3);
         assert db.exists(3) : "UPDATE - Incorrect update";
-        
+
         // D
-        db.delete(newService);
+        db.delete(newService.getId());
         assert db.retrieveAll().size()==2;
         assert db.retrieve(3)==null : "DELETE - The service should not exist in database";
     }

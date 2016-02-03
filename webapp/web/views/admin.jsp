@@ -23,26 +23,26 @@
                     Ajouter un utilisateur
                 </h2>
                 <div class="ui middle aligned divided list">
-					<c:forEach items="${users}" var="user" varStatus="loop">
-						<div class="item">
-							<div class="right floated content">
-								<div class="ui inverted orange button list-elt-link">Afficher</div>
-								<div class="ui inverted brown button user-modal-link">Modifier</div>
-								<div class="ui inverted red button delete-btn">Supprimer</div>
-								<input type="hidden" name="tmpId_${user.id}" id="tmpId_${user.id}" value="${user.id}">
-								<input type="hidden" name="tmpName_${user.id}" id="tmpName_${user.id}" value="${user.name}">
-								<input type="hidden" name="tmpFirstName_${user.id}" id="tmpFirstName_${user.id}" value="${user.firstName}">
-								<input type="hidden" name="tmpEmail_${user.id}" id="tmpEmail_${user.id}" value="${user.email}">
-								<input type="hidden" name="tmpPassword_${user.id}" id="tmpPassword_${user.id}" value="${user.password}">
-								<input type="hidden" name="needOrOffer" value="admin">
-							</div>
-							<i class="large user middle aligned icon"></i>
-							<div class="content">
-								<span class="bold">${user.firstName} ${user.name}</span>
-								<!-- <div class="description">Membre depuis 2 minutes</div> -->
-							</div>
-						</div>
-					</c:forEach>
+                    <c:forEach items="${users}" var="user" varStatus="loop">
+                        <div class="item">
+                            <div class="right floated content">
+                                <div class="ui inverted orange button list-elt-link">Afficher</div>
+                                <div class="ui inverted brown button user-modal-link">Modifier</div>
+                                <div class="ui inverted red button delete-btn">Supprimer</div>
+                                <input type="hidden" name="tmpId_${user.id}" id="tmpId_${user.id}" value="${user.id}">
+                                <input type="hidden" name="tmpName_${user.id}" id="tmpName_${user.id}" value="${user.name}">
+                                <input type="hidden" name="tmpFirstName_${user.id}" id="tmpFirstName_${user.id}" value="${user.firstName}">
+                                <input type="hidden" name="tmpEmail_${user.id}" id="tmpEmail_${user.id}" value="${user.email}">
+                                <input type="hidden" name="tmpPassword_${user.id}" id="tmpPassword_${user.id}" value="${user.password}">
+                                <input type="hidden" name="needOrOffer" value="admin">
+                            </div>
+                            <i class="large user middle aligned icon"></i>
+                            <div class="content">
+                                <span class="bold">${user.firstName} ${user.name}</span>
+                                <!-- <div class="description">Membre depuis 2 minutes</div> -->
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </section>
         </div>
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
         <script src="${root}/js/formValidation.js"></script>
     </body>

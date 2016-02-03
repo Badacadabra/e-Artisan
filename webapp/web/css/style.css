@@ -103,9 +103,13 @@ input[type='text']:focus, input[type='password']:focus, textarea:focus {
     border-radius: 5px;
 }
 
-#main-section img#user-photo {
+#selected-image {
     float: left;
     margin-right: 30px;
+}
+
+#selected-image img {
+    max-width: 250px;
 }
 
 #sign-in .header,
@@ -127,8 +131,13 @@ input[type='text']:focus, input[type='password']:focus, textarea:focus {
 }
 
 #logout-modal .header,
+#admin-modal .header,
 .delete-list-elt .header {
     font-size: x-large !important;
+}
+
+#admin-modal .button {
+    width: 100% !important;
 }
 
 .ui.modal {

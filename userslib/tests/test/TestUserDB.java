@@ -6,10 +6,11 @@ import java.sql.SQLException;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import users.User;
 import users.SQLUserDB;
+import persons.Person;
 
 /**
  * A class for running some basic tests on SQLUserDB.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -62,10 +63,10 @@ public class TestUserDB {
     protected static void test(SQLUserDB db) throws SQLException, AssertionError {
         // C
         db.createTables();
-        db.create(new User("Toto", "Toto", "toto@gmail.com", "mdp1"));
-        db.create(new User("Tata", "Tata", "tata@gmail.com", "mdp2"));
-        db.create(new User("Titi", "Titi", "titi@gmail.com", "mdp3"));
-        
+        db.create(new User("Toto", "Toto", "toto@gmail.com", "mdp1", "admin"));
+        db.create(new User("Tata", "Tata", "tata@gmail.com", "mdp2", "user"));
+        db.create(new User("Titi", "Titi", "titi@gmail.com", "mdp3", "user"));
+
         // R
         List<User> res=db.retrieveAll();
         assert res.size()==3 : "READ - Inconsistent number of users in database";
@@ -79,14 +80,14 @@ public class TestUserDB {
         assert totoFound : "READ - A valid user is not found in database";
         User tata=db.retrieve("tata@gmail.com");
         assert "Tata".equals(tata.getName()) : "READ - Name mismatch";
-        
+
         // U
-        User tutu=new User("Tutu", "Tutu", "tutu@gmail.com", "mdp4");
-        db.update(tutu, "tata@gmail.com");
-        assert db.exists("tutu@gmail.com") : "UPDATE - Incorrect update";
-        
+        tata.setRole("admin");
+        db.update(tata);
+        assert db.exists("tata@gmail.com") : "UPDATE - Incorrect update";
+
         // D
-        db.delete(tutu);
+        db.delete(tata.getId());
         assert db.retrieveAll().size()==2 : "DELETE - Inconsistent number of users in database after deletion";
         assert db.retrieve("tata@gmail.com")==null : "Delete - The user should not exist in database";
     }

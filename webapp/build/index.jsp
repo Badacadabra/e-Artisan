@@ -20,17 +20,17 @@
             </div>
 
             <nav class="cd-primary-nav">
-				 <c:choose>
-					<c:when test="${currentUser!=null}">
-						<a href="logout" class="sign-in-link">Déconnexion</a>
-						<a href="accueil" class="sign-up-link">Mon espace</a>
-					</c:when>    
-					<c:otherwise>
-						<a href="#0" class="sign-in-link">Connexion</a>
-						<a href="#0" class="sign-up-link">Inscription</a>
-					</c:otherwise>
-				</c:choose>
-                
+                 <c:choose>
+                    <c:when test="${currentUser!=null}">
+                        <a id="logout" href="logout" class="sign-in-link">Déconnexion</a>
+                        <a href="accueil" class="sign-up-link">Mon espace</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="#0" class="sign-in-link">Connexion</a>
+                        <a href="#0" class="sign-up-link">Inscription</a>
+                    </c:otherwise>
+                </c:choose>
+
             </nav> <!-- .cd-primary-nav -->
         </header>
 
@@ -104,7 +104,7 @@
             <div class="ui statistics">
                 <div class="statistic">
                     <div class="value">
-                        <i class="refresh icon"></i> 7
+                        <i class="refresh icon"></i> 19
                     </div>
                     <div class="label">
                         Cycle le plus long
@@ -185,7 +185,7 @@
                 </div>
             </div>
         </div>
-
+        <jsp:include page="includes/logout-modal.jsp" />
         <script src="js/jquery-2.1.1.js"></script>
         <script src="js/modernizr.js"></script>
         <script src="js/hero-slider-main.js"></script>

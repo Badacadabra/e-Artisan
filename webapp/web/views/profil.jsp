@@ -19,14 +19,16 @@
                 <div id="profile-header">
                     <h2>${user.firstName} ${user.name}</h2>
                      <c:if test="${currentUser.id==user.id}">
-						 <button id="edit-profile-button" class="ui inverted orange button">
-							<i class="write icon"></i>
-							Modifier le profil
-						</button>
-					</c:if>
+                         <button id="edit-profile-button" class="ui inverted orange button">
+                            <i class="write icon"></i>
+                            Modifier le profil
+                        </button>
+                    </c:if>
                 </div>
                 <p class="italic">Inscrit le...</p>
-                <img id="user-photo" src="${root}/assets/default_image.png" alt="${user.firstName} ${user.name}">
+                <div id="selected-image">
+                    <img id="user-photo" src="${root}/assets/default_image.png" alt="${user.firstName} ${user.name}">
+                </div>
                 <p id="user-description">${user.description}</p>
                 <form id="edit-profile-form" class="ui form" method="GET" action="modifProfil" enctype="multipart/form-data" style="display:none;">
                     <div class="two fields">
@@ -69,13 +71,13 @@
                     </div>
                     <input type="hidden" name="currentUserId" value="${user.id}">
                     <c:if test="${! empty error}">
-						<p>${error}</p>
-					</c:if>
+                        <p>${error}</p>
+                    </c:if>
                     <div class="mandatory">* Champs requis</div>
                 </form>
             </section>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
         <script src="${root}/js/formValidation.js"></script>
     </body>

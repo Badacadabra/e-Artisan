@@ -20,36 +20,49 @@
                     <i class="circular refresh icon"></i>
                     Générer les cycles de services
                 </h2>
-                <table class="ui black celled table" style="display:none;">
-                    <thead class="full-width">
-                        <tr>
-							<th>Bénéficiaire</th>
-                            <th>Service</th>
-							<th>Prestataire</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-						<c:forEach items="${cycles2}" var="item">
-							<tr>
-								<td>${item.sender.firstName} ${item.sender.name}</td>
-								<td>${item.service.name}</td>
-								<td>${item.receiver.firstName} ${item.receiver.name}</td>
-							</tr>
-						</c:forEach>
-                    </tbody>
-                    <tfoot class="full-width">
-                        <tr>
-                            <th colspan="3">
-                            <div class="ui right fluid small labeled icon button">
-                                <i class="checkmark icon"></i>
-                                Accepter ce cycle
+                <div id="cycles-display" style="display:none;">
+                    <table class="ui black celled table">
+                        <thead class="full-width">
+                            <tr>
+                                <th>Bénéficiaire</th>
+                                <th>Service</th>
+                                <th>Prestataire</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cycles2}" var="item">
+                                <tr>
+                                    <td>${item.sender.firstName} ${item.sender.name}</td>
+                                    <td>${item.service.name}</td>
+                                    <td>${item.receiver.firstName} ${item.receiver.name}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th colspan="3">
+                                <div class="ui right fluid small labeled icon button">
+                                    <i class="checkmark icon"></i>
+                                    Accepter ce cycle
+                                </div>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <c:if test="${! empty cycleError}">
+                        <div class="ui icon negative message">
+                            <i class="warning circle icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    ${cycleError}
+                                </div>
+                                <p>Retentez votre chance plus tard...</p>
                             </div>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </div>
+                    </c:if>
+                </div>
             </section>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
     </body>
 </html>

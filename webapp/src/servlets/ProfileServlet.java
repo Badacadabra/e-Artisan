@@ -15,7 +15,7 @@ import users.UserDBHandler;
 
 /**
  * A servlet that handles profile page.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -24,30 +24,34 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        
-    	HttpSession session = req.getSession();
+
+        HttpSession session = req.getSession();
         User userSession = (User) session.getAttribute("currentUser");
+        req.setCharacterEncoding("UTF-8");
         String id = req.getParameter("id");
-        
+
         if (userSession!=null) {
-        	try {
-				User user = new UserDBHandler().getDb().retrieve(Integer.parseInt(id));
-				req.setAttribute("user", user);
-			} catch (SQLException e) {
-				String error = "Erreur survenue lors de la récupération des données"+e.getMessage();
-				req.setAttribute("error", error);
-				System.out.println(error);
-			} catch (NamingException e) {
-				String error = "Erreur survenue lors de la récupération des données"+e.getMessage();
-				req.setAttribute("error", error);
-				System.out.println(error);
-			}
-        	this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
-            
+            if (!userSession.getRole().equals("admin")) {
+                req.setAttribute("accessDenied", "Connexion refusée");
+            }
+            try {
+                User user = new UserDBHandler().getDb().retrieve(Integer.parseInt(id));
+                req.setAttribute("user", user);
+            } catch (SQLException e) {
+                String error = "Erreur survenue lors de la récupération des données"+e.getMessage();
+                req.setAttribute("error", error);
+                System.out.println(error);
+            } catch (NamingException e) {
+                String error = "Erreur survenue lors de la récupération des données"+e.getMessage();
+                req.setAttribute("error", error);
+                System.out.println(error);
+            }
+            this.getServletContext().getRequestDispatcher( "/views/profil.jsp" ).forward( req, resp );
+
         } else {
-        	resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath());
         }
-        
+
     }
 
 }

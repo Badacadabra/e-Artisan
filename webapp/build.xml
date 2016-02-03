@@ -32,6 +32,10 @@
   <jar basedir="build" destfile="dist/e-artisan.war" />
 </target>
 
+<target name="doc" depends="init,compile">
+  <javadoc packagenames="cycles,servlets" sourcepath="src" destdir="doc" classpathref="external"/>
+</target>
+
 <target name="deploy" depends="dist">
   <copy todir="${autodeploydir}" file="dist/e-artisan.war" />
 </target>

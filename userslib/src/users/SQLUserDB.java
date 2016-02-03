@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * A class for SQL storage of users in a database.
  * The email of the user is taken to be its primary key.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 public class SQLUserDB {
-    
+
     /** The name for the SQL table where to store users. */
     protected String table;
 
@@ -25,25 +25,25 @@ public class SQLUserDB {
 
     /** A prepared statement for retrieval of one user. */
     private PreparedStatement retrieveUserStatement;
-    
+
     /** A prepared statement to update one user. */
     private PreparedStatement updateUserStatement;
-    
+
     /** A prepared statement to check one user. */
     private PreparedStatement checkUserStatement;
-    
+
     /** A prepared statement to see if a user exists */
     private PreparedStatement isUserStatement;
-    
+
     /** A prepared statement to see if a user exists */
     private PreparedStatement deleteStatement;
-    
+
     /** A link to the database. */
     protected Connection link;
 
     /**
      * Builds a new instance.
-     * 
+     *
      * @param link An active connection to an SQL database
      * @param table The name of the table where to store users
      * @throws SQLException if a database access error occurs
@@ -67,29 +67,9 @@ public class SQLUserDB {
     }
 
     /**
-     * Adds a new user in the database.
-     * 
-     * @param The user to add in the database.
-     * @throws SQLException if a database access error occurs
-     */
-    public void addUser(User user) throws SQLException {
-        this.create(user);
-    }
-
-    /**
-     * Gets all users in the database.
-     * 
-     * @return All users in the database.
-     * @throws SQLException if a database access error occurs
-     */
-    public List<User> getAll() throws SQLException {
-        return this.retrieveAll();
-    }
-
-    /**
      * Resets the link to the database.
      * This method can be used in case the connection breaks down.
-     * 
+     *
      * @param link An active link to the database
      */
     public void setLink(Connection link) {
@@ -98,7 +78,7 @@ public class SQLUserDB {
 
     /**
      * Creates the necessary table in the database. Nothing occurs if the table already exists.
-     * 
+     *
      * @throws SQLException if a database access error occurs
      */
     public void createTables() throws SQLException {
@@ -119,7 +99,7 @@ public class SQLUserDB {
 
     /**
      * Stores a new user in the database.
-     * 
+     *
      * @param User The user to store
      * @throws SQLException if a database access error occurs
      */
@@ -135,14 +115,14 @@ public class SQLUserDB {
         ResultSet rs = this.createUserStatement.getGeneratedKeys();
         int last_inserted_id = 0;
         if (rs != null && rs.next()) {
-        	last_inserted_id = rs.getInt(1);
+            last_inserted_id = rs.getInt(1);
         }
         return last_inserted_id;
     }
 
     /**
      * Retrieves all the users in the database.
-     * 
+     *
      * @return A list of all users in the database
      * @throws SQLException if a database access error occurs
      */
@@ -153,14 +133,14 @@ public class SQLUserDB {
         rs=statement.executeQuery(query);
         List<User> res=new ArrayList<User>();
         while (rs.next()) {
-        	res.add(new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role")));
+            res.add(new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role")));
         }
         return res;
     }
-    
+
     /**
-     * Retrieves a user in the database by he's email.
-     * 
+     * Retrieves a user from the database using his email.
+     *
      * @param email The email of the user
      * @return A user, or null if none with the given name exists in the database
      * @throws SQLException if a database access error occurs
@@ -173,10 +153,11 @@ public class SQLUserDB {
         }
         return new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
     }
+
     /**
-     * Retrieves a user in the database by he's id.
-     * 
-     * @param email The email of the user
+     * Retrieves a user in the database using his id.
+     *
+     * @param id The id of the user
      * @return A user, or null if none with the given name exists in the database
      * @throws SQLException if a database access error occurs
      */
@@ -188,10 +169,10 @@ public class SQLUserDB {
         }
         return new User(rs.getInt("id"), rs.getString("name"),rs.getString("firstName"),rs.getString("description"),rs.getString("image"),rs.getString("email"),rs.getString("passwd"),rs.getString("role"));
     }
-    
+
     /**
      * Checks if a user is valid (if the email matches the password).
-     * 
+     *
      * @param email The user's email
      * @param password The user's password
      * @return True or false
@@ -203,10 +184,10 @@ public class SQLUserDB {
         ResultSet rs=this.checkUserStatement.executeQuery();
         return rs.next();
     }
-    
+
     /**
      * Checks if a user exists in the database.
-     * 
+     *
      * @param email The user's email
      * @return True or false
      * @throws SQLException if a database access error occurs
@@ -216,15 +197,15 @@ public class SQLUserDB {
         ResultSet rs=this.isUserStatement.executeQuery();
         return rs.next();
     }
-    
+
     /**
      * Update user information in the database.
-     * 
+     *
      * @param user The user
      * @param email The user's email
      * @throws SQLException if a database access error occurs
      */
-    public void update(User user) throws SQLException {  
+    public void update(User user) throws SQLException {
         this.updateUserStatement.setString(1,user.getName());
         this.updateUserStatement.setString(2,user.getFirstName());
         this.updateUserStatement.setString(3,user.getDescription());
@@ -238,7 +219,7 @@ public class SQLUserDB {
 
     /**
      * Drops the table from the database. Nothing occurs if the table does not exist.
-     * 
+     *
      * @throws SQLException if a database access error occurs
      */
     public void deleteTables() throws SQLException {
@@ -249,13 +230,13 @@ public class SQLUserDB {
 
     /**
      * Deletes a user. Nothing occurs in case the user does not exist in the database.
-     * 
+     *
      * @param User The user
      * @throws SQLException if a database access error occurs
      */
-    public void delete(int id) throws SQLException {  
-    	this.deleteStatement.setInt(1,id);
-    	this.deleteStatement.execute();
+    public void delete(int id) throws SQLException {
+        this.deleteStatement.setInt(1,id);
+        this.deleteStatement.execute();
     }
 
 }

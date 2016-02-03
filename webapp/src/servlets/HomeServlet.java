@@ -12,24 +12,29 @@ import users.User;
 
 /**
  * A servlet that handles the home action, when a user has just logged in.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 public class HomeServlet extends HttpServlet {
-	
-	@Override
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
+
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUser");
+        req.setCharacterEncoding("UTF-8");
+
         if (user!=null) {
-            //req.setAttribute("user",user);
+            if (!user.getRole().equals("admin")) {
+                req.setAttribute("accessDenied", "Connexion refusée");
+            }
             this.getServletContext().getRequestDispatcher( "/views/home.jsp" ).forward( req, resp );
         } else {
-        	resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath());
         }
-        
+
     }
 
 }

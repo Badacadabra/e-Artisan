@@ -57,7 +57,7 @@
                 </div>
             </section>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
     </body>
 </html>

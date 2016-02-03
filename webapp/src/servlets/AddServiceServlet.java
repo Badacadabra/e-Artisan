@@ -21,7 +21,7 @@ import users.User;
 
 /**
  * A servlet which adds a service.
- *  
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
@@ -30,11 +30,12 @@ public class AddServiceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-       
-    	// We get parameters from query
-    	HttpSession session = req.getSession();
-    	User userSession = (User) session.getAttribute("currentUser");
-        
+
+        // We get parameters from query
+        HttpSession session = req.getSession();
+        User userSession = (User) session.getAttribute("currentUser");
+        req.setCharacterEncoding("UTF-8");
+
         if (userSession!=null) {
             String name = req.getParameter("type");
             String description = req.getParameter("description");
@@ -42,35 +43,35 @@ public class AddServiceServlet extends HttpServlet {
             String deadline = req.getParameter("deadline");
             String status = req.getParameter("needOrOffer");
             String mode = req.getParameter("mode");
-            
+
             // Conversion from strings to dates
             DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            
+
             Date date1, date2;
             GregorianCalendar calPublication = null;
             GregorianCalendar calDeadline = null;
-    		try {
-    		    // Date 1
-    		    date1 = df.parse(publicationDate);
-    		    calPublication = new GregorianCalendar(); 
-    		    calPublication.setTime(date1);
-    		    // Date 2
-    		    date2 = df.parse(deadline);
-    	            calDeadline = new GregorianCalendar();
-    	            calDeadline.setTime(date2);
-    		} catch (ParseException e1) {
-    		    e1.printStackTrace();
-    		}
+            try {
+                // Date 1
+                date1 = df.parse(publicationDate);
+                calPublication = new GregorianCalendar();
+                calPublication.setTime(date1);
+                // Date 2
+                date2 = df.parse(deadline);
+                    calDeadline = new GregorianCalendar();
+                    calDeadline.setTime(date2);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
             String error = "";
             try {
-            	Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
-            	if (mode.equals("insert")) {
-        			int last_inserted_id = new ServiceDBHandler().getDb().create(service);
-        			new CycleDBHandler().getDb().create(userSession.getId(),last_inserted_id);
-            	} else {
-            		String serviceId = req.getParameter("serviceId");
-            		new ServiceDBHandler().getDb().update(service,Integer.parseInt(serviceId));
-            	}
+                Service service = new Service(name, description, new GregorianCalendar(), new GregorianCalendar(), status);
+                if (mode.equals("insert")) {
+                    int last_inserted_id = new ServiceDBHandler().getDb().create(service);
+                    new CycleDBHandler().getDb().create(userSession.getId(),last_inserted_id);
+                } else {
+                    String serviceId = req.getParameter("serviceId");
+                    new ServiceDBHandler().getDb().update(service,Integer.parseInt(serviceId));
+                }
             } catch (Exception e) {
                 error = "Erreur dans l'ajout du service." + e;
                 req.setAttribute("error", error);
@@ -80,15 +81,15 @@ public class AddServiceServlet extends HttpServlet {
             String message = "Service créé avec succès !";
             req.setAttribute("message", message);
             if (status.equals("need")) {
-            	resp.sendRedirect("besoins");
+                resp.sendRedirect("besoins");
             } else {
-            	resp.sendRedirect("offres");
+                resp.sendRedirect("offres");
             }
-            	
+
         } else {
-        	resp.sendRedirect(req.getContextPath());
+            resp.sendRedirect(req.getContextPath());
         }
-        
+
     }
 
     @Override

@@ -14,34 +14,38 @@ import users.UserDBHandler;
 
 /**
  * A servlet that handles the profile form.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 
 public class AdminServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-    	
+
         HttpSession session = req.getSession();
         User userSession = (User) session.getAttribute("currentUser");
-            
+        req.setCharacterEncoding("UTF-8");
+
         if (userSession!=null) {
-        	if (userSession.getRole().equals("admin")) {
-	        	try {
-	        		List<User> users = new UserDBHandler().getDb().retrieveAll();
-	        		
-	        		req.setAttribute("users", users);
-	           	 	this.getServletContext().getRequestDispatcher( "/views/admin.jsp" ).forward( req, resp );
-	           	 	
-	            } catch (Exception e) {
-	                String msg = e.getMessage();
-	                req.setAttribute("error", msg);
-	                this.getServletContext().getRequestDispatcher( "/views/admin.jsp" ).forward( req, resp );
-	            }
-        	} else {
+            if (!userSession.getRole().equals("admin")) {
+                req.setAttribute("accessDenied", "Connexion refusée");
+            }
+            if (userSession.getRole().equals("admin")) {
+                try {
+                    List<User> users = new UserDBHandler().getDb().retrieveAll();
+
+                    req.setAttribute("users", users);
+                    this.getServletContext().getRequestDispatcher( "/views/admin.jsp" ).forward( req, resp );
+
+                } catch (Exception e) {
+                    String msg = e.getMessage();
+                    req.setAttribute("error", msg);
+                    this.getServletContext().getRequestDispatcher( "/views/admin.jsp" ).forward( req, resp );
+                }
+            } else {
                 resp.sendRedirect(req.getContextPath());
             }
         } else {

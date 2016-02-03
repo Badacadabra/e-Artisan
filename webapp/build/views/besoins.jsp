@@ -24,27 +24,27 @@
                 </h2>
                 <div class="ui middle aligned divided list">
                     <c:forEach items="${listService}" var="item">
-						 <div class="item">
-							<div class="right floated content">
-								<div id="list-elt-${item.id}-button" class="ui inverted orange button list-elt-button">Afficher</div>
-								<div class="ui inverted brown button need-modal-link">Modifier</div>
-								<div class="ui inverted red button delete-btn">Supprimer</div>
-								<input type="hidden" value="${item.id}">
-							</div>
-							<i class="large announcement middle aligned icon"></i>
-							<div class="content">
-								<span class="bold">${item.name}</span>
-								<div class="description">Ajouté il y a 1 heure</div>
-							</div>
-						</div>
-					</c:forEach>
+                         <div class="item">
+                            <div class="right floated content">
+                                <div id="list-elt-${item.id}-button" class="ui inverted orange button list-elt-button">Afficher</div>
+                                <div class="ui inverted brown button need-modal-link">Modifier</div>
+                                <div class="ui inverted red button delete-btn">Supprimer</div>
+                                <input type="hidden" value="${item.id}">
+                            </div>
+                            <i class="large announcement middle aligned icon"></i>
+                            <div class="content">
+                                <span class="bold">${item.name}</span>
+                                <div class="description">Ajouté récemment</div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
                 <c:forEach items="${listService}" var="item">
-					<div id="list-elt-${item.id}" class="ui segment list-elt" style="display:none;">
-						<h3>${item.name}</h3>
-						<p>${item.description}</p>
-					</div>
-				</c:forEach>
+                    <div id="list-elt-${item.id}" class="ui segment list-elt" style="display:none;">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                </c:forEach>
             </section>
         </div>
         <!-- Pop-ups -->
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <jsp:include page="includes/logout-modal.jsp" />
+        <jsp:include page="includes/modals.jsp" />
         <jsp:include page="includes/scripts.jsp" />
         <script src="${root}/js/formValidation.js"></script>
         <script src="${root}/js/pickadate-legacy.js"></script>

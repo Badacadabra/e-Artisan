@@ -10,21 +10,21 @@ import javax.naming.NamingException;
  * Strings host, database, username, password, and table are expected to be found.
  * At any moment there is only one instance of the link to the database, and one instance of the SQLUserDB class, maintained by this class.
  * Connector/J is used for accessing the DBMS.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 public class ServiceDBHandler {
-    
+
     /** The unique link to the database (null if none active). */
     private static Connection link;
 
-    /** The unique instance of class SQLProductsDB (null if none). */
+    /** The unique instance of class SQLServiceDB (null if none). */
     private static SQLServiceDB db;
 
     /**
      * Builds a new instance, using the strings used in the environment.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -36,7 +36,7 @@ public class ServiceDBHandler {
 
     /**
      * Returns the instance of SQLServiceDB.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -49,7 +49,7 @@ public class ServiceDBHandler {
 
     /**
      * Releases the connection to the database.
-     * 
+     *
      * @throws SQLException if any problem occurs while closing the connection
      */
     public static void close() throws SQLException {
@@ -63,7 +63,7 @@ public class ServiceDBHandler {
     /**
      * Initializes the connection to the database and the instance of SQLServiceDB.
      * For each of these objects, nothing occurs if it is already initialized.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -79,7 +79,7 @@ public class ServiceDBHandler {
 
     /**
      * Returns the link to the database, which is active.
-     * 
+     *
      * @param host The hostname for the DBMS
      * @paam database The name for the database to use in the DBMS
      * @param username The username for connecting to the database

@@ -11,23 +11,23 @@ import javax.naming.NamingException;
 /**
  * A class for accessing the database for services. This class can be used as a bean with (read-only) property "db".
  * Strings host, database, username, password, and table are expected to be found.
- * At any moment there is only one instance of the link to the database, and one instance of the SQLUserDB class, maintained by this class.
+ * At any moment there is only one instance of the link to the database, and one instance of the SQLCycleDB class, maintained by this class.
  * Connector/J is used for accessing the DBMS.
- * 
+ *
  * @author Macky Dieng
  * @author Baptiste Vannesson
  */
 public class CycleDBHandler {
-    
+
     /** The unique link to the database (null if none active). */
     private static Connection link;
 
-    /** The unique instance of class SQLProductsDB (null if none). */
+    /** The unique instance of class SQLCycleDB (null if none). */
     private static SQLCycleDB db;
 
     /**
      * Builds a new instance, using the strings used in the environment.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -39,7 +39,7 @@ public class CycleDBHandler {
 
     /**
      * Returns the instance of SQLCycleDB.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -52,7 +52,7 @@ public class CycleDBHandler {
 
     /**
      * Releases the connection to the database.
-     * 
+     *
      * @throws SQLException if any problem occurs while closing the connection
      */
     public static void close() throws SQLException {
@@ -66,7 +66,7 @@ public class CycleDBHandler {
     /**
      * Initializes the connection to the database and the instance of SQLCycleDB.
      * For each of these objects, nothing occurs if it is already initialized.
-     * 
+     *
      * @throws NamingException if strings host, database, username, password, or table cannot be found
      * @throws SQLException if any problem occurs for accessing the database
      */
@@ -81,7 +81,7 @@ public class CycleDBHandler {
 
     /**
      * Returns the link to the database, which is active.
-     * 
+     *
      * @param host The hostname for the DBMS
      * @paam database The name for the database to use in the DBMS
      * @param username The username for connecting to the database

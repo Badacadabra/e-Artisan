@@ -32,7 +32,10 @@ public class ProfileServlet extends HttpServlet {
 
         if (userSession!=null) {
             if (!userSession.getRole().equals("admin")) {
+                session.setAttribute("status", "utilisateur");
                 req.setAttribute("accessDenied", "Connexion refusée");
+            } else {
+                session.setAttribute("status", "administrateur");
             }
             try {
                 User user = new UserDBHandler().getDb().retrieve(Integer.parseInt(id));

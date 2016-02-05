@@ -5,7 +5,7 @@
 <html lang="fr">
     <head>
         <jsp:include page="includes/head.jsp">
-            <jsp:param name="title" value="${user.firstName}" />
+            <jsp:param name="title" value="${user.firstName} ${user.name}" />
         </jsp:include>
     </head>
     <body class="mCustomScrollbar" data-mcs-theme="dark">
@@ -18,19 +18,29 @@
             <section id="main-section">
                 <div id="profile-header">
                     <h2>${user.firstName} ${user.name}</h2>
-                     <c:if test="${currentUser.id==user.id}">
+                    <c:if test="${currentUser.id==user.id}">
                          <button id="edit-profile-button" class="ui inverted orange button">
                             <i class="write icon"></i>
                             Modifier le profil
                         </button>
                     </c:if>
                 </div>
-                <p class="italic">Inscrit le...</p>
+                <c:if test="${currentUser.id==user.id}">
+                    <p class="italic">Statut : ${sessionScope.status}</p>
+                </c:if>
+                <p></p>
                 <div id="selected-image">
-                    <img id="user-photo" src="${root}/assets/default_image.png" alt="${user.firstName} ${user.name}">
+                    <c:choose>
+                        <c:when test="${!empty user.image && user.image != 'none'}">
+                            <img id="user-photo" src="${root}/upload/${user.image}" alt="${user.firstName} ${user.name}">
+                        </c:when>
+                        <c:otherwise>
+                            <img id="user-photo" src="${root}/assets/default_image.png" alt="${user.firstName} ${user.name}">
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <p id="user-description">${user.description}</p>
-                <form id="edit-profile-form" class="ui form" method="GET" action="modifProfil" enctype="multipart/form-data" style="display:none;">
+                <form id="edit-profile-form" class="ui form" method="POST" action="modifProfil" enctype="multipart/form-data" style="display:none;">
                     <div class="two fields">
                         <div class="field">
                             <label>Nom <span class="mandatory">*</span></label>

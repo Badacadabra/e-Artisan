@@ -186,6 +186,10 @@
                 </div>
             </div>
         </div>
+        <div id="disclaimer">
+            <p>Version mobile non disponible.</p>
+            <p>Veuillez consulter ce projet sur un PC.</p>
+        </div>
         <jsp:include page="includes/logout-modal.jsp" />
         <script src="js/jquery-2.1.1.js"></script>
         <script src="js/modernizr.js"></script>

@@ -5,7 +5,7 @@
 <html lang="fr">
     <head>
         <jsp:include page="includes/head.jsp">
-            <jsp:param name="title" value="Mes besoins" />
+            <jsp:param name="title" value="Mes offres" />
         </jsp:include>
         <link rel="stylesheet" href="${root}/css/pickadate.css">
         <link rel="stylesheet" href="${root}/css/pickadate.date.css">
